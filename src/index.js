@@ -1,15 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "app/App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
+import "styles/index.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PrivateRoute from "components/PrivateRoute";
+import Login from "features/user/Login";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <Router>
+      <Switch>
+        <Route path="/login" component={Login} exact={true} />
+        <PrivateRoute path="/" component={App} exact={false} />
+      </Switch>
+    </Router>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
