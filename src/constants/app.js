@@ -1,3 +1,5 @@
+export const REACT_APP_URL_API = 'http://35.240.196.153/api';
+
 export const THEME = [
   {
     href: "http://localhost:8080/themes/bootstrap4-light-blue/theme.css",

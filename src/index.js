@@ -9,16 +9,19 @@ import "styles/index.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "components/PrivateRoute";
 import Login from "features/user/Login";
+import { Provider } from "react-redux";
+import store from "redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} exact={true} />
-        <PrivateRoute path="/" component={App} exact={false} />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login} exact={true} />
+          <PrivateRoute path="/" component={App} exact={false} />
+        </Switch>
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
