@@ -1,5 +1,14 @@
-const CandidateList = () => {
-    return <h1>SML roi</h1>
-}
+import CustomBreadCrumb from "components/CustomBreadCrumb"
 
-export default CandidateList
+const CandidateList = () => {
+  const items = [{ label: "Ứng viên" }, { label: " Danh sách ứng viên" }];
+
+  return (
+    <>
+      <CustomBreadCrumb items={items} />
+      <div className="card">STT</div>
+    </>
+  );
+};
+
+export default CandidateList;
