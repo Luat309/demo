@@ -1,0 +1,2 @@
+const GET_CANDIDATE = "GET_CANDIDATE";
+export { GET_CANDIDATE }

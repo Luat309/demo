@@ -5,8 +5,8 @@ export const JOBREQUEST_CREATE = "/admin/jobrequest/create";
 export const JOBREQUEST_EDIT = "/admin/jobrequest/edit/:id";
 
 export const CANDIDATE = "/admin/candidate";
-export const CANDIDATE_ADD = "/admin/candidate/creat";
 export const CANDIDATE_CREATE = "/admin/candidate/create";
+export const CANDIDATE_EDIT = "/admin/candidate/edit:id";
 
 export const ASSESSMENT = "/admin/assessment";
 
@@ -29,20 +29,17 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={CANDIDATE}>
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
             {
               template: () => (
                 <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={CANDIDATE_CREATE}
-                  >
-                    Tạo nguồn ứng viên
-                  </Link>
+                  <Link className="p-menuitem-link" to={CANDIDATE_CREATE}>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -62,20 +59,17 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={JOBREQUEST}>
-                    Danh sách yêu cầu
-                  </Link>
+                    Danh sách yêu cầu{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
             {
               template: () => (
                 <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={JOBREQUEST_CREATE}
-                  >
-                    Tạo yêu cầu
-                  </Link>
+                  <Link className="p-menuitem-link" to={JOBREQUEST_CREATE}>
+                    Tạo yêu cầu{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -95,8 +89,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -107,8 +101,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -128,8 +122,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -140,8 +134,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -161,8 +155,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -173,8 +167,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -194,8 +188,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -206,8 +200,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
