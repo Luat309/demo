@@ -2,6 +2,8 @@
 @import url('./custom/megamenu.css');
 @import url('./animation.css');
 @import url('./custom/breadCrumb.css');
+@import url('./custom/dataTable.css');
+@import url('./components/jobDetail.css');
 
 html {
   font-size: 14px;
@@ -132,4 +134,9 @@ code {
 .p-button.p-button-lg .p-button-icon {
   font-size: 1.75rem;
   animation: fa-spin 2s linear infinite;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+  color: black;
 }

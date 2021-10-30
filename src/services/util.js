@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REACT_APP_URL_API } from "constants/constant";
+import { REACT_APP_URL_API } from "constants/app";
 
 export const Utils = {
   get,

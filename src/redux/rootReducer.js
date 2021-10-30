@@ -1,3 +1,8 @@
-const rootReducer = {} // =((
+import { combineReducers } from "redux";
+import jobRequestReducer from "./jobRequest/reducer";
 
-export default rootReducer
+const rootReducer = combineReducers({
+  jobRequest: jobRequestReducer,
+});
+
+export default rootReducer;

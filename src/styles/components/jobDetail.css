@@ -1,0 +1,31 @@
+.jobDetail tr td,
+.jobDetail tr th {
+  padding: 10px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.jobDetail tr th {
+  min-width: 150px;
+}
+
+.jobDetail tr td p,
+.jobDetail tr td h1,
+.jobDetail tr td h2,
+.jobDetail tr td h3,
+.jobDetail tr td h4,
+.jobDetail tr td h5,
+.jobDetail tr td h6 {
+  margin-top: 0;
+  line-height: 1.8;
+}
+
+.jobDetail tr td ul {
+  margin: 0;
+  padding: 0;
+}
+
+.jobDetail tr td ul li {
+  list-style: none;
+  margin-bottom: 1em;
+}
