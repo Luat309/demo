@@ -1,6 +1,10 @@
 import axios from "axios";
 import { REACT_APP_URL_API } from "constants/app";
 
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+console.log(currentUser);
+
 export const Utils = {
   get,
   post,
@@ -13,7 +17,11 @@ function get(path, data) {
   const url = _urlRender(path, data);
 
   return axios
-    .get(url)
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${currentUser?.accessToken}`,
+      },
+    })
     .then((data) => {
       return data;
     })

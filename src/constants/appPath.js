@@ -160,8 +160,8 @@ export const APP_MENU_ITEM = [
             {
               template: () => (
                 <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
+                  <Link className="p-menuitem-link" to={INTERVIEW}>
+                    Danh sách lịch phỏng vấn
                   </Link>
                 </li>
               ),
@@ -171,9 +171,9 @@ export const APP_MENU_ITEM = [
                 <li className="p-menuitem">
                   <Link
                     className="p-menuitem-link"
-                    to="/admin/candidate/create"
+                    to={INTERVIEW_CREATE}
                   >
-                    Tạo nguồn ứng viên
+                    Tạo lịch phỏng vấn
                   </Link>
                 </li>
               ),
