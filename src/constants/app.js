@@ -1,4 +1,4 @@
-export const REACT_APP_URL_API = 'http://35.240.196.153/api';
+export const REACT_APP_URL_API = "http://35.240.196.153/api";
 
 export const THEME = [
   {
@@ -60,6 +60,13 @@ export const THEME = [
 ];
 
 export const LAYOUT = [
-  { name: 'Vertical', code: 'VERTICAL' },
-  { name: 'Horizontal', code: 'HORIZONTAL' },
+  { name: "Vertical", code: "VERTICAL" },
+  { name: "Horizontal", code: "HORIZONTAL" },
 ];
+
+export const STATUS_REQUEST = {
+  IDLE: "IDLE",
+  LOADING: "LOADING",
+  SUCCEEDED: "SUCCEEDED",
+  ERROR: "ERROR",
+};

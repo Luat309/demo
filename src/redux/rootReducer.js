@@ -1,6 +1,10 @@
+import { combineReducers } from "redux";
+import jobRequestReducer from "./jobRequest/reducer";
 import reducerCandidate from "./candidate/reducer"
-const rootReducer = {
-        cadidate: reducerCandidate
-    } // =((
 
-export default rootReducer
+const rootReducer = combineReducers({
+    cadidate: reducerCandidate,
+    jobRequest: jobRequestReducer,
+});
+
+export default rootReducer;

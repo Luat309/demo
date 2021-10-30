@@ -11,17 +11,18 @@ import PrivateRoute from "components/PrivateRoute";
 import Login from "features/user/Login";
 import { Provider } from "react-redux";
 import store from "redux/store";
+import "primeflex/primeflex.css";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/login" component={Login} exact={true} />
-          <PrivateRoute path="/" component={App} exact={false} />
-        </Switch>
-      </Router>
-    </Provider>
+          <Route path="/login" component={Login} exact={true} />{" "}
+          <PrivateRoute path="/" component={App} exact={false} />{" "}
+        </Switch>{" "}
+      </Router>{" "}
+    </Provider>{" "}
   </React.StrictMode>,
   document.getElementById("root")
 );

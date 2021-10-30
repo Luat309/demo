@@ -7,18 +7,22 @@ import { getCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import { getData } from "redux/jobRequest/selector";
+import { fetchJobRequest } from "redux/jobRequest/actionCreator";
+import { useHistory } from "react-router";
 
 const CandidateList = () => {
   const items = [{ label: "Ứng viên" }, { label: " Danh sách ứng viên" }];
   const dispath = useDispatch();
+  const history = useHistory();
   const [showMessage, setShowMessage] = useState(false);
   const [detailCandidate, setDetailCandidate] = useState();
-  const { cadidates } = useSelector((state) => state.cadidate);
-  const [job, setJob] = useState();
-  console.log(cadidates);
+  const { cadidate } = useSelector((state) => state.cadidate);
+  const job = useSelector(getData);
 
   useEffect(() => {
     dispath(getCandidate());
+    dispath(fetchJobRequest());
   }, [dispath]);
 
   const experienceBodyTemplate = (rowData) => {
@@ -28,7 +32,14 @@ const CandidateList = () => {
     return moment(rowData.created_at).format("MM/DD/YYYY");
   };
   const jobBodyTemplate = (rowData) => {
-    return moment(rowData.created_at).format("MM/DD/YYYY");
+    return job.map
+      ? job.map((item) => {
+          if (item.id === rowData.job_id) {
+            return <p>{item.title}</p>;
+          }
+          return "";
+        })
+      : "";
   };
   const actionBodyTemplate = (rowData) => {
     return (
@@ -38,7 +49,11 @@ const CandidateList = () => {
           style={{ color: "blue", padding: "0 10px" }}
           onClick={() => handleDetailCandidate(rowData)}
         ></i>
-        <i className="pi pi-pencil" style={{ color: "orange" }}></i>
+        <i
+          className="pi pi-pencil"
+          style={{ color: "orange" }}
+          onClick={() => history.push(`/admin/candidate/edit/${rowData.id}`)}
+        ></i>
         <i
           className="pi pi-trash"
           style={{ color: "red", padding: "0 10px" }}
@@ -121,7 +136,7 @@ const CandidateList = () => {
       </div>
       <div className="input-search"></div>
 
-      <CustomDataTable value={cadidates}>
+      <CustomDataTable value={cadidate}>
         <Column field="name" header="Tên " style={{ width: "20%" }}></Column>
         <Column
           field="experience"
@@ -134,7 +149,7 @@ const CandidateList = () => {
           header="Ngày Tạo"
           body={dateBodyTemplate}
         ></Column>
-        <Column field="job_id" header="Dự án"></Column>
+        <Column field="job_id" header="Dự án" body={jobBodyTemplate}></Column>
         <Column field="status" header="Trạng thái"></Column>
         <Column
           field=""
