@@ -70,3 +70,14 @@ export const STATUS_REQUEST = {
   SUCCEEDED: "SUCCEEDED",
   ERROR: "ERROR",
 };
+
+export const APPROVAL_STATUS = {
+  CHUA_DUYET: 0,
+  DA_DUYET: 1
+};
+
+export const ROLE = {
+  TRUONG_PHONG_NHAN_SU: 1,
+  HR: 3,
+  USER: 4,
+};
