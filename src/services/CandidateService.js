@@ -15,8 +15,8 @@ export default class CandidateService {
         return Utils.postMultipart(CANDIDATE_CREATE, data);
     }
 
-    editCandidate(id) {
-        return Utils.post(CANDIDATE_EDIT, id);
+    editCandidate(data) {
+        return Utils.post(CANDIDATE_EDIT + data.id, data);
     }
 
     deleteCandidate(id) {

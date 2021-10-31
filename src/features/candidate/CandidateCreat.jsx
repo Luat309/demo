@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { Button } from "primereact/button";
 import CustomBreadCrumb from "../../components/CustomBreadCrumb";
 import { useHistory } from "react-router";
-import styles from "./styles.module.scss";
+import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addCandidate } from "redux/candidate/action";
 import { getData, getStatus } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { STATUS_REQUEST } from "constants/app";
 import { Dialog } from "primereact/dialog";
+import { CANDIDATE } from "constants/appPath";
 
 const CandidateCreat = () => {
   const items = [{ label: "Ứng viên" }, { label: " Thêm ứng viên" }];
@@ -57,10 +58,10 @@ const CandidateCreat = () => {
     formData.append("status", data.status);
     formData.append("cv", Cv);
     dispatch(addCandidate(formData));
-    // setShowMessage(true);
-    // setTimeout(() => {
-    //   history.push(CANDIDATE);
-    // }, 2000);
+    setShowMessage(true);
+    setTimeout(() => {
+      history.push(CANDIDATE);
+    }, 2000);
     reset();
   };
 
@@ -99,8 +100,8 @@ const CandidateCreat = () => {
       </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
-        <form className={styles.gird} onSubmit={handleSubmit(onHandleSubmit)}>
-          <div className={styles.candidate_left}>
+        <form className="gird" onSubmit={handleSubmit(onHandleSubmit)}>
+          <div className="candidate_left">
             <div>
               <label htmlFor="name">Họ và tên*</label>
               <br />
@@ -155,7 +156,7 @@ const CandidateCreat = () => {
               <input type="file" ref={file} onChange={onUploadImage} />
             </div>
           </div>
-          <div className={styles.candidate_right}>
+          <div className="candidate_right">
             <div>
               <label htmlFor="lastname6">CV*</label>
               <br />

@@ -6,7 +6,7 @@ export const JOBREQUEST_EDIT = "/admin/jobrequest/edit/:id";
 
 export const CANDIDATE = "/admin/candidate";
 export const CANDIDATE_CREATE = "/admin/candidate/create";
-export const CANDIDATE_EDIT = "/admin/candidate/edit:id";
+export const CANDIDATE_EDIT = "/admin/candidate/edit/:id";
 
 export const ASSESSMENT = "/admin/assessment";
 
@@ -16,6 +16,11 @@ export const USER = "/admin/user";
 
 export const INTERVIEW = "/admin/interview";
 export const INTERVIEW_CREATE = "/admin/interview/create";
+
+export const CANDIDATE_INTERVIEW_LIST = "/admin/candidate/interview";
+export const CANDIDATE_INTERVIEW_SHOW = "/admin/candidate/interview/show";
+export const CANDIDATE_INTERVIEW = "/admin/candidate/interview/review";
+export const CANDIDATE_INTERVIEW_EDIT = "/admin/candidate/interview/edit/:id";
 
 export const APP_MENU_ITEM = [
   {
@@ -88,8 +93,11 @@ export const APP_MENU_ITEM = [
             {
               template: () => (
                 <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên{" "}
+                  <Link
+                    className="p-menuitem-link"
+                    to="/admin/candidate/interview"
+                  >
+                    Đánh giá ứng viên
                   </Link>{" "}
                 </li>
               ),
@@ -99,9 +107,9 @@ export const APP_MENU_ITEM = [
                 <li className="p-menuitem">
                   <Link
                     className="p-menuitem-link"
-                    to="/admin/candidate/create"
+                    to="/admin/candidate/interview/show"
                   >
-                    Tạo nguồn ứng viên{" "}
+                    Tạo đánh giá ứng viên
                   </Link>{" "}
                 </li>
               ),
@@ -189,7 +197,7 @@ export const APP_MENU_ITEM = [
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
                     Danh sách ứng viên{" "}
-                  </Link>{" "}
+                  </Link>
                 </li>
               ),
             },
@@ -200,8 +208,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên{" "}
-                  </Link>{" "}
+                    Tạo nguồn ứng viên
+                  </Link>
                 </li>
               ),
             },

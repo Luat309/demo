@@ -3,13 +3,18 @@ import {
     CANDIDATE,
     CANDIDATE_CREATE,
     CANDIDATE_EDIT,
-    //   INTERVIEW,
+    INTERVIEW,
     //   INTERVIEW_CREATE,
     JOBREQUEST,
     //   JOBREQUEST_CREATE,
     //   REPORT,
     //   JOBREQUEST_EDIT,
+    CANDIDATE_INTERVIEW_LIST,
+    CANDIDATE_INTERVIEW_EDIT,
+    CANDIDATE_INTERVIEW,
+    CANDIDATE_INTERVIEW_SHOW
 } from "constants/appPath";
+
 
 const CandidateList = lazy(() =>
     import ("features/candidate/CandidateList"));
@@ -20,9 +25,18 @@ const CandidateCreat = lazy(() =>
 const CandidateEdit = lazy(() =>
     import ("features/candidate/CandidateEdit"));
 
-
 const JobRequestList = lazy(() =>
     import ("features/jobRequest/JobRequestList"));
+
+const InterviewList = lazy(() =>
+    import ("features/interview/InterviewList"));
+
+const CandidateInterviewList = lazy(() =>
+    import ("features/review/CandidateInterviewList"));
+const CandidateInterview = lazy(() =>
+    import ("features/review/CandidateInterview"));
+const CandidateInterviewShow = lazy(() =>
+    import ("features/review/CandidateInterViewShow"));
 
 
 
@@ -49,7 +63,31 @@ const routes = [{
         name: "candidate_edit",
         component: CandidateEdit,
         exact: true,
+    },
+    {
+        path: INTERVIEW,
+        name: "interview",
+        component: InterviewList,
+        exact: true,
+    },
+    {
+        path: CANDIDATE_INTERVIEW_LIST,
+        name: "candidate_interview_list",
+        component: CandidateInterviewList,
+        exact: true,
+    },
+    {
+        path: CANDIDATE_INTERVIEW,
+        name: "candidate_interview",
+        component: CandidateInterview,
+        exact: true,
+    },
+    {
+        path: CANDIDATE_INTERVIEW_SHOW,
+        name: "candidate_interview_show",
+        component: CandidateInterviewShow,
+        exact: true,
     }
-];
+]
 
 export default routes;

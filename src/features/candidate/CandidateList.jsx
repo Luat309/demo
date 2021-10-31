@@ -108,7 +108,12 @@ const CandidateList = () => {
             <tr>
               <th>CV: </th>
               <td>
-                <embed src={detailCandidate?.cv} type="" />
+                <a
+                  href={`http://35.240.196.153/storage/cv/${detailCandidate?.cv}`}
+                  rel="_blank"
+                >
+                  CV
+                </a>
               </td>
             </tr>
             <tr>

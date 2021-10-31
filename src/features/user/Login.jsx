@@ -7,6 +7,7 @@ import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { classNames } from "primereact/utils";
 import { useHistory } from "react-router";
+import UserService from "services/UserService";
 // import { isLogin } from "../../services/authenticate";
 
 const isLogin = () => {
@@ -17,6 +18,7 @@ const isLogin = () => {
 
 const Login = () => {
   const history = useHistory();
+  const service = new UserService();
 
   useEffect(() => {
     if (isLogin()) {
@@ -36,14 +38,15 @@ const Login = () => {
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = ({ email, password }) => {
-    if (email === "admin123@gmail.com" && password === "abc123!@#") {
+  const onSubmit = async (data) => {
+    const res = await service.login(data);
+
+    if (res.status === 200) {
       localStorage.setItem(
         "currentUser",
         JSON.stringify({
-          email,
-          accessToken:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuYXV0aDAuY29tLyIsImF1ZCI6Imh0dHBzOi8vYXBpLmV4YW1wbGUuY29tL2NhbGFuZGFyL3YxLyIsInN1YiI6InVzcl8xMjMiLCJpYXQiOjE0NTg3ODU3OTYsImV4cCI6MTQ1ODg3MjE5Nn0.CA7eaHjIHz5NxeIJoFK9krqaeZrPLwmMmgI_XiQiIkQ",
+          email: data.email,
+          accessToken: res.data.token,
         })
       );
     } else {
