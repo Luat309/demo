@@ -54,7 +54,8 @@ const Login = () => {
       return;
     }
 
-    history.push("/admin/dashboard");
+    // history.push("/admin/dashboard");
+    window.location.href = "/admin/candidate";
 
     reset();
   };

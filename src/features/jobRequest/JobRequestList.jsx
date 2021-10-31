@@ -7,6 +7,7 @@ import { Column } from "primereact/column";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { getStatus, getData } from "redux/jobRequest/selector";
 import JobRequestDetail from "./JobRequestDetail";
@@ -28,6 +29,7 @@ const JobRequestList = () => {
   const dispatch = useDispatch();
   const status = useSelector(getStatus);
   const data = useSelector(getData);
+  const history = useHistory();
   const [jobDetail, setJobDetail] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,6 +44,15 @@ const JobRequestList = () => {
     setIsOpen(true);
   };
 
+  const handleUpdate = (data) => {
+    history.push(`/admin/jobrequest/${data.id}`);
+  };
+
+  const handleDelete = (data) => {
+    setIsOpen(!isOpen);
+    console.log(data.id);
+  };
+
   const genActionCol = (data) => {
     return (
       <>
@@ -51,10 +62,12 @@ const JobRequestList = () => {
           icon="pi pi-eye"
         />
         <Button
+          onClick={() => handleUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
         />
         <Button
+          onClick={() => handleDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
         />
@@ -105,8 +118,9 @@ const JobRequestList = () => {
           <CustomDataTable
             selectionMode="single"
             onSelectionChange={(data) => {
+              console.log("(((")
               setJobDetail(data.value);
-              setIsOpen(true);
+              setIsOpen(prevState => !prevState);
             }}
             dataTable={data}
           >

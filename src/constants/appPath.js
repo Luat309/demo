@@ -173,7 +173,7 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to={INTERVIEW_CREATE}
                   >
-                    Tạo lịch phỏng vấn
+                    Tạo lịch người phỏng vấn
                   </Link>
                 </li>
               ),

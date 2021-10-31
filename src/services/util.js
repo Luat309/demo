@@ -3,8 +3,6 @@ import { REACT_APP_URL_API } from "constants/app";
 
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-console.log(currentUser);
-
 export const Utils = {
   get,
   post,
@@ -36,7 +34,11 @@ function post(path, data) {
   const url = _urlRender(path, null);
 
   return axios
-    .post(url, data)
+    .post(url, data, {
+      headers: {
+        Authorization: `Bearer ${currentUser?.accessToken}`,
+      },
+    })
     .then((data) => {
       return data;
     })
@@ -68,7 +70,11 @@ function put(path, data) {
   const url = _urlRender(path, null);
 
   return axios
-    .put(url, data)
+    .put(url, data, {
+      headers: {
+        Authorization: `Bearer ${currentUser?.accessToken}`,
+      },
+    })
     .then((data) => {
       return data;
     })
@@ -82,7 +88,11 @@ function del(path, data) {
   const url = _urlRender(path, data);
 
   return axios
-    .delete(url)
+    .delete(url, {
+      headers: {
+        Authorization: `Bearer ${currentUser?.accessToken}`,
+      },
+    })
     .then((data) => {
       return data;
     })

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import logo from "images/logo.png";
 // import { ProgressSpinner } from "primereact/progressspinner";
 import { Menu } from "primereact/menu";
@@ -10,6 +11,8 @@ import { MegaMenu } from "primereact/megamenu";
 import { APP_MENU_ITEM } from "constants/appPath";
 
 const TopBar = (props) => {
+  const history = useHistory();
+
   const menu = useRef(null);
   const itemsAccount = [
     {
@@ -21,7 +24,8 @@ const TopBar = (props) => {
       label: "Đăng xuất",
       icon: "pi pi-upload",
       command: (e) => {
-        window.location.hash = "/login";
+        localStorage.removeItem("currentUser");
+        history.push("/login");
       },
     },
   ];
@@ -63,9 +67,14 @@ const TopBar = (props) => {
           </li>
         </ul>
       </div>
-      {props.layout.name === "Horizontal" && <MegaMenu style={{
-        padding: "5px"
-      }} model={APP_MENU_ITEM} />}
+      {props.layout.name === "Horizontal" && (
+        <MegaMenu
+          style={{
+            padding: "5px",
+          }}
+          model={APP_MENU_ITEM}
+        />
+      )}
     </>
   );
 };
