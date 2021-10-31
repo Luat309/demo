@@ -1,8 +1,11 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
+import { CANDIDATE_INTERVIEW_SHOW } from "constants/appPath";
 import { Button } from "primereact/button";
-import React from "react";
+import { Dialog } from "primereact/dialog";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { createCandidateInterview } from "redux/candidateInterview/action";
 import "./style.scss";
 
@@ -11,21 +14,50 @@ const items = [
   { label: "Tạo Đánh Giá Ứng Viên" },
 ];
 
-const CandidateInterview = () => {
+const CandidateInterview = ({ data }) => {
+  const history = useHistory();
+  const [showMessage, setShowMessage] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    dispatch(createCandidateInterview({ ...data }));
+  const onSubmit = (value) => {
+    dispatch(
+      createCandidateInterview({
+        ...value,
+        candidate_id: data.name_candidate,
+        interview_id: data.id,
+        user_id: 1,
+      })
+    );
+    // setShowMessage(true);
+    // history.push(CANDIDATE_INTERVIEW_SHOW);
   };
 
   return (
     <div>
+      <Dialog
+        visible={showMessage}
+        onHide={() => setShowMessage(false)}
+        position="top"
+        showHeader={false}
+        breakpoints={{ "960px": "80vw" }}
+        style={{ width: "30vw" }}
+      >
+        <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
+          <i
+            className="pi pi-check-circle"
+            style={{ fontSize: "5rem", color: "var(--green-500)" }}
+          ></i>
+          <h5>Thành công!</h5>
+          <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
+            Bạn đánh giá thành công!
+          </p>
+        </div>
+      </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
         <form className="gird" onSubmit={handleSubmit(onSubmit)}>

@@ -18,10 +18,11 @@ const CandidateInterViewShow = () => {
     <div>
       <CustomBreadCrumb items={items} />
       <CustomDataTable value={candidateInterview}>
-        <Column field="candidate_id" header="Yêu cầu tuyển dụng"></Column>
-        <Column field="interview_id" header="Thời gian"></Column>
-        <Column field="interview_id" header="Địa điểm"></Column>
-        <Column field="interview_id" header="Ứng viên"></Column>
+        <Column field="candidate_id" header="Thời gian phỏng vấn"></Column>
+        <Column field="interview_id" header="Họ tên ứng viên"></Column>
+        <Column field="interview_id" header="Dự án"></Column>
+        <Column field="interview_id" header="Vị trí ứng tuyển "></Column>
+        <Column field="interview_id" header="Nhận xét"></Column>
       </CustomDataTable>
     </div>
   );

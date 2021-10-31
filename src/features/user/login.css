@@ -26,6 +26,10 @@
   margin-top: 0;
 }
 
+.login input:nth-child(1) {
+  margin-bottom: 30px;
+}
+
 @media screen and (max-width: 960px) {
   .login .card {
     width: 80%;

@@ -1,15 +1,15 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
 import { CANDIDATE_INTERVIEW } from "constants/appPath";
+import moment from "moment";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 import { getCandidate } from "redux/candidate/action";
-import { getCandidateInterview } from "redux/candidateInterview/action";
+import { getInterview } from "redux/interview/actionCreator";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { getData } from "redux/jobRequest/selector";
 import CandidateInterview from "./CandidateInterview";
@@ -19,14 +19,12 @@ const CandidateInterviewList = () => {
   const dispatch = useDispatch();
   const job = useSelector(getData);
   const [isOpen, setIsOpen] = useState(false);
-
-  const { candidateInterview } = useSelector(
-    (state) => state.candidateInterview
-  );
+  const { data } = useSelector((state) => state.interview);
   const { cadidate } = useSelector((state) => state.cadidate);
+  const [dateInterview, setDateInterview] = useState();
 
   useEffect(() => {
-    dispatch(getCandidateInterview());
+    dispatch(getInterview());
     dispatch(fetchJobRequest());
     dispatch(getCandidate());
   }, [dispatch]);
@@ -41,22 +39,19 @@ const CandidateInterviewList = () => {
         })
       : "";
   };
-  const interviewBodyTemplate = (rowData) => {
-    let timeInterview;
-    return job.map
-      ? job.map((item) => {
-          if (item.id === rowData.job_id) {
-            return <p>{item.title}</p>;
-          }
-          return "";
-        })
-      : "";
+  const timeBodyTemplate = (rowData) => {
+    return (
+      <p>
+        {moment(rowData.time_start).format("hh/mm/ss dd/mm/yyyy")}
+        {"-"}
+        {moment(rowData.time_end).format("H:m:ss dd/mm/yyyy")}
+      </p>
+    );
   };
-
   const candidateBodyTemplate = (rowData) => {
     return cadidate.map
       ? cadidate.map((item) => {
-          if (item.id === rowData.cadidate_id) {
+          if (item.id === rowData.name_candidate) {
             return <p>{item.name}</p>;
           }
           return "";
@@ -66,6 +61,7 @@ const CandidateInterviewList = () => {
 
   const handleCandidateInterView = (data) => {
     setIsOpen(true);
+    setDateInterview(data);
   };
   const actionBodyTemplate = (rowData) => {
     return (
@@ -87,23 +83,19 @@ const CandidateInterviewList = () => {
         position="top"
         style={{ width: "90%" }}
       >
-        <CandidateInterview />
+        <CandidateInterview data={dateInterview} />
       </Dialog>
       <CustomBreadCrumb items={items} />
-      <CustomDataTable value={candidateInterview}>
+      <CustomDataTable value={data}>
         <Column
           field="candidate_id"
           header="Yêu cầu tuyển dụng"
           body={jobBodyTemplate}
         ></Column>
+        <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
+        <Column field="position" header="Địa điểm"></Column>
         <Column
-          field="interview_id"
-          header="Thời gian"
-          body={interviewBodyTemplate}
-        ></Column>
-        <Column field="interview_id" header="Địa điểm"></Column>
-        <Column
-          field="interview_id"
+          field="name_candidate"
           header="Ứng viên"
           body={candidateBodyTemplate}
         ></Column>

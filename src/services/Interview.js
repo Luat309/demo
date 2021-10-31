@@ -3,7 +3,7 @@ import {
 } from "../constants/apiPath";
 import { Utils } from "./util";
 
-export default class CandidateService {
+export default class Interview {
     interviewList() {
         return Utils.get(INTERVIEW);
     }

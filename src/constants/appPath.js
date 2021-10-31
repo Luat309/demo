@@ -175,8 +175,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên{" "}
-                  </Link>{" "}
+                    Tạo lịch người phỏng vấn
+                  </Link>
                 </li>
               ),
             },

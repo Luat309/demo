@@ -4,7 +4,7 @@ import {
     CANDIDATE_CREATE,
     CANDIDATE_EDIT,
     INTERVIEW,
-    //   INTERVIEW_CREATE,
+    INTERVIEW_CREATE,
     JOBREQUEST,
     //   JOBREQUEST_CREATE,
     //   REPORT,
@@ -13,6 +13,8 @@ import {
     CANDIDATE_INTERVIEW_EDIT,
     CANDIDATE_INTERVIEW,
     CANDIDATE_INTERVIEW_SHOW
+
+
 } from "constants/appPath";
 
 
@@ -38,6 +40,8 @@ const CandidateInterview = lazy(() =>
 const CandidateInterviewShow = lazy(() =>
     import ("features/review/CandidateInterViewShow"));
 
+const CreateFormNPV = lazy(() =>
+    import ("features/interview/CreateFormNPV"));
 
 
 const routes = [{
@@ -65,12 +69,6 @@ const routes = [{
         exact: true,
     },
     {
-        path: INTERVIEW,
-        name: "interview",
-        component: InterviewList,
-        exact: true,
-    },
-    {
         path: CANDIDATE_INTERVIEW_LIST,
         name: "candidate_interview_list",
         component: CandidateInterviewList,
@@ -87,7 +85,22 @@ const routes = [{
         name: "candidate_interview_show",
         component: CandidateInterviewShow,
         exact: true,
-    }
+    },
+    {
+        path: INTERVIEW,
+        name: "interview",
+        component: InterviewList,
+        exact: true,
+    },
+    {
+        path: INTERVIEW_CREATE,
+        name: "interview",
+        component: CreateFormNPV,
+        exact: true,
+    },
 ]
+
+
+
 
 export default routes;
