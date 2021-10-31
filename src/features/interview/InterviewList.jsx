@@ -7,8 +7,10 @@ import { Column } from "primereact/column";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { fetchInterview } from "redux/interview/actionCreator";
+import { getInterviews, getStatusInterview } from "redux/interview/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
-import { getStatus, getData } from "redux/jobRequest/selector";
+import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 // import JobRequestDetail from "./JobRequestDetail";
 
 const items = [{ label: "Lịch phỏng vấn" }, { label: "Danh sách lịch phỏng vấn" }];
@@ -26,30 +28,38 @@ const cols = [
 
 const InterviewList = () => {
   const dispatch = useDispatch();
-  const status = useSelector(getStatus);
-  const data = useSelector(getData);
-  const [jobDetail, setJobDetail] = useState();
-  const [isOpen, setIsOpen] = useState(false);
+  const statusJobRequest = useSelector(getStatusJobRequest);
+  const jobRequest = useSelector(getJobRequest);
+  const statusInterview = useSelector(getStatusInterview);
+  const interviews = useSelector(getInterviews);
+  // const [jobDetail, setJobDetail] = useState();
+  // const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (status === STATUS_REQUEST.IDLE) {
+    if (statusJobRequest === STATUS_REQUEST.IDLE) {
       dispatch(fetchJobRequest());
     }
-  }, [dispatch, status]);
+  }, [dispatch, statusJobRequest]);
 
-  const handleView = (data) => {
-    setJobDetail(data);
-    setIsOpen(true);
-  };
+  useEffect(() => {
+    if (statusInterview === STATUS_REQUEST.IDLE) {
+      dispatch(fetchInterview());
+    }
+  }, [dispatch, statusInterview]);
+
+  // const handleView = (data) => {
+    // setJobDetail(data);
+    // setIsOpen(true);
+  // };
 
   const genActionCol = (data) => {
     return (
       <>
-        <Button
+        {/* <Button
           onClick={() => handleView(data)}
           className="p-button-rounded p-button-text p-button-info"
           icon="pi pi-eye"
-        />
+        /> */}
         <Button
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
@@ -99,16 +109,16 @@ const InterviewList = () => {
         onHide={() => setIsOpen(false)}
       /> */}
       <CustomBreadCrumb items={items} />
-      {status === STATUS_REQUEST.LOADING && data}
-      {status === STATUS_REQUEST.SUCCEEDED && (
+      {statusJobRequest === STATUS_REQUEST.LOADING && interviews}
+      {statusJobRequest === STATUS_REQUEST.SUCCEEDED && (
         <div className="card">
           <CustomDataTable
             selectionMode="single"
-            onSelectionChange={(data) => {
-              setJobDetail(data.value);
-              setIsOpen(true);
-            }}
-            dataTable={data}
+            // onSelectionChange={(data) => {
+            //   setJobDetail(data.value);
+            //   setIsOpen(true);
+            // }}
+            dataTable={interviews}
           >
             {columns}
           </CustomDataTable>

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
-import { getStatus, getData } from "redux/jobRequest/selector";
+import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 import JobRequestDetail from "./JobRequestDetail";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
@@ -27,8 +27,8 @@ const cols = [
 
 const JobRequestList = () => {
   const dispatch = useDispatch();
-  const status = useSelector(getStatus);
-  const data = useSelector(getData);
+  const status = useSelector(getStatusJobRequest);
+  const data = useSelector(getJobRequest);
   const history = useHistory();
   const [jobDetail, setJobDetail] = useState();
   const [isOpen, setIsOpen] = useState(false);
@@ -118,7 +118,6 @@ const JobRequestList = () => {
           <CustomDataTable
             selectionMode="single"
             onSelectionChange={(data) => {
-              console.log("(((")
               setJobDetail(data.value);
               setIsOpen(prevState => !prevState);
             }}

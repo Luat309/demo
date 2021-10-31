@@ -1,5 +1,5 @@
 import { STATUS_REQUEST } from "constants/app";
-import JobRequestService from "services/JobRequestService";
+import InterviewService from "services/InterviewService";
 import {
   INTERVIEW_FETCH,
   INTERVIEW_INSERT,
@@ -7,16 +7,16 @@ import {
   INTERVIEW_DELETE,
 } from "./constant";
 
-const service = new JobRequestService();
+const service = new InterviewService();
 
-export const fetchJobRequest = () => async (dispatch) => {
+export const fetchInterview = () => async (dispatch) => {
   dispatch({
     type: INTERVIEW_FETCH,
     status: STATUS_REQUEST.LOADING,
     payload: "PLEASE WAIT...",
   });
 
-  const res = await service.fetchJobRequest();
+  const res = await service.fetchInterview();
 
   if (res.status === 200) {
     dispatch({
