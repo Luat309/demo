@@ -1,7 +1,7 @@
 // localhost
 const DOMAIN = "http://localhost:8080/";
 // production
-// const PRODUCTION = "";
+// const DOMAIN = "http://35.198.236.142/";
 
 export const REACT_APP_URL_API = "http://35.240.196.153/api";
 
