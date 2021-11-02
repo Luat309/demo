@@ -1,2 +1,2 @@
-export const getData = (state) => state.jobRequest.data;
-export const getStatus = (state) => state.jobRequest.status;
+export const getJobRequest = (state) => state.jobRequest.data;
+export const getStatusJobRequest = (state) => state.jobRequest.status;

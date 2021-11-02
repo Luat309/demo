@@ -1,2 +1,2 @@
-export const getData = (state) => state.interview.data;
-export const getStatus = (state) => state.interview.status;
+export const getInterviews = (state) => state.interview.data;
+export const getStatusInterview = (state) => state.interview.status;

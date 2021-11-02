@@ -7,7 +7,7 @@ import { getCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { getData } from "redux/jobRequest/selector";
+import { getData, getJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { useHistory } from "react-router";
 
@@ -18,7 +18,7 @@ const CandidateList = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [detailCandidate, setDetailCandidate] = useState();
   const { cadidate } = useSelector((state) => state.cadidate);
-  const job = useSelector(getData);
+  const job = useSelector(getJobRequest);
 
   useEffect(() => {
     dispath(getCandidate());

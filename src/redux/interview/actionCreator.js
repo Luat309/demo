@@ -1,34 +1,34 @@
 import { STATUS_REQUEST } from "constants/app";
-import Interview from "services/Interview";
+import InterviewService from "services/InterviewService";
 import {
-    INTERVIEW_FETCH,
-    INTERVIEW_INSERT,
-    INTERVIEW_UPDATE,
-    INTERVIEW_DELETE,
+  INTERVIEW_FETCH,
+  INTERVIEW_INSERT,
+  INTERVIEW_UPDATE,
+  INTERVIEW_DELETE,
 } from "./constant";
 
-const service = new Interview();
+const service = new InterviewService();
 
-export const getInterview = () => async(dispatch) => {
+export const fetchInterview = () => async (dispatch) => {
+  dispatch({
+    type: INTERVIEW_FETCH,
+    status: STATUS_REQUEST.LOADING,
+    payload: "PLEASE WAIT...",
+  });
+
+  const res = await service.fetchInterview();
+
+  if (res.status === 200) {
     dispatch({
-        type: INTERVIEW_FETCH,
-        status: STATUS_REQUEST.LOADING,
-        payload: "PLEASE WAIT...",
+      type: INTERVIEW_FETCH,
+      status: STATUS_REQUEST.SUCCEEDED,
+      payload: res.data,
     });
-
-    const res = await service.interviewList();
-
-    if (res.status === 200) {
-        dispatch({
-            type: INTERVIEW_FETCH,
-            status: STATUS_REQUEST.SUCCEEDED,
-            payload: res.data,
-        });
-    } else {
-        dispatch({
-            type: INTERVIEW_FETCH,
-            status: STATUS_REQUEST.ERROR,
-            payload: "SOMETHING WENT WRONG...",
-        });
-    }
+  } else {
+    dispatch({
+      type: INTERVIEW_FETCH,
+      status: STATUS_REQUEST.ERROR,
+      payload: "SOMETHING WENT WRONG...",
+    });
+  }
 };

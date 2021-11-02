@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { editCandidate } from "redux/candidate/action";
-import { getData } from "redux/jobRequest/selector";
+import { getData, getJobRequest } from "redux/jobRequest/selector";
 import "./style.scss";
 
 const items = [{ label: "Ứng viên" }, { label: " Sửa ứng viên" }];
@@ -23,7 +23,7 @@ const CandidateEdit = () => {
   const { cadidate } = useSelector((state) => state.cadidate);
   const [detailId, setdetailId] = useState();
 
-  const data = useSelector(getData);
+  const data = useSelector(getJobRequest);
 
   const {
     register,

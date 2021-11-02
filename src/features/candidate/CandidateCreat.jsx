@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addCandidate } from "redux/candidate/action";
-import { getData, getStatus } from "redux/jobRequest/selector";
+import { getJobRequest, getStatusJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { STATUS_REQUEST } from "constants/app";
 import { Dialog } from "primereact/dialog";
@@ -22,8 +22,8 @@ const CandidateCreat = () => {
   const [Cv, setCV] = useState();
   const dispatch = useDispatch();
 
-  const status = useSelector(getStatus);
-  const data = useSelector(getData);
+  const status = useSelector(getStatusJobRequest);
+  const data = useSelector(getJobRequest);
 
   useEffect(() => {
     if (status === STATUS_REQUEST.IDLE) {

@@ -9,22 +9,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCandidate } from "redux/candidate/action";
-import { getInterview } from "redux/interview/actionCreator";
+import { fetchInterview } from "redux/interview/actionCreator";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
-import { getData } from "redux/jobRequest/selector";
+import { getJobRequest } from "redux/jobRequest/selector";
 import CandidateInterview from "./CandidateInterview";
 
 const items = [{ label: "Đánh Giá Ứng viên" }, { label: " Đánh giá" }];
 const CandidateInterviewList = () => {
   const dispatch = useDispatch();
-  const job = useSelector(getData);
+  const job = useSelector(getJobRequest);
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useSelector((state) => state.interview);
   const { cadidate } = useSelector((state) => state.cadidate);
   const [dateInterview, setDateInterview] = useState();
 
   useEffect(() => {
-    dispatch(getInterview());
+    dispatch(fetchInterview());
     dispatch(fetchJobRequest());
     dispatch(getCandidate());
   }, [dispatch]);
