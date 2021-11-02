@@ -7,13 +7,15 @@ import {
   //   INTERVIEW,
   //   INTERVIEW_CREATE,
   JOBREQUEST,
-  //   JOBREQUEST_CREATE,
+  JOBREQUEST_CREATE,
+  JOBREQUEST_EDIT,
   //   REPORT,
-  //   JOBREQUEST_EDIT,
 } from "constants/appPath";
 
 const CandidateList = lazy(() => import("features/candidate/CandidateList"));
 const JobRequestList = lazy(() => import("features/jobRequest/JobRequestList"));
+const JobRequestInsert = lazy(() => import("features/jobRequest/FormInsert"));
+const JobRequestUpdate = lazy(() => import("features/jobRequest/FormUpdate"));
 
 const InterviewList = lazy(() => import("features/interview/InterviewList"));
 const CreateFormNPV = lazy(() => import("features/interview/CreateFormNPV"));
@@ -21,8 +23,20 @@ const CreateFormNPV = lazy(() => import("features/interview/CreateFormNPV"));
 const routes = [
   {
     path: JOBREQUEST,
-    name: "dashboard",
+    name: "jobrequestList",
     component: JobRequestList,
+    exact: true,
+  },
+  {
+    path: JOBREQUEST_CREATE,
+    name: "jobrequestInsert",
+    component: JobRequestInsert,
+    exact: true,
+  },
+  {
+    path: JOBREQUEST_EDIT,
+    name: "jobrequestUpdate",
+    component: JobRequestUpdate,
     exact: true,
   },
   {
@@ -39,7 +53,7 @@ const routes = [
   },
   {
     path: INTERVIEW_CREATE,
-    name: "interview",
+    name: "interviewCreate",
     component: CreateFormNPV,
     exact: true,
   },

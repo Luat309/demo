@@ -1,17 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
-@import url('./custom/megamenu.css');
-@import url('./animation.css');
-@import url('./custom/breadCrumb.css');
-@import url('./custom/dataTable.css');
-@import url('./components/jobDetail.css');
+@import url("./custom/megamenu.css");
+@import url("./animation.css");
+@import url("./custom/breadCrumb.css");
+@import url("./custom/dataTable.css");
+@import url("./components/jobRequest/jobDetail.css");
+@import url("./components/jobRequest/jobFilter.css");
 
 html {
   font-size: 14px;
 }
 
+* {
+  font-family: "Inter", sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: "Ubuntu", "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--surface-b);
@@ -127,6 +131,10 @@ code {
   margin-right: auto;
 }
 
+.mr-1 {
+  margin-right: 1rem;
+}
+
 .pt-0 {
   padding-top: 0;
 }
@@ -134,6 +142,7 @@ code {
 .p-button.p-button-lg .p-button-icon {
   font-size: 1.75rem;
   animation: fa-spin 2s linear infinite;
+  -webkit-animation: fa-spin 2s linear infinite;
 }
 
 .text-decoration-none {

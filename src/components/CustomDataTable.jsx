@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
-// import { Column } from "primereact/column";
+import { InputText } from "primereact/inputtext";
 
 const CustomDataTable = React.forwardRef(
-  ({ children, dataTable, ...rest }, ref) => {
+  ({ children, dataTable, showSearch = false, ...rest }, ref) => {
+    const [globalFilter, setGlobalFilter] = useState(null);
+
+    const header = (
+      <div className="table-header">
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Tìm kiếm nhanh..."
+          />
+        </span>
+      </div>
+    );
+
     return (
       <DataTable
         // className="p-datatable-sm"
+        header={showSearch && header}
         stripedRows
         value={dataTable}
         dataKey="id"
         ref={ref}
+        globalFilter={globalFilter}
         paginator
         rowHover
         scrollable

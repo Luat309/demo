@@ -6,16 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "styles/index.css";
-import 'primeflex/primeflex.css';
+import "primeflex/primeflex.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "components/PrivateRoute";
 import Login from "features/user/Login";
 import { Provider } from "react-redux";
 import store from "redux/store";
+import CustomMessageBox from "components/CustomMessageBox";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <CustomMessageBox />
       <Router>
         <Switch>
           <Route path="/login" component={Login} exact={true} />
