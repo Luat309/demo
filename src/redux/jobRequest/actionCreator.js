@@ -32,3 +32,27 @@ export const fetchJobRequest = () => async (dispatch) => {
     });
   }
 };
+
+export const insertJobRequest = (data) => async (dispatch) => {
+  dispatch({
+    type: JOBREQUEST_INSERT,
+    message: "Đang xử lý...",
+    payload: []
+  });
+
+  const res = await service.createJobRequest(data);
+
+  if (res.status === 200) {
+    dispatch({
+      type: JOBREQUEST_INSERT,
+      message: "Thêm yêu cầu thành công!",
+      payload: res.data,
+    });
+  } else {
+    dispatch({
+      type: JOBREQUEST_INSERT,
+      message: "Thêm yêu cầu không thành công!",
+      payload: []
+    });
+  }
+};

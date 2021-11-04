@@ -22,19 +22,23 @@ const CandidateInterview = ({ data }) => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const onSubmit = (value) => {
-    dispatch(
-      createCandidateInterview({
-        ...value,
-        candidate_id: data.name_candidate,
-        interview_id: data.id,
-        user_id: 1,
-      })
-    );
-    // setShowMessage(true);
-    // history.push(CANDIDATE_INTERVIEW_SHOW);
+    setShowMessage(true);
+    const newValue = {
+      ...value,
+      candidate_id: data.name_candidate,
+      interview_id: data.id,
+      user_id: 1,
+    };
+    if (newValue) {
+      dispatch(createCandidateInterview(newValue));
+      history.push(CANDIDATE_INTERVIEW_SHOW);
+      setShowMessage(false);
+      reset();
+    }
   };
 
   return (
@@ -69,6 +73,7 @@ const CandidateInterview = ({ data }) => {
               <input
                 type="number"
                 min={0}
+                max={5}
                 {...register("thinking", { required: true })}
               />
               {errors.thinking && (
@@ -83,6 +88,7 @@ const CandidateInterview = ({ data }) => {
               <br />
               <input
                 min={0}
+                max={5}
                 type="number"
                 {...register("persistent_perseverance", { required: true })}
               />
@@ -98,10 +104,9 @@ const CandidateInterview = ({ data }) => {
               <input
                 type="number"
                 min={0}
+                max={5}
                 {...register("career_goals", {
                   required: true,
-                  min: 1,
-                  max: 99,
                 })}
               />
               {errors.career_goals && (
@@ -138,6 +143,7 @@ const CandidateInterview = ({ data }) => {
               <br />
               <input
                 min={0}
+                max={5}
                 type="number"
                 {...register("specialize_skill", { required: true })}
               />
@@ -154,6 +160,7 @@ const CandidateInterview = ({ data }) => {
               <input
                 type="number"
                 min={0}
+                max={5}
                 {...register("english", { required: true })}
               />
               {errors.english && (
@@ -167,6 +174,7 @@ const CandidateInterview = ({ data }) => {
               <br />
               <input
                 min={0}
+                max={5}
                 type="number"
                 {...register("adaptability", { required: true })}
               />

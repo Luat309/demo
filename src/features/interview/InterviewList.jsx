@@ -13,16 +13,19 @@ import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 // import JobRequestDetail from "./JobRequestDetail";
 
-const items = [{ label: "Lịch phỏng vấn" }, { label: "Danh sách lịch phỏng vấn" }];
+const items = [
+  { label: "Lịch phỏng vấn" },
+  { label: "Danh sách lịch phỏng vấn" },
+];
 
 const cols = [
   // { field: "description", header: "Dac diem cua du an" },
   { field: "job", header: "Dự án", width: "250px" },
-  { field: "round_no", header: "Số lượng tuyển", width: "150px" },
-  { field: "position", header: "Vị trí tuyển dụng", width: "250px" },
-  { field: "time_start", header: "Mức lương", width: "150px" },
-  { field: "time_end", header: "Người yêu cầu", width: "150px" },
-  { field: "name_candidate", header: "Hạn tuyển", width: "100px" },
+  { field: "round_no", header: "Vòng", width: "150px" },
+  { field: "position", header: "Địa điểm", width: "150px" },
+  { field: "time_interview", header: "Thời gian", width: "200px" },
+  { field: "name_candidate", header: "Ứng viên", width: "150px" },
+  { field: "receiver", header: "Người phỏng vấn", width: "150px" },
   { field: "action", header: <i className="pi pi-cog" />, width: "150px" },
 ];
 
@@ -47,19 +50,9 @@ const InterviewList = () => {
     }
   }, [dispatch, statusInterview]);
 
-  // const handleView = (data) => {
-    // setJobDetail(data);
-    // setIsOpen(true);
-  // };
-
   const genActionCol = (data) => {
     return (
       <>
-        {/* <Button
-          onClick={() => handleView(data)}
-          className="p-button-rounded p-button-text p-button-info"
-          icon="pi pi-eye"
-        /> */}
         <Button
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
@@ -72,14 +65,53 @@ const InterviewList = () => {
     );
   };
 
+  const genTimeInterview = (data) => {
+    return (
+      <>
+        {data.time_start} - {data.time_end}
+      </>
+    );
+  };
+
+  const genJobRequest = (data) => {
+    const jobRq = jobRequest.find((item) => item.id === data.job_id);
+    return jobRq.title;
+  };
+
   const columns = cols.map(({ field, header, width }) => {
     switch (field) {
+      case "job":
+        return (
+          <Column
+            key={field}
+            header={header}
+            body={genJobRequest}
+            style={{
+              textAlign: "center",
+              width: width,
+            }}
+          />
+        );
+
       case "action":
         return (
           <Column
             key={field}
             header={header}
             body={genActionCol}
+            style={{
+              textAlign: "center",
+              width: width,
+            }}
+          />
+        );
+
+      case "time_interview":
+        return (
+          <Column
+            key={field}
+            header={header}
+            body={genTimeInterview}
             style={{
               textAlign: "center",
               width: width,

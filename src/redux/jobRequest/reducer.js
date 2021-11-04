@@ -20,7 +20,10 @@ const reducer = (state = initialState, action) => {
       };
 
     case JOBREQUEST_INSERT:
-      break;
+      return {
+        message: action.message,
+        data: [...state.data, action.payload],
+      }
 
     case JOBREQUEST_UPDATE:
       break;

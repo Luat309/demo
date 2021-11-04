@@ -9,9 +9,11 @@ import { fetchInterview } from "redux/interview/actionCreator";
 import { getCandidate } from "redux/candidate/action";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { getJobRequest } from "redux/jobRequest/selector";
+import "moment/locale/vi";
 
 const items = [{ label: "Đánh Giá Ứng viên" }, { label: " Đánh giá" }];
 const CandidateInterViewShow = () => {
+  moment.locale("vi");
   const dispatch = useDispatch();
   const { candidateInterview } = useSelector(
     (state) => state.candidateInterview
@@ -33,9 +35,9 @@ const CandidateInterViewShow = () => {
           if (item.id === rowData.interview_id) {
             return (
               <p>
-                {moment(rowData.time_start).format("hh/mm/ss dd/mm/yyyy")}
-                {"-"}
-                {moment(rowData.time_end).format("H:m:ss dd/mm/yyyy")}
+                {moment(rowData.time_start).format("lll")}
+                {" - "}
+                {moment(rowData.time_end).format("lll")}
               </p>
             );
           }
@@ -74,6 +76,7 @@ const CandidateInterViewShow = () => {
           field="candidate_id"
           header="Thời gian phỏng vấn"
           body={timeBodyTemplate}
+          style={{ width: "19%" }}
         ></Column>
         <Column
           field="name_candidate"
@@ -87,7 +90,6 @@ const CandidateInterViewShow = () => {
         ></Column>
         <Column field="job_id" header="Vị trí ứng tuyển "></Column>
         <Column field="reviews" header="Nhận xét"></Column>
-     
       </CustomDataTable>
     </div>
   );
