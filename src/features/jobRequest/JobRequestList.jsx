@@ -13,11 +13,10 @@ import { Tag } from "primereact/tag";
 import { MultiSelect } from "primereact/multiselect";
 import { Calendar } from "primereact/calendar";
 
-import { fetchJobRequest } from "redux/jobRequest/actionCreator";
+import { fetchJobRequest, resetStatus } from "redux/jobRequest/actionCreator";
 import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
-import moment from "moment";
 import { compareTimeFromTo } from "utils/compareTime";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
@@ -30,7 +29,7 @@ const cols = [
   { field: "amount", header: "Số lượng tuyển", width: "150px" },
   { field: "petitioner", header: "Người yêu cầu", width: "150px" },
   { field: "status", header: "Trạng thái", width: "100px" },
-  { field: "action", header: <i className="pi pi-cog" />, width: "150px" },
+  { field: "action", header: <i className="pi pi-cog" />, width: "200px" },
 ];
 
 const JobRequestList = () => {
@@ -44,7 +43,7 @@ const JobRequestList = () => {
   const [statusFilter, setStatusFilter] = useState([]);
   const [deadLine, setDeadLine] = useState([]);
 
-  const cities = [
+  const statuses = [
     { id: 0, name: "Từ chối", code: "TU_CHOI", severity: "danger" },
     { id: 1, name: "Đã duyệt", code: "DA_DUYET", severity: "success" },
     { id: 2, name: "Hết hạn", code: "HET_HAN", severity: "danger" },
@@ -52,10 +51,23 @@ const JobRequestList = () => {
   ];
 
   useEffect(() => {
-    if (status === STATUS_REQUEST.IDLE) {
+    if (
+      status === STATUS_REQUEST.IDLE &&
+      Array.isArray(data) &&
+      data.length === 0
+    ) {
       dispatch(fetchJobRequest());
     }
-  }, [dispatch, status]);
+
+    return () => {
+      if (
+        status === STATUS_REQUEST.SUCCEEDED ||
+        status === STATUS_REQUEST.ERROR
+      ) {
+        dispatch(resetStatus());
+      }
+    };
+  }, [dispatch, status, data]);
 
   const handleClickView = (data) => {
     setJobDetail(data);
@@ -94,19 +106,34 @@ const JobRequestList = () => {
     return (
       <>
         <Button
+          tooltip="Xem chi tiết"
           onClick={() => handleClickView(data)}
           className="p-button-rounded p-button-text p-button-info"
           icon="pi pi-eye"
         />
         <Button
+          tooltip="Cập nhật"
           onClick={() => handleClickUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
         />
         <Button
+          tooltip="Xóa"
           onClick={() => handleDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
+        />
+        <Button
+          tooltip="Phê duyệt"
+          // onClick={() => handleDelete(data)}
+          className="p-button-rounded p-button-text p-button-danger"
+          icon="pi pi-check-circle"
+        />
+        <Button
+          tooltip="Từ chối"
+          // onClick={() => handleDelete(data)}
+          className="p-button-rounded p-button-text p-button-danger"
+          icon="pi pi-times-circle"
         />
       </>
     );
@@ -248,7 +275,7 @@ const JobRequestList = () => {
             value={statusFilter}
             itemTemplate={statusTemplate}
             selectedItemTemplate={selectedStatusTemplate}
-            options={cities}
+            options={statuses}
             onChange={(e) => setStatusFilter(e.value)}
             optionLabel="name"
             placeholder="Trạng thái"
@@ -257,8 +284,8 @@ const JobRequestList = () => {
         </div>
       </div>
 
-      {status === STATUS_REQUEST.LOADING && data}
-      {status === STATUS_REQUEST.SUCCEEDED && (
+      {status === STATUS_REQUEST.LOADING && "Đang tải dữ liệu..."}
+      {Array.isArray(data) && data.length > 0 && (
         <div className="card">
           <CustomDataTable
             selectionMode="single"

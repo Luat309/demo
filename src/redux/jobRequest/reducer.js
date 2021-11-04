@@ -4,11 +4,13 @@ import {
   JOBREQUEST_INSERT,
   JOBREQUEST_UPDATE,
   JOBREQUEST_DELETE,
+  RESET_STATUS,
 } from "./constant";
 
 const initialState = {
   data: [],
   status: STATUS_REQUEST.IDLE,
+  message: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,15 +23,29 @@ const reducer = (state = initialState, action) => {
 
     case JOBREQUEST_INSERT:
       return {
+        ...state,
         message: action.message,
-        data: [...state.data, action.payload],
-      }
+        data: action.payload ?? state.data,
+        status: action.status
+      };
 
     case JOBREQUEST_UPDATE:
-      break;
+      return {
+        ...state,
+        message: action.message,
+        data: action.payload ?? state.data,
+        status: action.status
+      };
 
     case JOBREQUEST_DELETE:
       break;
+
+    case RESET_STATUS:
+      return {
+        ...state,
+        status: STATUS_REQUEST.IDLE,
+        message: ""
+      };
 
     default:
       return state;

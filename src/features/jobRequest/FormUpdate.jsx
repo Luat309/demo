@@ -1,24 +1,32 @@
-// import { useDispatch } from "react-redux";
-// import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Button } from "primereact/button";
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import InputTextController from "components/InputTextController";
 import InputNumberController from "components/InputNumberController";
 import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
-// import { insertJobRequest } from "redux/jobRequest/actionCreator";
-import { useSelector } from "react-redux";
-import { getJobRequestById } from "redux/jobRequest/selector";
-import { useEffect } from "react";
+import { resetStatus, updateJobRequest } from "redux/jobRequest/actionCreator";
+import { showMessage } from "redux/messageBox/actionCreator";
+import {
+  getJobRequestById,
+  getMessageJobRequest,
+  getStatusJobRequest,
+} from "redux/jobRequest/selector";
+import { STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Cập nhật yêu cầu" }];
 
 const FormUpdateJobRequest = () => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const status = useSelector(getStatusJobRequest);
+  const message = useSelector(getMessageJobRequest);
   const { id } = useParams();
   const jobDetail = useSelector(getJobRequestById(id));
   const {
@@ -38,6 +46,22 @@ const FormUpdateJobRequest = () => {
       reason: undefined,
     });
   }, [reset, jobDetail]);
+
+  useEffect(() => {
+    if (status === STATUS_REQUEST.SUCCEEDED) {
+      dispatch(showMessage(message));
+      history.push("/admin/jobrequest");
+    }
+
+    return () => {
+      if (
+        status === STATUS_REQUEST.SUCCEEDED ||
+        status === STATUS_REQUEST.ERROR
+      ) {
+        dispatch(resetStatus());
+      }
+    };
+  }, [dispatch, history, status, message]);
 
   const fields = [
     { label: "Tên dự án", name: "title", type: "inputText", autoFocus: true },
@@ -96,9 +120,12 @@ const FormUpdateJobRequest = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // dispatch(insertJobRequest(data));
-    // reset();
+    dispatch(
+      updateJobRequest({
+        ...data,
+        deadline: formatTime.formatShortsDate(data.deadline),
+      })
+    );
   };
 
   return (
@@ -107,7 +134,12 @@ const FormUpdateJobRequest = () => {
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-fluid p-formgrid p-grid">{formRender}</div>
-          <Button type="submit" label="Cập nhật yêu cầu" />
+          {status === STATUS_REQUEST.IDLE && (
+            <Button type="submit" label="Cập nhật yêu cầu" />
+          )}
+          {status === STATUS_REQUEST.LOADING && (
+            <Button label={message} loading />
+          )}
         </form>
       </div>
     </>

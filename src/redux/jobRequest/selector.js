@@ -7,14 +7,16 @@ export const getJobRequest = (state) =>
     return {
       ...item,
       status: moment(item.deadline).isBefore()
-        ? 2
+        ? APPROVAL_STATUS.HET_HAN
         : item.status === null
-        ? 3
+        ? APPROVAL_STATUS.CHO_DUYET
         : item.status,
     };
   });
 
 export const getStatusJobRequest = (state) => state.jobRequest.status;
+
+export const getMessageJobRequest = (state) => state.jobRequest.message;
 
 export const getJobRequestById = (id) => (state) =>
   state.jobRequest.data.find((item) => Number(item.id) === Number(id));
