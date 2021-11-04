@@ -18,6 +18,7 @@ import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
+import { showConfirm } from "redux/confirmBox/actionCreator";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
 
@@ -78,9 +79,52 @@ const JobRequestList = () => {
     history.push(`/admin/jobrequest/edit/${data.id}`);
   };
 
-  const handleDelete = (data) => {
+  const handleClickDelete = (data) => {
     setIsOpen(!isOpen);
-    console.log(data.id);
+
+    dispatch(
+      showConfirm(
+        "Ban co chac muon xoa yeu cau tuyen dung nay khong?",
+        () => {
+          console.log("Co");
+        },
+        () => {
+          console.log("Khong");
+        }
+      )
+    );
+  };
+
+  const handleClickApproval = (data) => {
+    setIsOpen(!isOpen);
+
+    dispatch(
+      showConfirm(
+        "Ban co chac muon phe duyet yeu cau tuyen dung nay khong?",
+        () => {
+          console.log("Co phe duyet");
+        },
+        () => {
+          console.log("Phe duyet cc");
+        }
+      )
+    );
+  };
+
+  const handleClickReject = (data) => {
+    setIsOpen(!isOpen);
+
+    dispatch(
+      showConfirm(
+        "Ban co chac muon tu choi yeu cau tuyen dung nay khong?",
+        () => {
+          console.log("Co tu choi");
+        },
+        () => {
+          console.log("Tu choi cc");
+        }
+      )
+    );
   };
 
   const genFormatTimeCol = (data) => {
@@ -119,19 +163,19 @@ const JobRequestList = () => {
         />
         <Button
           tooltip="Xóa"
-          onClick={() => handleDelete(data)}
+          onClick={() => handleClickDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
         />
         <Button
           tooltip="Phê duyệt"
-          // onClick={() => handleDelete(data)}
+          onClick={() => handleClickApproval(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-check-circle"
         />
         <Button
           tooltip="Từ chối"
-          // onClick={() => handleDelete(data)}
+          onClick={() => handleClickReject(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-times-circle"
         />
@@ -239,7 +283,7 @@ const JobRequestList = () => {
         isOpen={isOpen}
         onHide={() => setIsOpen(false)}
         handleClickUpdate={handleClickUpdate}
-        handleDelete={handleDelete}
+        handleDelete={handleClickDelete}
       />
 
       <CustomBreadCrumb items={items} />

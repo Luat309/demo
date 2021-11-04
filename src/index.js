@@ -13,11 +13,13 @@ import Login from "features/user/Login";
 import { Provider } from "react-redux";
 import store from "redux/store";
 import CustomMessageBox from "components/CustomMessageBox";
+import CustomConfirmBox from "components/CustomConfirmBox";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <CustomMessageBox />
+      <CustomConfirmBox />
       <Router>
         <Switch>
           <Route path="/login" component={Login} exact={true} />
