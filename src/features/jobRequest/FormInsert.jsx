@@ -7,20 +7,16 @@ import InputTextController from "components/InputTextController";
 import InputNumberController from "components/InputNumberController";
 import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
-import { insertJobRequest, resetStatus } from "redux/jobRequest/actionCreator";
+import { insertJobRequest } from "redux/jobRequest/actionCreator";
 import { showMessage } from "redux/messageBox/actionCreator";
-import { useEffect } from "react";
-import {
-  getMessageJobRequest,
-  getStatusJobRequest,
-} from "redux/jobRequest/selector";
+import { useEffect, useState } from "react";
+import { getMessageJobRequest } from "redux/jobRequest/selector";
 import { STATUS_REQUEST } from "constants/app";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
 const FormInsertJobRequest = () => {
   const dispatch = useDispatch();
-  const status = useSelector(getStatusJobRequest);
   const message = useSelector(getMessageJobRequest);
   const history = useHistory();
   const {
@@ -29,21 +25,7 @@ const FormInsertJobRequest = () => {
     handleSubmit,
   } = useForm();
 
-  useEffect(() => {
-    if (status === STATUS_REQUEST.SUCCEEDED) {
-      dispatch(showMessage(message))
-      history.push("/admin/jobrequest");
-    }
-
-    return () => {
-      if (
-        status === STATUS_REQUEST.SUCCEEDED ||
-        status === STATUS_REQUEST.ERROR
-      ) {
-        dispatch(resetStatus());
-      }
-    };
-  }, [dispatch, history, status, message]);
+  const [status, setStatus] = useState(STATUS_REQUEST.IDLE);
 
   const fields = [
     { label: "Tên dự án", name: "title", type: "inputText", autoFocus: true },
@@ -102,7 +84,19 @@ const FormInsertJobRequest = () => {
   });
 
   const onSubmit = async (data) => {
-    dispatch(insertJobRequest(data));
+    setStatus(STATUS_REQUEST.LOADING);
+
+    try {
+      setStatus(STATUS_REQUEST.LOADING);
+
+      await dispatch(insertJobRequest(data));
+    } catch (error) {
+      setStatus(STATUS_REQUEST.ERROR);
+      console.log(error);
+    } finally {
+      setStatus(STATUS_REQUEST.IDLE);
+      dispatch(showMessage(message));
+    }
   };
 
   return (

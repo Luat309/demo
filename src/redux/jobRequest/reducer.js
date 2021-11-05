@@ -4,13 +4,14 @@ import {
   JOBREQUEST_INSERT,
   JOBREQUEST_UPDATE,
   JOBREQUEST_DELETE,
-  RESET_STATUS,
+  JOBREQUEST_APPROVAL,
+  JOBREQUEST_REJECT,
 } from "./constant";
 
 const initialState = {
   data: [],
   status: STATUS_REQUEST.IDLE,
-  message: ""
+  message: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,26 +26,32 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         message: action.message,
-        data: action.payload ?? state.data,
-        status: action.status
+        data: action?.payload ? [...state.data, action.payload] : state.data,
+        status: action.status,
       };
 
     case JOBREQUEST_UPDATE:
       return {
-        ...state,
         message: action.message,
-        data: action.payload ?? state.data,
-        status: action.status
+        data: action?.payload
+          ? state.data.map((item) => {
+              if (item.id === action.payload.id) {
+                return action.payload;
+              }
+
+              return item;
+            })
+          : state.data,
+        status: action.status,
       };
 
     case JOBREQUEST_DELETE:
-      break;
-
-    case RESET_STATUS:
       return {
-        ...state,
-        status: STATUS_REQUEST.IDLE,
-        message: ""
+        message: action.message,
+        data: action?.payload
+          ? action.payload.filter((item) => item.id !== action.payload.id)
+          : state.data,
+        status: action.status,
       };
 
     default:

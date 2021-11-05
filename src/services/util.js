@@ -20,14 +20,6 @@ function get(path, data) {
         Authorization: `Bearer ${currentUser?.accessToken}`,
       },
     })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.log("Error!!! ", error.message);
-
-      return error;
-    });
 }
 
 function post(path, data) {
@@ -39,13 +31,6 @@ function post(path, data) {
         Authorization: `Bearer ${currentUser?.accessToken}`,
       },
     })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.log("Error!!! ", error.message);
-      return error;
-    });
 }
 
 function postMultipart(path, data) {
@@ -57,13 +42,6 @@ function postMultipart(path, data) {
         "Content-Type": "multipart/form-data",
       },
     })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.log("Error!!! ", error.message);
-      return error;
-    });
 }
 
 function put(path, data) {
@@ -75,13 +53,6 @@ function put(path, data) {
         Authorization: `Bearer ${currentUser?.accessToken}`,
       },
     })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.log("Error!!! ", error.message);
-      return error;
-    });
 }
 
 function del(path, data) {
@@ -93,13 +64,6 @@ function del(path, data) {
         Authorization: `Bearer ${currentUser?.accessToken}`,
       },
     })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.log("Error!!! ", error.message);
-      return error;
-    });
 }
 
 function _urlRender(path, data, renderDomain = true) {

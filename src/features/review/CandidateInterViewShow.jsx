@@ -17,35 +17,23 @@ const items = [{ label: "Đánh Giá Ứng viên" }, { label: " Đánh giá" }];
 const CandidateInterViewShow = () => {
   moment.locale("vi");
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.interview);
   const [isOpen, setIsOpen] = useState(false);
   const [valueDetail, setValueDetail] = useState();
 
   const candidateInterview = useSelector(getCandidateInterviews);
-  console.log(candidateInterview);
 
   useEffect(() => {
     dispatch(getCandidateInterview());
-    dispatch(fetchInterview());
-    dispatch(getCandidate());
-    dispatch(fetchJobRequest());
   }, [dispatch]);
 
   const timeBodyTemplate = (rowData) => {
-    return data.map
-      ? data.map((item) => {
-          if (item.id === rowData.interview_id) {
-            return (
-              <p>
-                {moment(rowData.time_start).format("lll")}
-                {" - "}
-                {moment(rowData.time_end).format("lll")}
-              </p>
-            );
-          }
-          return "";
-        })
-      : "";
+    return (
+      <p>
+        {moment(rowData.time_start).format("lll")}
+        {" - "}
+        {moment(rowData.time_end).format("lll")}
+      </p>
+    );
   };
 
   const handleDetail = (value) => {

@@ -17,47 +17,48 @@ export const fetchJobRequest = () => async (dispatch) => {
     payload: [],
   });
 
-  const res = await service.fetchJobRequest();
-
-  if (res.status === 200) {
-    dispatch({
-      type: JOBREQUEST_FETCH,
-      status: STATUS_REQUEST.SUCCEEDED,
-      payload: res.data,
+  service
+    .fetchJobRequest()
+    .then((res) => {
+      dispatch({
+        type: JOBREQUEST_FETCH,
+        status: STATUS_REQUEST.SUCCEEDED,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: JOBREQUEST_FETCH,
+        status: STATUS_REQUEST.ERROR,
+        payload: error.message,
+      });
     });
-  } else {
-    dispatch({
-      type: JOBREQUEST_FETCH,
-      status: STATUS_REQUEST.ERROR,
-      payload: "SOMETHING WENT WRONG...",
-    });
-  }
 };
 
-export const insertJobRequest = (data) => async (dispatch) => {
+export const insertJobRequest = (data) => (dispatch) => {
   dispatch({
     type: JOBREQUEST_INSERT,
     message: "Đang xử lý",
     status: STATUS_REQUEST.LOADING,
   });
 
-  const res = await service.createJobRequest(data);
-
-  if (res.status === 200) {
-    dispatch({
-      type: JOBREQUEST_INSERT,
-      message: "Thêm yêu cầu thành công!",
-      payload: res.data,
-      status: STATUS_REQUEST.SUCCEEDED,
+  service
+    .createJobRequest(data)
+    .then((res) => {
+      dispatch({
+        type: JOBREQUEST_INSERT,
+        message: "Thêm yêu cầu thành công!",
+        payload: res.data,
+        status: STATUS_REQUEST.SUCCEEDED,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: JOBREQUEST_INSERT,
+        message: error.message,
+        status: STATUS_REQUEST.ERROR,
+      });
     });
-  } else {
-    dispatch({
-      type: JOBREQUEST_INSERT,
-      message: "Thêm yêu cầu không thành công!",
-      payload: [],
-      status: STATUS_REQUEST.ERROR,
-    });
-  }
 };
 
 export const updateJobRequest = (data) => async (dispatch) => {
@@ -67,33 +68,51 @@ export const updateJobRequest = (data) => async (dispatch) => {
     status: STATUS_REQUEST.LOADING,
   });
 
-  const res = await service.editJobRequest(data);
-
-  if (res.status === 200) {
-    dispatch({
-      type: JOBREQUEST_UPDATE,
-      message: "Cập nhật thành công!",
-      payload: res.data,
-      status: STATUS_REQUEST.SUCCEEDED,
+  service
+    .editJobRequest(data)
+    .then((res) => {
+      dispatch({
+        type: JOBREQUEST_UPDATE,
+        message: "Cập nhật thành công!",
+        payload: res.data,
+        status: STATUS_REQUEST.SUCCEEDED,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: JOBREQUEST_UPDATE,
+        message: error.message,
+        status: STATUS_REQUEST.ERROR,
+      });
     });
-  } else {
-    dispatch({
-      type: JOBREQUEST_UPDATE,
-      message: "Cập nhật không thành công!",
-      payload: [],
-      status: STATUS_REQUEST.ERROR,
-    });
-  }
 };
 
-export const deleteJobRequest = (data) => async (dispatch) => {};
+export const deleteJobRequest = (id) => (dispatch) => {
+  dispatch({
+    type: JOBREQUEST_DELETE,
+    message: "Đang xử lý",
+    status: STATUS_REQUEST.LOADING,
+  });
+
+  service
+    .deleteJobRequest(id)
+    .then((res) => {
+      dispatch({
+        type: JOBREQUEST_DELETE,
+        message: "Xóa thành công!",
+        payload: res.data,
+        status: STATUS_REQUEST.SUCCEEDED,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: JOBREQUEST_DELETE,
+        message: error.message,
+        status: STATUS_REQUEST.ERROR,
+      });
+    });
+};
 
 export const approvalJobRequest = (data) => async (dispatch) => {};
 
 export const rejectJobRequest = (data) => async (dispatch) => {};
-
-export const resetStatus = () => {
-  return {
-    type: RESET_STATUS,
-  };
-};

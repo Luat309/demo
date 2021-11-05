@@ -31,6 +31,8 @@ const CandidateInterview = ({ data }) => {
       ...value,
       candidate_id: data.name_candidate,
       interview_id: data.id,
+      time_start: data.time_start,
+      time_end: data.time_end,
       user_id: 1,
     };
     if (newValue) {
