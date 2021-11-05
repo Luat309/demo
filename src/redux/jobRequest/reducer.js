@@ -49,7 +49,7 @@ const reducer = (state = initialState, action) => {
       return {
         message: action.message,
         data: action?.payload
-          ? action.payload.filter((item) => item.id !== action.payload.id)
+          ? state.data.filter((item) => item.id !== action.payload)
           : state.data,
         status: action.status,
       };

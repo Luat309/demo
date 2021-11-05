@@ -8,24 +8,17 @@ import InputNumberController from "components/InputNumberController";
 import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
 import { insertJobRequest } from "redux/jobRequest/actionCreator";
-import { showMessage } from "redux/messageBox/actionCreator";
-import { useEffect, useState } from "react";
-import { getMessageJobRequest } from "redux/jobRequest/selector";
-import { STATUS_REQUEST } from "constants/app";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
 const FormInsertJobRequest = () => {
   const dispatch = useDispatch();
-  const message = useSelector(getMessageJobRequest);
   const history = useHistory();
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const [status, setStatus] = useState(STATUS_REQUEST.IDLE);
 
   const fields = [
     { label: "Tên dự án", name: "title", type: "inputText", autoFocus: true },
@@ -83,20 +76,14 @@ const FormInsertJobRequest = () => {
     }
   });
 
-  const onSubmit = async (data) => {
-    setStatus(STATUS_REQUEST.LOADING);
-
+  const onSubmit = (data) => {
     try {
-      setStatus(STATUS_REQUEST.LOADING);
+      dispatch(insertJobRequest(data));
 
-      await dispatch(insertJobRequest(data));
+      history.push("/admin/jobrequest");
     } catch (error) {
-      setStatus(STATUS_REQUEST.ERROR);
       console.log(error);
-    } finally {
-      setStatus(STATUS_REQUEST.IDLE);
-      dispatch(showMessage(message));
-    }
+    } 
   };
 
   return (
@@ -105,12 +92,8 @@ const FormInsertJobRequest = () => {
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-fluid p-formgrid p-grid">{formRender}</div>
-          {status === STATUS_REQUEST.IDLE && (
-            <Button type="submit" label="Thêm kế hoạch" />
-          )}
-          {status === STATUS_REQUEST.LOADING && (
-            <Button label={message} loading />
-          )}
+
+          <Button type="submit" label="Thêm kế hoạch" />
         </form>
       </div>
     </>

@@ -61,8 +61,6 @@ const JobRequestList = () => {
   };
 
   const handleClickDelete = (data) => {
-    setIsOpen(!isOpen);
-
     dispatch(
       showConfirm(
         "Bạn có chắc muốn xóa yêu cầu tuyển dụng này không?",
@@ -77,8 +75,6 @@ const JobRequestList = () => {
   };
 
   const handleClickApproval = (data) => {
-    setIsOpen(!isOpen);
-
     dispatch(
       showConfirm(
         "Bạn có chắc muốn phê duyệt yêu cầu tuyển dụng này không?",
@@ -315,10 +311,6 @@ const JobRequestList = () => {
         <div className="card">
           <CustomDataTable
             selectionMode="single"
-            onSelectionChange={(data) => {
-              setJobDetail(data.value);
-              setIsOpen((prevState) => !prevState);
-            }}
             dataTable={dataFilter}
             showSearch={true}
           >

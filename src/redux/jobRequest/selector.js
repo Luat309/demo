@@ -8,9 +8,9 @@ export const getJobRequest = (state) =>
       ...item,
       status: moment(item.deadline).isBefore()
         ? APPROVAL_STATUS.HET_HAN
-        : item.status === null
-        ? APPROVAL_STATUS.CHO_DUYET
-        : item.status,
+        : item.status
+        ? item.status
+        : APPROVAL_STATUS.CHO_DUYET,
     };
   });
 
