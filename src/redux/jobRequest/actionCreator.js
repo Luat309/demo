@@ -5,6 +5,7 @@ import {
   JOBREQUEST_INSERT,
   JOBREQUEST_UPDATE,
   JOBREQUEST_DELETE,
+  RESET_STATUS,
 } from "./constant";
 
 const service = new JobRequestService();
@@ -13,7 +14,7 @@ export const fetchJobRequest = () => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_FETCH,
     status: STATUS_REQUEST.LOADING,
-    payload: "PLEASE WAIT...",
+    payload: [],
   });
 
   const res = await service.fetchJobRequest();
@@ -36,8 +37,8 @@ export const fetchJobRequest = () => async (dispatch) => {
 export const insertJobRequest = (data) => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_INSERT,
-    message: "Đang xử lý...",
-    payload: []
+    message: "Đang xử lý",
+    status: STATUS_REQUEST.LOADING,
   });
 
   const res = await service.createJobRequest(data);
@@ -47,12 +48,52 @@ export const insertJobRequest = (data) => async (dispatch) => {
       type: JOBREQUEST_INSERT,
       message: "Thêm yêu cầu thành công!",
       payload: res.data,
+      status: STATUS_REQUEST.SUCCEEDED,
     });
   } else {
     dispatch({
       type: JOBREQUEST_INSERT,
       message: "Thêm yêu cầu không thành công!",
-      payload: []
+      payload: [],
+      status: STATUS_REQUEST.ERROR,
     });
   }
+};
+
+export const updateJobRequest = (data) => async (dispatch) => {
+  dispatch({
+    type: JOBREQUEST_UPDATE,
+    message: "Đang xử lý",
+    status: STATUS_REQUEST.LOADING,
+  });
+
+  const res = await service.editJobRequest(data);
+
+  if (res.status === 200) {
+    dispatch({
+      type: JOBREQUEST_UPDATE,
+      message: "Cập nhật thành công!",
+      payload: res.data,
+      status: STATUS_REQUEST.SUCCEEDED,
+    });
+  } else {
+    dispatch({
+      type: JOBREQUEST_UPDATE,
+      message: "Cập nhật không thành công!",
+      payload: [],
+      status: STATUS_REQUEST.ERROR,
+    });
+  }
+};
+
+export const deleteJobRequest = (data) => async (dispatch) => {};
+
+export const approvalJobRequest = (data) => async (dispatch) => {};
+
+export const rejectJobRequest = (data) => async (dispatch) => {};
+
+export const resetStatus = () => {
+  return {
+    type: RESET_STATUS,
+  };
 };

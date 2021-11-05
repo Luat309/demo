@@ -1,32 +1,33 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { Link } from "react-router-dom";
 
-const renderFooter = (name) => {
-  return (
-    <div>
-      <Button
-        label="Xóa"
-        icon="pi pi-trash"
-        // onClick={() => onHide(name)}
-        className="p-button-text p-button-danger"
-      />
-      <Button
-        label={
-          <Link className="text-decoration-none" to="/admin/jobrequest/update">
-            Cập nhật
-          </Link>
-        }
-        icon="pi pi-check"
-        // onClick={() => onHide(name)}
-        className="p-button-help"
-        autoFocus
-      />
-    </div>
-  );
-};
+const JobRequestDetail = ({
+  isOpen,
+  onHide,
+  jobDetail,
+  handleClickUpdate,
+  handleDelete,
+}) => {
+  const renderFooter = (name) => {
+    return (
+      <div>
+        <Button
+          label="Xóa"
+          icon="pi pi-trash"
+          onClick={() => handleDelete(jobDetail)}
+          className="p-button-text p-button-danger"
+        />
+        <Button
+          label={"Cập nhật"}
+          icon="pi pi-check"
+          onClick={() => handleClickUpdate(jobDetail)}
+          className="p-button-help"
+          autoFocus
+        />
+      </div>
+    );
+  };
 
-const JobRequestDetail = ({ isOpen, onHide, jobDetail }) => {
   return (
     <Dialog
       header="Thông tin chi tiết dự án"

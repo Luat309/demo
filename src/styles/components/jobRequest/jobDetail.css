@@ -1,12 +1,12 @@
 .jobDetail tr td,
 .jobDetail tr th {
-  padding: 10px;
+  padding: 8px;
   vertical-align: top;
   text-align: left;
 }
 
 .jobDetail tr th {
-  min-width: 150px;
+  min-width: 160px;
 }
 
 .jobDetail tr td p,
@@ -17,7 +17,7 @@
 .jobDetail tr td h5,
 .jobDetail tr td h6 {
   margin-top: 0;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 .jobDetail tr td ul {
