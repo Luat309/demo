@@ -10,7 +10,7 @@ import InputTextController from "components/InputTextController";
 import InputNumberController from "components/InputNumberController";
 import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
-import { resetStatus, updateJobRequest } from "redux/jobRequest/actionCreator";
+import { updateJobRequest } from "redux/jobRequest/actionCreator";
 import { showMessage } from "redux/messageBox/actionCreator";
 import {
   getJobRequestById,
@@ -46,22 +46,6 @@ const FormUpdateJobRequest = () => {
       reason: undefined,
     });
   }, [reset, jobDetail]);
-
-  useEffect(() => {
-    if (status === STATUS_REQUEST.SUCCEEDED) {
-      dispatch(showMessage(message));
-      history.push("/admin/jobrequest");
-    }
-
-    return () => {
-      if (
-        status === STATUS_REQUEST.SUCCEEDED ||
-        status === STATUS_REQUEST.ERROR
-      ) {
-        dispatch(resetStatus());
-      }
-    };
-  }, [dispatch, history, status, message]);
 
   const fields = [
     { label: "Tên dự án", name: "title", type: "inputText", autoFocus: true },

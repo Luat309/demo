@@ -51,25 +51,6 @@ const JobRequestList = () => {
     { id: 3, name: "Chờ duyệt", code: "MOI_TAO", severity: "primary" },
   ];
 
-  useEffect(() => {
-    if (
-      status === STATUS_REQUEST.IDLE &&
-      Array.isArray(data) &&
-      data.length === 0
-    ) {
-      dispatch(fetchJobRequest());
-    }
-
-    return () => {
-      if (
-        status === STATUS_REQUEST.SUCCEEDED ||
-        status === STATUS_REQUEST.ERROR
-      ) {
-        dispatch(resetStatus());
-      }
-    };
-  }, [dispatch, status, data]);
-
   const handleClickView = (data) => {
     setJobDetail(data);
     setIsOpen(true);
@@ -329,6 +310,7 @@ const JobRequestList = () => {
       </div>
 
       {status === STATUS_REQUEST.LOADING && "Đang tải dữ liệu..."}
+      {status === STATUS_REQUEST.ERROR && data}
       {Array.isArray(data) && data.length > 0 && (
         <div className="card">
           <CustomDataTable
