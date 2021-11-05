@@ -38,7 +38,12 @@ const reducer = (state = initialState, action) => {
       };
 
     case JOBREQUEST_DELETE:
-      break;
+      return {
+        ...state,
+        message: action.message,
+        data: action.payload ?? state.data,
+        status: action.status
+      };
 
     case RESET_STATUS:
       return {

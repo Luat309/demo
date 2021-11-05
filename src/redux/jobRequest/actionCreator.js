@@ -86,7 +86,31 @@ export const updateJobRequest = (data) => async (dispatch) => {
   }
 };
 
-export const deleteJobRequest = (data) => async (dispatch) => {};
+export const deleteJobRequest = (id) => async (dispatch) => {
+  dispatch({
+    type: JOBREQUEST_DELETE,
+    message: "Đang xử lý",
+    status: STATUS_REQUEST.LOADING,
+  });
+
+  const res = await service.deleteJobRequest(id);
+
+  if (res.status === 200) {
+    dispatch({
+      type: JOBREQUEST_DELETE,
+      message: "Xóa thành công!",
+      payload: res.data,
+      status: STATUS_REQUEST.SUCCEEDED,
+    });
+  } else {
+    dispatch({
+      type: JOBREQUEST_DELETE,
+      message: "Xóa không thành công!",
+      payload: [],
+      status: STATUS_REQUEST.ERROR,
+    });
+  }
+};
 
 export const approvalJobRequest = (data) => async (dispatch) => {};
 
