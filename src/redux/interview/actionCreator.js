@@ -13,22 +13,23 @@ export const fetchInterview = () => async (dispatch) => {
   dispatch({
     type: INTERVIEW_FETCH,
     status: STATUS_REQUEST.LOADING,
-    payload: "PLEASE WAIT...",
+    payload: [],
   });
 
-  const res = await service.fetchInterview();
-
-  if (res.status === 200) {
-    dispatch({
-      type: INTERVIEW_FETCH,
-      status: STATUS_REQUEST.SUCCEEDED,
-      payload: res.data,
+  service
+    .fetchInterview()
+    .then((res) => {
+      dispatch({
+        type: INTERVIEW_FETCH,
+        status: STATUS_REQUEST.SUCCEEDED,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: INTERVIEW_FETCH,
+        status: STATUS_REQUEST.ERROR,
+        payload: error.message,
+      });
     });
-  } else {
-    dispatch({
-      type: INTERVIEW_FETCH,
-      status: STATUS_REQUEST.ERROR,
-      payload: "SOMETHING WENT WRONG...",
-    });
-  }
 };

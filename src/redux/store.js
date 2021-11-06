@@ -4,6 +4,7 @@ import rootReducer from "./rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { checkLogin } from "./middleware";
 import { fetchJobRequest } from "./jobRequest/actionCreator";
+import { fetchInterview } from "./interview/actionCreator";
 
 const store = createStore(
   rootReducer,
@@ -12,6 +13,7 @@ const store = createStore(
 
 if (localStorage.getItem("currentUser")) {
   store.dispatch(fetchJobRequest());
+  store.dispatch(fetchInterview())
 }
 
 export default store;

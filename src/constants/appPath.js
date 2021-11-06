@@ -19,39 +19,6 @@ export const INTERVIEW_CREATE = "/admin/interview/create";
 
 export const APP_MENU_ITEM = [
   {
-    label: "Ứng viên",
-    icon: "pi pi-fw pi-video",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={CANDIDATE}>
-                    Danh sách ứng viên
-                  </Link>
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={CANDIDATE_CREATE}
-                  >
-                    Tạo nguồn ứng viên
-                  </Link>
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
-  },
-  {
     label: "Yêu cầu tuyển dụng",
     icon: "pi pi-fw pi-users",
     items: [
@@ -70,11 +37,68 @@ export const APP_MENU_ITEM = [
             {
               template: () => (
                 <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={JOBREQUEST_CREATE}
-                  >
+                  <Link className="p-menuitem-link" to={JOBREQUEST_CREATE}>
                     Tạo yêu cầu
+                  </Link>
+                </li>
+              ),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    label: "Ứng viên",
+    icon: "pi pi-fw pi-video",
+    items: [
+      [
+        {
+          items: [
+            {
+              template: () => (
+                <li className="p-menuitem">
+                  <Link className="p-menuitem-link" to={CANDIDATE}>
+                    Danh sách ứng viên
+                  </Link>
+                </li>
+              ),
+            },
+            {
+              template: () => (
+                <li className="p-menuitem">
+                  <Link className="p-menuitem-link" to={CANDIDATE_CREATE}>
+                    Tạo nguồn ứng viên
+                  </Link>
+                </li>
+              ),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    label: "Lịch phỏng vấn",
+    icon: "pi pi-fw pi-cog",
+    items: [
+      [
+        {
+          items: [
+            {
+              template: () => (
+                <li className="p-menuitem">
+                  <Link className="p-menuitem-link" to={INTERVIEW}>
+                    Danh sách lịch phỏng vấn
+                  </Link>
+                </li>
+              ),
+            },
+            {
+              template: () => (
+                <li className="p-menuitem">
+                  <Link className="p-menuitem-link" to={INTERVIEW_CREATE}>
+                    Tạo lịch người phỏng vấn
                   </Link>
                 </li>
               ),
@@ -141,39 +165,6 @@ export const APP_MENU_ITEM = [
                     to="/admin/candidate/create"
                   >
                     Tạo nguồn ứng viên
-                  </Link>
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
-  },
-  {
-    label: "Lịch phỏng vấn",
-    icon: "pi pi-fw pi-cog",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={INTERVIEW}>
-                    Danh sách lịch phỏng vấn
-                  </Link>
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={INTERVIEW_CREATE}
-                  >
-                    Tạo lịch người phỏng vấn
                   </Link>
                 </li>
               ),

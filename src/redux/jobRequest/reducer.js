@@ -1,4 +1,4 @@
-import { STATUS_REQUEST } from "constants/app";
+import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import {
   JOBREQUEST_FETCH,
   JOBREQUEST_INSERT,
@@ -50,6 +50,42 @@ const reducer = (state = initialState, action) => {
         message: action.message,
         data: action?.payload
           ? state.data.filter((item) => item.id !== action.payload)
+          : state.data,
+        status: action.status,
+      };
+
+    case JOBREQUEST_APPROVAL:
+      return {
+        message: action.message,
+        data: action?.payload
+          ? state.data.map((item) => {
+              if (item.id === action.payload) {
+                return {
+                  ...item,
+                  status: APPROVAL_STATUS.DA_DUYET,
+                };
+              }
+
+              return item;
+            })
+          : state.data,
+        status: action.status,
+      };
+
+    case JOBREQUEST_REJECT:
+      return {
+        message: action.message,
+        data: action?.payload
+          ? state.data.map((item) => {
+              if (item.id === action.payload) {
+                return {
+                  ...item,
+                  status: APPROVAL_STATUS.TU_CHOI,
+                };
+              }
+
+              return item;
+            })
           : state.data,
         status: action.status,
       };

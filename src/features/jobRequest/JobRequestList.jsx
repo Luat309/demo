@@ -13,7 +13,13 @@ import { Tag } from "primereact/tag";
 import { MultiSelect } from "primereact/multiselect";
 import { Calendar } from "primereact/calendar";
 
-import { deleteJobRequest, fetchJobRequest, resetStatus } from "redux/jobRequest/actionCreator";
+import {
+  approvalJobRequest,
+  deleteJobRequest,
+  fetchJobRequest,
+  rejectJobRequest,
+  resetStatus,
+} from "redux/jobRequest/actionCreator";
 import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
@@ -65,7 +71,7 @@ const JobRequestList = () => {
       showConfirm(
         "Bạn có chắc muốn xóa yêu cầu tuyển dụng này không?",
         () => {
-          dispatch(deleteJobRequest(data.id))
+          dispatch(deleteJobRequest(data.id));
         },
         () => {
           console.log("Không");
@@ -79,7 +85,7 @@ const JobRequestList = () => {
       showConfirm(
         "Bạn có chắc muốn phê duyệt yêu cầu tuyển dụng này không?",
         () => {
-          console.log("Co phe duyet");
+          dispatch(approvalJobRequest(data.id));
         },
         () => {
           console.log("Phe duyet cc");
@@ -89,13 +95,11 @@ const JobRequestList = () => {
   };
 
   const handleClickReject = (data) => {
-    setIsOpen(!isOpen);
-
     dispatch(
       showConfirm(
         "Bạn có chắc muốn từ chối yêu cầu tuyển dụng này không?",
         () => {
-          console.log("Co tu choi");
+          dispatch(rejectJobRequest(data.id));
         },
         () => {
           console.log("Tu choi cc");

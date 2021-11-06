@@ -1,4 +1,5 @@
 import {
+  JOBREQUEST_APPROVE,
   JOBREQUEST_CREATE,
   JOBREQUEST_DELETE,
   JOBREQUEST_EDIT,
@@ -25,13 +26,13 @@ export default class JobRequestService {
   }
 
   approvalJobRequest(id) {
-    return Utils.post(JOBREQUEST_DELETE + id, {
+    return Utils.post(JOBREQUEST_APPROVE + id, {
       status: APPROVAL_STATUS.DA_DUYET,
     });
   }
 
   rejectJobRequest(id) {
-    return Utils.post(JOBREQUEST_DELETE + id, {
+    return Utils.post(JOBREQUEST_APPROVE + id, {
       status: APPROVAL_STATUS.TU_CHOI,
     });
   }
