@@ -5,6 +5,8 @@
 @import url("./custom/dataTable.css");
 @import url("./components/jobRequest/jobDetail.css");
 @import url("./components/jobRequest/jobFilter.css");
+@import url("./custom/button.css");
+
 html {
     font-size: 14px;
 }

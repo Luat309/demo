@@ -49,6 +49,7 @@ const JobRequestList = () => {
   const [filter, setFilter] = useState(false);
   const [statusFilter, setStatusFilter] = useState([]);
   const [deadLine, setDeadLine] = useState([]);
+  const { user } = JSON.parse(localStorage.getItem("currentUser"));
 
   const statuses = [
     { id: 0, name: "Từ chối", code: "TU_CHOI", severity: "danger" },
@@ -127,6 +128,8 @@ const JobRequestList = () => {
     }
   };
 
+  console.log('USER', user.role !== 1)
+
   const genActionCol = (data) => {
     return (
       <>
@@ -155,14 +158,18 @@ const JobRequestList = () => {
           onClick={() => handleClickApproval(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-check-circle"
-          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
+          disabled={
+            data.status !== APPROVAL_STATUS.CHO_DUYET || user.role !== 1
+          }
         />
         <Button
           tooltip="Từ chối"
           onClick={() => handleClickReject(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-times-circle"
-          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
+          disabled={
+            data.status !== APPROVAL_STATUS.CHO_DUYET || user.role !== 1
+          }
         />
       </>
     );
