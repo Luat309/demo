@@ -40,6 +40,7 @@ function postMultipart(path, data) {
     .post(url, data, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${currentUser?.accessToken}`,
       },
     })
 }
