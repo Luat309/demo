@@ -5,6 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { checkLogin } from "./middleware";
 import { fetchJobRequest } from "./jobRequest/actionCreator";
 import { fetchInterview } from "./interview/actionCreator";
+import { getCandidate } from "./candidate/action";
 
 const store = createStore(
     rootReducer,
@@ -13,7 +14,8 @@ const store = createStore(
 
 if (localStorage.getItem("currentUser")) {
   store.dispatch(fetchJobRequest());
-  store.dispatch(fetchInterview())
+  store.dispatch(fetchInterview());
+  store.dispatch(getCandidate())
 }
 
 export default store;

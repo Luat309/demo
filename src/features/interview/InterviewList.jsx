@@ -1,16 +1,12 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
-
 import { STATUS_REQUEST } from "constants/app";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchInterview } from "redux/interview/actionCreator";
 import { getInterviews, getStatusInterview } from "redux/interview/selector";
-import { fetchJobRequest } from "redux/jobRequest/actionCreator";
-import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 // import JobRequestDetail from "./JobRequestDetail";
 
 const items = [
@@ -19,99 +15,56 @@ const items = [
 ];
 
 const cols = [
-  // { field: "description", header: "Dac diem cua du an" },
-  { field: "job", header: "Dự án", width: "250px" },
-  { field: "round_no", header: "Vòng", width: "150px" },
-  { field: "position", header: "Địa điểm", width: "150px" },
+  { field: "job_name", header: "Dự án", width: "250px" },
+  { field: "round_no", header: "Vòng", width: "100px" },
+  { field: "location", header: "Địa điểm", width: "150px" },
   { field: "time_interview", header: "Thời gian", width: "200px" },
-  { field: "name_candidate", header: "Ứng viên", width: "150px" },
+  { field: "candidate_name", header: "Ứng viên", width: "150px" },
   { field: "receiver", header: "Người phỏng vấn", width: "150px" },
   { field: "action", header: <i className="pi pi-cog" />, width: "150px" },
 ];
 
 const InterviewList = () => {
-  const dispatch = useDispatch();
-  const statusJobRequest = useSelector(getStatusJobRequest);
-  const jobRequest = useSelector(getJobRequest);
   const statusInterview = useSelector(getStatusInterview);
   const interviews = useSelector(getInterviews);
   // const [jobDetail, setJobDetail] = useState();
   // const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (statusJobRequest === STATUS_REQUEST.IDLE) {
-      dispatch(fetchJobRequest());
-    }
-  }, [dispatch, statusJobRequest]);
-
-  useEffect(() => {
-    if (statusInterview === STATUS_REQUEST.IDLE) {
-      dispatch(fetchInterview());
-    }
-  }, [dispatch, statusInterview]);
-
   const genActionCol = (data) => {
     return (
       <>
         <Button
-          className="p-button-rounded p-button-text p-button-help"
-          icon="pi pi-pencil"
+          tooltip="Xem chi tiết"
+          // onClick={() => handleClickView(data)}
+          className="p-button-rounded p-button-text p-button-info"
+          icon="pi pi-eye"
         />
         <Button
+          tooltip="Cập nhật"
+          // onClick={() => handleClickUpdate(data)}
+          className="p-button-rounded p-button-text p-button-help"
+          icon="pi pi-pencil"
+          // disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
+        />
+        <Button
+          tooltip="Xóa"
+          // onClick={() => handleClickDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
+          // disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
       </>
     );
-  };
-
-  const genTimeInterview = (data) => {
-    return (
-      <>
-        {data.time_start} - {data.time_end}
-      </>
-    );
-  };
-
-  const genJobRequest = (data) => {
-    const jobRq = jobRequest.find((item) => item.id === data.job_id);
-    return jobRq.title;
   };
 
   const columns = cols.map(({ field, header, width }) => {
     switch (field) {
-      case "job":
-        return (
-          <Column
-            key={field}
-            header={header}
-            body={genJobRequest}
-            style={{
-              textAlign: "center",
-              width: width,
-            }}
-          />
-        );
-
       case "action":
         return (
           <Column
             key={field}
             header={header}
             body={genActionCol}
-            style={{
-              textAlign: "center",
-              width: width,
-            }}
-          />
-        );
-
-      case "time_interview":
-        return (
-          <Column
-            key={field}
-            header={header}
-            body={genTimeInterview}
             style={{
               textAlign: "center",
               width: width,
@@ -141,15 +94,11 @@ const InterviewList = () => {
         onHide={() => setIsOpen(false)}
       /> */}
       <CustomBreadCrumb items={items} />
-      {statusJobRequest === STATUS_REQUEST.LOADING && interviews}
-      {statusJobRequest === STATUS_REQUEST.SUCCEEDED && (
+      {statusInterview === STATUS_REQUEST.LOADING && "Đang tải dữ liệu..."}
+      {statusInterview === STATUS_REQUEST.SUCCEEDED && (
         <div className="card">
           <CustomDataTable
             selectionMode="single"
-            // onSelectionChange={(data) => {
-            //   setJobDetail(data.value);
-            //   setIsOpen(true);
-            // }}
             dataTable={interviews}
           >
             {columns}

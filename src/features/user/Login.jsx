@@ -46,7 +46,8 @@ const Login = () => {
         "currentUser",
         JSON.stringify({
           email: data.email,
-          accessToken: res.data.token,
+          accessToken: res.data.access_token,
+          user: res.data.user
         })
       );
     } else {

@@ -1,0 +1,1 @@
+export const getCandidates = (state) => state.candidate.candidate;

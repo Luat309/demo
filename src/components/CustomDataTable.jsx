@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
+import { Column } from "primereact/column";
 
 const CustomDataTable = React.forwardRef(
   ({ children, dataTable, showSearch = false, ...rest }, ref) => {
@@ -18,6 +19,10 @@ const CustomDataTable = React.forwardRef(
         </span>
       </div>
     );
+
+    const genIndex = (_data, props) => {
+      return props.rowIndex + 1;
+    };
 
     return (
       <DataTable
@@ -39,10 +44,12 @@ const CustomDataTable = React.forwardRef(
         emptyMessage="Không tìm thấy bản ghi"
         {...rest}
       >
-        {/* <Column
-          selectionMode="multiple"
-          headerStyle={{ width: "3rem" }}
-        ></Column> */}
+        <Column
+          header="STT"
+          body={genIndex}
+          // selectionMode="multiple"
+          style={{ width: "50px" }}
+        ></Column>
         {children}
       </DataTable>
     );
