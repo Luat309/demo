@@ -142,24 +142,28 @@ const JobRequestList = () => {
           onClick={() => handleClickUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <Button
           tooltip="Xóa"
           onClick={() => handleClickDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <Button
           tooltip="Phê duyệt"
           onClick={() => handleClickApproval(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-check-circle"
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <Button
           tooltip="Từ chối"
           onClick={() => handleClickReject(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-times-circle"
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
       </>
     );

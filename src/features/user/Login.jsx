@@ -46,7 +46,8 @@ const Login = () => {
         "currentUser",
         JSON.stringify({
           email: data.email,
-          accessToken: res.data.token,
+          accessToken: res.data.access_token,
+          user: res.data.user
         })
       );
     } else {
@@ -55,7 +56,7 @@ const Login = () => {
     }
 
     // history.push("/admin/dashboard");
-    window.location.href = "/admin/candidate";
+    window.location.href = "/admin/jobrequest";
 
     reset();
   };
