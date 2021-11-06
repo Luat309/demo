@@ -55,7 +55,7 @@ const Login = () => {
     }
 
     // history.push("/admin/dashboard");
-    window.location.href = "/admin/candidate";
+    window.location.href = "/admin/jobrequest";
 
     reset();
   };
