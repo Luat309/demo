@@ -74,19 +74,22 @@ const CandidateInterViewShow = () => {
         <CandidateDetail data={valueDetail} />
       </Dialog>
       <CustomBreadCrumb items={items} />
-      <CustomDataTable value={candidateInterview}>
-        <Column
-          field="candidate_id"
-          header="Thời gian phỏng vấn"
-          body={timeBodyTemplate}
-          style={{ width: "19%" }}
-        ></Column>
-        <Column field="candidate_name" header="Họ tên ứng viên"></Column>
-        <Column field="job_name" header="Dự án"></Column>
-        <Column field="viTriUngTuyen" header="Vị trí ứng tuyển"></Column>
-        <Column field="reviews" header="Nhận xét"></Column>
-        <Column header="Hành động" body={actionBodyTemplate}></Column>
-      </CustomDataTable>
+      <div className="card">
+        <CustomDataTable value={candidateInterview}>
+          <Column
+            field="candidate_id"
+            header="Thời gian phỏng vấn"
+            body={timeBodyTemplate}
+            style={{ width: "19%" }}
+          ></Column>
+          <Column field="candidate_name" header="Họ tên ứng viên"></Column>
+          <Column field="job_name" header="Dự án"></Column>
+          <Column field="viTriUngTuyen" header="Vị trí ứng tuyển"></Column>
+          <Column field="reviews" header="Nhận xét"></Column>
+          <Column field="result" header="Kết quả"></Column>
+          <Column header="Hành động" body={actionBodyTemplate}></Column>
+        </CustomDataTable>
+      </div>
     </div>
   );
 };

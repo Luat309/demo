@@ -36,8 +36,10 @@ const CandidateInterview = ({ data }) => {
     };
     if (newValue) {
       dispatch(createCandidateInterview(newValue));
-      history.push(CANDIDATE_INTERVIEW_SHOW);
       setShowMessage(false);
+      setTimeout(() => {
+        history.push(CANDIDATE_INTERVIEW_SHOW);
+      }, 2000);
       reset();
     }
   };

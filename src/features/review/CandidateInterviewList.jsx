@@ -93,7 +93,7 @@ const CandidateInterviewList = () => {
           body={jobBodyTemplate}
         ></Column>
         <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
-        <Column field="position" header="Địa điểm"></Column>
+        <Column field="location" header="Địa điểm"></Column>
         <Column
           field="name_candidate"
           header="Ứng viên"

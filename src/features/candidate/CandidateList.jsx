@@ -1,15 +1,20 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
 import { Column } from "primereact/column";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCandidate } from "redux/candidate/action";
+import { getCandidate, removeCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { getJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { useHistory } from "react-router";
+import { Calendar } from "primereact/calendar";
+import { MultiSelect } from "primereact/multiselect";
+import { Tag } from "primereact/tag";
+import { InputText } from "primereact/inputtext";
+import { compareTimeFromTo } from "utils/compareTime";
 
 const CandidateList = () => {
   const items = [{ label: "Ứng viên" }, { label: " Danh sách ứng viên" }];
@@ -18,12 +23,40 @@ const CandidateList = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [detailCandidate, setDetailCandidate] = useState();
   const { cadidate } = useSelector((state) => state.cadidate);
+  const [filter, setFilter] = useState(false);
   const job = useSelector(getJobRequest);
+  const [deadLine, setDeadLine] = useState([]);
+  const [statusFilter, setStatusFilter] = useState([]);
+  const [exp, setExp] = useState();
+  const [jobs, setJob] = useState("");
 
   useEffect(() => {
     dispath(getCandidate());
     dispath(fetchJobRequest());
   }, [dispath]);
+
+  const statuses = [
+    { id: 0, name: "Vòng CV", code: "Vòng CV" },
+    {
+      id: 1,
+      name: "CV pass vòng 1 (hr)",
+      code: "CV pass vòng 1 (hr)",
+    },
+    {
+      id: 2,
+      name: "CV pass vòng 2 (TBP)",
+      code: "CV pass vòng 2 (TBP)",
+    },
+    { id: 3, name: "Sắp xếp PV", code: "Sắp xếp PV" },
+    { id: 4, name: "PV Pass", code: "PV Pass" },
+    { id: 5, name: "PV Faild", code: "PV Faild" },
+  ];
+  const handleRemove = (id) => {
+    let confirm = window.confirm("ban chac chan muon xoas");
+    if (confirm) {
+      dispath(removeCandidate(id));
+    }
+  };
 
   const experienceBodyTemplate = (rowData) => {
     return <p>{rowData.experience} năm</p>;
@@ -57,6 +90,7 @@ const CandidateList = () => {
         <i
           className="pi pi-trash"
           style={{ color: "red", padding: "0 10px" }}
+          onClick={() => handleRemove(rowData.id)}
         ></i>
       </div>
     );
@@ -77,6 +111,45 @@ const CandidateList = () => {
       />
     </div>
   );
+
+  const statusTemplate = (option) => {
+    return (
+      <Tag className="p-mr-2" severity={option.severity} value={option.name} />
+    );
+  };
+  const selectedStatusTemplate = (option) => {
+    if (option) {
+      return (
+        <Tag
+          className="p-mr-2"
+          severity={option.severity}
+          value={option.name}
+        />
+      );
+    }
+
+    return "Trạng thái";
+  };
+  console.log(exp);
+  const dataFilter = useMemo(() => {
+    const statusSelected = statusFilter.map((item) => item.id);
+
+    if (statusSelected.length === 0 && deadLine.length === 0) {
+      return cadidate;
+    }
+
+    return (
+      Array.isArray(cadidate) &&
+      cadidate.filter((item) => {
+        return (
+          (statusSelected.length === 0 ||
+            statusSelected.indexOf(item.status) !== -1) &&
+          (deadLine.length === 0 ||
+            compareTimeFromTo(item.deadline, deadLine[0], deadLine[1]))
+        );
+      })
+    );
+  }, [deadLine, statusFilter, cadidate]);
 
   return (
     <>
@@ -140,29 +213,83 @@ const CandidateList = () => {
         </h4>
       </div>
       <div className="input-search"></div>
+      <Button
+        icon="pi pi-filter"
+        className="p-button-raised p-button-help"
+        label="Bộ lọc"
+        onClick={() => setFilter(!filter)}
+      />
 
-      <CustomDataTable value={cadidate}>
-        <Column field="name" header="Tên " style={{ width: "20%" }}></Column>
-        <Column
-          field="experience"
-          header="Kinh nghiệm"
-          body={experienceBodyTemplate}
-          style={{ width: "10%" }}
-        ></Column>
-        <Column
-          field="created_at"
-          header="Ngày Tạo"
-          body={dateBodyTemplate}
-        ></Column>
-        <Column field="job_id" header="Dự án" body={jobBodyTemplate}></Column>
-        <Column field="status" header="Trạng thái"></Column>
-        <Column
-          field=""
-          header="Hành động"
-          body={actionBodyTemplate}
-          style={{ width: "20%" }}
-        ></Column>
-      </CustomDataTable>
+      <div className={`card filter_element ${!filter && "hide"}`}>
+        <Calendar
+          id="range"
+          className="mr-1"
+          value={deadLine}
+          showButtonBar
+          dateFormat="dd/mm/yy"
+          onChange={(e) => setDeadLine(e.value)}
+          onClearButtonClick={() => setDeadLine([])}
+          selectionMode="range"
+          placeholder="Ngày tạo"
+          readOnlyInput
+        />
+        <MultiSelect
+          className="mr-1"
+          value={statusFilter}
+          itemTemplate={statusTemplate}
+          selectedItemTemplate={selectedStatusTemplate}
+          options={statuses}
+          onChange={(e) => setStatusFilter(e.value)}
+          optionLabel="name"
+          placeholder="Trạng thái"
+          display="chip"
+        />
+        <span className="p-input-icon-left mr-1">
+          <i className="pi pi-search" />
+          <InputText
+            value={exp}
+            placeholder="Kinh nghiệm"
+            onChange={(e) => setExp(e.target.value)}
+          />
+        </span>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            value={jobs}
+            placeholder="Dự án"
+            onChange={(e) => setJob(e.target.value)}
+          />
+        </span>
+      </div>
+
+      <div className="card">
+        <CustomDataTable
+          value={dataFilter}
+          showSearch={true}
+          selectionMode="single"
+        >
+          <Column field="name" header="Tên " style={{ width: "20%" }}></Column>
+          <Column
+            field="experience"
+            header="Kinh nghiệm"
+            body={experienceBodyTemplate}
+            style={{ width: "10%" }}
+          ></Column>
+          <Column
+            field="created_at"
+            header="Ngày Tạo"
+            body={dateBodyTemplate}
+          ></Column>
+          <Column field="job_id" header="Dự án" body={jobBodyTemplate}></Column>
+          <Column field="status" header="Trạng thái"></Column>
+          <Column
+            field=""
+            header="Hành động"
+            body={actionBodyTemplate}
+            style={{ width: "20%" }}
+          ></Column>
+        </CustomDataTable>
+      </div>
     </>
   );
 };

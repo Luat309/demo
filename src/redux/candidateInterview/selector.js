@@ -22,5 +22,6 @@ export const getCandidateInterviews = (state) => {
     viTriUngTuyen:
       jobRequest?.[candidate?.[item.candidate_id]?.job_id]?.position,
     round: interview?.[item.interview_id]?.round_no,
+    location: interview?.[item.interview_id]?.location,
   }));
 };

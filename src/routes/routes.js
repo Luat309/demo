@@ -3,7 +3,8 @@ import {
     CANDIDATE,
     INTERVIEW,
     INTERVIEW_CREATE,
-    //   CANDIDATE_CREATE,
+    CANDIDATE_CREATE,
+    CANDIDATE_EDIT,
     //   INTERVIEW,
     //   INTERVIEW_CREATE,
     JOBREQUEST,
@@ -18,6 +19,10 @@ import {
 
 const CandidateList = lazy(() =>
     import ("features/candidate/CandidateList"));
+const CandidateCreate = lazy(() =>
+    import ("features/candidate/CandidateCreat"));
+const CandidateEdit = lazy(() =>
+    import ("features/candidate/CandidateEdit"));
 const JobRequestList = lazy(() =>
     import ("features/jobRequest/JobRequestList"));
 const JobRequestInsert = lazy(() =>
@@ -59,6 +64,18 @@ const routes = [{
         path: CANDIDATE,
         name: "candidate",
         component: CandidateList,
+        exact: true,
+    },
+    {
+        path: CANDIDATE_CREATE,
+        name: "candidateCreate",
+        component: CandidateCreate,
+        exact: true,
+    },
+    {
+        path: CANDIDATE_EDIT,
+        name: "candidateCreate",
+        component: CandidateEdit,
         exact: true,
     },
     {
