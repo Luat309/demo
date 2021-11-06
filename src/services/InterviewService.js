@@ -7,8 +7,8 @@ import {
   import { Utils } from "./util";
   
   export default class InterviewService {
-    fetchInterview(query) {
-      return Utils.get(INTERVIEW_LIST, query);
+    fetchInterview() {
+      return Utils.get(INTERVIEW_LIST);
     }
   
     createInterview(data) {

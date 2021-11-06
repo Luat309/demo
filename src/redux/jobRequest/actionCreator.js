@@ -6,7 +6,8 @@ import {
   JOBREQUEST_INSERT,
   JOBREQUEST_UPDATE,
   JOBREQUEST_DELETE,
-  RESET_STATUS,
+  JOBREQUEST_REJECT,
+  JOBREQUEST_APPROVAL,
 } from "./constant";
 
 const service = new JobRequestService();
@@ -122,6 +123,54 @@ export const deleteJobRequest = (id) => (dispatch) => {
     });
 };
 
-export const approvalJobRequest = (data) => async (dispatch) => {};
+export const approvalJobRequest = (id) => async (dispatch) => {
+  dispatch({
+    type: JOBREQUEST_APPROVAL,
+    message: "Đang xử lý",
+    status: STATUS_REQUEST.LOADING,
+  });
 
-export const rejectJobRequest = (data) => async (dispatch) => {};
+  service
+    .approvalJobRequest(id)
+    .then((res) => {
+      dispatch({
+        type: JOBREQUEST_APPROVAL,
+        message: "Phê duyệt thành công!",
+        payload: id,
+        status: STATUS_REQUEST.SUCCEEDED,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: JOBREQUEST_APPROVAL,
+        message: error.message,
+        status: STATUS_REQUEST.ERROR,
+      });
+    });
+};
+
+export const rejectJobRequest = (id) => async (dispatch) => {
+  dispatch({
+    type: JOBREQUEST_REJECT,
+    message: "Đang xử lý",
+    status: STATUS_REQUEST.LOADING,
+  });
+
+  service
+    .rejectJobRequest(id)
+    .then((res) => {
+      dispatch({
+        type: JOBREQUEST_REJECT,
+        message: "Từ chối thành công!",
+        payload: id,
+        status: STATUS_REQUEST.SUCCEEDED,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: JOBREQUEST_REJECT,
+        message: error.message,
+        status: STATUS_REQUEST.ERROR,
+      });
+    });
+};
