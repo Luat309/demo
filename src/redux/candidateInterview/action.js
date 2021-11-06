@@ -21,7 +21,8 @@ export const createCandidateInterview = (item) => async dispatch => {
 }
 export const editCandidateInterview = (item) => async dispatch => {
     try {
-        const res = await servicer.editCandidateInterview(item.id, item);
+        const res = await servicer.editCandidateInterview(item);
+        console.log(res);
         dispatch({ type: CANDIDATE_INTERVIEW_EDIT, payload: res.data })
     } catch (error) {
 

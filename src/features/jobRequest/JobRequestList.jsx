@@ -13,7 +13,11 @@ import { Tag } from "primereact/tag";
 import { MultiSelect } from "primereact/multiselect";
 import { Calendar } from "primereact/calendar";
 
-import { deleteJobRequest, fetchJobRequest, resetStatus } from "redux/jobRequest/actionCreator";
+import {
+  deleteJobRequest,
+  fetchJobRequest,
+  resetStatus,
+} from "redux/jobRequest/actionCreator";
 import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
@@ -61,13 +65,11 @@ const JobRequestList = () => {
   };
 
   const handleClickDelete = (data) => {
-    setIsOpen(!isOpen);
-
     dispatch(
       showConfirm(
         "Bạn có chắc muốn xóa yêu cầu tuyển dụng này không?",
         () => {
-          dispatch(deleteJobRequest(data.id))
+          dispatch(deleteJobRequest(data.id));
         },
         () => {
           console.log("Không");
@@ -77,8 +79,6 @@ const JobRequestList = () => {
   };
 
   const handleClickApproval = (data) => {
-    setIsOpen(!isOpen);
-
     dispatch(
       showConfirm(
         "Bạn có chắc muốn phê duyệt yêu cầu tuyển dụng này không?",
@@ -315,11 +315,6 @@ const JobRequestList = () => {
         <div className="card">
           <CustomDataTable
             selectionMode="single"
-            onSelectionChange={(data) => {
-              console.log("(((");
-              setJobDetail(data.value);
-              setIsOpen((prevState) => !prevState);
-            }}
             dataTable={dataFilter}
             showSearch={true}
           >

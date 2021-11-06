@@ -5,13 +5,13 @@ import { Column } from "primereact/column";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCandidateInterview } from "redux/candidateInterview/action";
-import { fetchInterview } from "redux/interview/actionCreator";
-import { getCandidate } from "redux/candidate/action";
-import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import "moment/locale/vi";
 import { getCandidateInterviews } from "redux/candidateInterview/selector";
 import { Dialog } from "primereact/dialog";
 import CandidateDetail from "./CandidateDetail";
+import { useHistory } from "react-router";
+import { fetchJobRequest } from "redux/jobRequest/actionCreator";
+import { getCandidate } from "redux/candidate/action";
 
 const items = [{ label: "Đánh Giá Ứng viên" }, { label: " Đánh giá" }];
 const CandidateInterViewShow = () => {
@@ -19,11 +19,14 @@ const CandidateInterViewShow = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [valueDetail, setValueDetail] = useState();
+  const history = useHistory();
 
   const candidateInterview = useSelector(getCandidateInterviews);
 
   useEffect(() => {
     dispatch(getCandidateInterview());
+    dispatch(fetchJobRequest());
+    dispatch(getCandidate());
   }, [dispatch]);
 
   const timeBodyTemplate = (rowData) => {
@@ -43,11 +46,20 @@ const CandidateInterViewShow = () => {
 
   const actionBodyTemplate = (rowData) => {
     return (
-      <i
-        className="pi pi-eye"
-        style={{ color: "blue", padding: "0 10px" }}
-        onClick={() => handleDetail(rowData)}
-      ></i>
+      <div>
+        <i
+          className="pi pi-eye mr-1"
+          style={{ color: "blue", padding: "0 10px" }}
+          onClick={() => handleDetail(rowData)}
+        ></i>
+        <i
+          className="pi pi-pencil"
+          style={{ color: "orange" }}
+          onClick={() =>
+            history.push(`/admin/candidate/interview/edit/${rowData.id}`)
+          }
+        ></i>
+      </div>
     );
   };
 

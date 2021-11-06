@@ -11,13 +11,7 @@ import InputNumberController from "components/InputNumberController";
 import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
 import { updateJobRequest } from "redux/jobRequest/actionCreator";
-import { showMessage } from "redux/messageBox/actionCreator";
-import {
-  getJobRequestById,
-  getMessageJobRequest,
-  getStatusJobRequest,
-} from "redux/jobRequest/selector";
-import { STATUS_REQUEST } from "constants/app";
+import { getJobRequestById } from "redux/jobRequest/selector";
 import formatTime from "utils/formatTime";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Cập nhật yêu cầu" }];
@@ -25,8 +19,6 @@ const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Cập nhật y�
 const FormUpdateJobRequest = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const status = useSelector(getStatusJobRequest);
-  const message = useSelector(getMessageJobRequest);
   const { id } = useParams();
   const jobDetail = useSelector(getJobRequestById(id));
   const {
@@ -107,9 +99,11 @@ const FormUpdateJobRequest = () => {
     dispatch(
       updateJobRequest({
         ...data,
-        deadline: formatTime.formatShortsDate(data.deadline),
+        deadline: formatTime.formatShortsDate(data?.deadline),
       })
     );
+
+    history.push("/admin/jobrequest");
   };
 
   return (
@@ -118,12 +112,7 @@ const FormUpdateJobRequest = () => {
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-fluid p-formgrid p-grid">{formRender}</div>
-          {status === STATUS_REQUEST.IDLE && (
-            <Button type="submit" label="Cập nhật yêu cầu" />
-          )}
-          {status === STATUS_REQUEST.LOADING && (
-            <Button label={message} loading />
-          )}
+          <Button type="submit" label="Cập nhật yêu cầu" />
         </form>
       </div>
     </>

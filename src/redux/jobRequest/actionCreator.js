@@ -1,4 +1,5 @@
 import { STATUS_REQUEST } from "constants/app";
+import { showMessage } from "redux/messageBox/actionCreator";
 import JobRequestService from "services/JobRequestService";
 import {
   JOBREQUEST_FETCH,
@@ -51,6 +52,8 @@ export const insertJobRequest = (data) => (dispatch) => {
         payload: res.data,
         status: STATUS_REQUEST.SUCCEEDED,
       });
+
+      dispatch(showMessage("Thêm yêu cầu thành công!"));
     })
     .catch((error) => {
       dispatch({
@@ -58,6 +61,8 @@ export const insertJobRequest = (data) => (dispatch) => {
         message: error.message,
         status: STATUS_REQUEST.ERROR,
       });
+
+      dispatch(showMessage(error.message));
     });
 };
 
@@ -74,9 +79,11 @@ export const updateJobRequest = (data) => async (dispatch) => {
       dispatch({
         type: JOBREQUEST_UPDATE,
         message: "Cập nhật thành công!",
-        payload: res.data,
+        payload: data,
         status: STATUS_REQUEST.SUCCEEDED,
       });
+
+      dispatch(showMessage("Cập nhật thành công!"));
     })
     .catch((error) => {
       dispatch({
@@ -84,6 +91,8 @@ export const updateJobRequest = (data) => async (dispatch) => {
         message: error.message,
         status: STATUS_REQUEST.ERROR,
       });
+
+      dispatch(showMessage(error.message));
     });
 };
 
@@ -100,7 +109,7 @@ export const deleteJobRequest = (id) => (dispatch) => {
       dispatch({
         type: JOBREQUEST_DELETE,
         message: "Xóa thành công!",
-        payload: res.data,
+        payload: id,
         status: STATUS_REQUEST.SUCCEEDED,
       });
     })

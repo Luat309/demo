@@ -11,7 +11,8 @@ import {
     JOBREQUEST_EDIT,
     //   REPORT,
     CANDIDATE_INTERVIEW_LIST,
-    CANDIDATE_INTERVIEW_SHOW
+    CANDIDATE_INTERVIEW_SHOW,
+    CANDIDATE_INTERVIEW_EDIT
 } from "constants/appPath";
 
 
@@ -33,6 +34,8 @@ const CandidateInterviewList = lazy(() =>
     import ("features/review/CandidateInterviewList"));
 const CandidateInterviewShow = lazy(() =>
     import ("features/review/CandidateInterViewShow"));
+const EditCandidateInterview = lazy(() =>
+    import ("features/review/EditCandidateInterview"));
 
 const routes = [{
         path: JOBREQUEST,
@@ -79,6 +82,12 @@ const routes = [{
         path: CANDIDATE_INTERVIEW_SHOW,
         name: "candidateInterviewShow",
         component: CandidateInterviewShow,
+        exact: true,
+    },
+    {
+        path: CANDIDATE_INTERVIEW_EDIT,
+        name: "candidateInterviewEdit",
+        component: EditCandidateInterview,
         exact: true,
     }
 ];

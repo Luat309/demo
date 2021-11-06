@@ -7,7 +7,7 @@ import { getCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { getData, getJobRequest } from "redux/jobRequest/selector";
+import { getJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { useHistory } from "react-router";
 

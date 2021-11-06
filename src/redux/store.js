@@ -10,6 +10,8 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(thunk, checkLogin))
 );
 
-store.dispatch(fetchJobRequest())
+if (localStorage.getItem("currentUser")) {
+  store.dispatch(fetchJobRequest());
+}
 
 export default store;

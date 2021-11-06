@@ -2,22 +2,24 @@ import CustomBreadCrumb from "components/CustomBreadCrumb";
 import { CANDIDATE_INTERVIEW_SHOW } from "constants/appPath";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { createCandidateInterview } from "redux/candidateInterview/action";
+import { useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router";
+import { editCandidateInterview } from "redux/candidateInterview/action";
+import { getCandidateInterviews } from "redux/candidateInterview/selector";
 import "./style.scss";
 
-const items = [
-  { label: "Đánh Giá Ứng viên" },
-  { label: "Tạo Đánh Giá Ứng Viên" },
-];
-
-const CandidateInterview = ({ data }) => {
-  const history = useHistory();
+const items = [{ label: "Đánh Giá Ứng viên" }, { label: "Sửa Đánh giá" }];
+const EditCandidateInterview = () => {
+  const { id } = useParams();
+  const candidateInterview = useSelector(getCandidateInterviews);
+  const [findValue, setFindValue] = useState();
   const [showMessage, setShowMessage] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const {
     register,
     formState: { errors },
@@ -25,21 +27,19 @@ const CandidateInterview = ({ data }) => {
     reset,
   } = useForm();
 
-  const onSubmit = (value) => {
+  useEffect(() => {
+    const find = candidateInterview.find((item) => item.id === Number(id));
+    setFindValue(find);
+    reset({ ...find });
+  }, [findValue]);
+
+  const handleEdit = (value) => {
+    dispatch(editCandidateInterview(value));
     setShowMessage(true);
-    const newValue = {
-      ...value,
-      candidate_id: data.name_candidate,
-      interview_id: data.id,
-      time_start: data.time_start,
-      time_end: data.time_end,
-    };
-    if (newValue) {
-      dispatch(createCandidateInterview(newValue));
+    setTimeout(() => {
       history.push(CANDIDATE_INTERVIEW_SHOW);
-      setShowMessage(false);
-      reset();
-    }
+    }, 2000);
+    reset();
   };
 
   return (
@@ -59,19 +59,20 @@ const CandidateInterview = ({ data }) => {
           ></i>
           <h5>Thành công!</h5>
           <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
-            Bạn đánh giá thành công!
+            Sửa đánh giá thành công!
           </p>
         </div>
       </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
-        <form className="gird" onSubmit={handleSubmit(onSubmit)}>
+        <form className="gird" onSubmit={handleSubmit(handleEdit)}>
           <div className="candidate_left">
             <div>
               <p>i,Tư duy</p>
               <label htmlFor="thinking">Hệ thống,login *</label>
               <br />
               <input
+                defaultValue={findValue?.thinking}
                 type="number"
                 min={0}
                 max={5}
@@ -91,6 +92,7 @@ const CandidateInterview = ({ data }) => {
                 min={0}
                 max={5}
                 type="number"
+                defaultValue={findValue?.persistent_perseverance}
                 {...register("persistent_perseverance", { required: true })}
               />
               {errors.persistent_perseverance && (
@@ -106,6 +108,7 @@ const CandidateInterview = ({ data }) => {
                 type="number"
                 min={0}
                 max={5}
+                defaultValue={findValue?.career_goals}
                 {...register("career_goals", {
                   required: true,
                 })}
@@ -121,6 +124,7 @@ const CandidateInterview = ({ data }) => {
               <label htmlFor="result">Kết quả*</label>
               <br />
               <select
+                value={findValue?.result}
                 className="select"
                 id=""
                 {...register("result", { required: true })}
@@ -146,6 +150,7 @@ const CandidateInterview = ({ data }) => {
                 min={0}
                 max={5}
                 type="number"
+                defaultValue={findValue?.specialize_skill}
                 {...register("specialize_skill", { required: true })}
               />
               {errors.specialize_skill && (
@@ -162,6 +167,7 @@ const CandidateInterview = ({ data }) => {
                 type="number"
                 min={0}
                 max={5}
+                defaultValue={findValue?.english}
                 {...register("english", { required: true })}
               />
               {errors.english && (
@@ -177,6 +183,7 @@ const CandidateInterview = ({ data }) => {
                 min={0}
                 max={5}
                 type="number"
+                defaultValue={findValue?.adaptability}
                 {...register("adaptability", { required: true })}
               />
               {errors.adaptability && (
@@ -190,6 +197,7 @@ const CandidateInterview = ({ data }) => {
               <br />
               <input
                 type="text"
+                defaultValue={findValue?.time_onbroad}
                 {...register("time_onbroad", { required: true })}
               />
               {errors.time_onbroad && (
@@ -202,6 +210,7 @@ const CandidateInterview = ({ data }) => {
               <label htmlFor="reviews">Nhận xét*</label>
               <br />
               <textarea
+                defaultValue={findValue?.reviews}
                 cols={20}
                 {...register("reviews", { required: true })}
               />
@@ -213,7 +222,7 @@ const CandidateInterview = ({ data }) => {
             </div>
           </div>
           <Button
-            label="Đánh giá ứng viên ứng viên"
+            label="Sửa đánh giá ứng viên ứng viên"
             type="submit"
             style={{ display: "flex", justifyContent: "center" }}
           />
@@ -223,4 +232,4 @@ const CandidateInterview = ({ data }) => {
   );
 };
 
-export default CandidateInterview;
+export default EditCandidateInterview;
