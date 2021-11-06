@@ -5,8 +5,8 @@ export const JOBREQUEST_CREATE = "/admin/jobrequest/create";
 export const JOBREQUEST_EDIT = "/admin/jobrequest/edit/:id";
 
 export const CANDIDATE = "/admin/candidate";
-export const CANDIDATE_ADD = "/admin/candidate/creat";
 export const CANDIDATE_CREATE = "/admin/candidate/create";
+export const CANDIDATE_EDIT = "/admin/candidate/edit/:id";
 
 export const ASSESSMENT = "/admin/assessment";
 

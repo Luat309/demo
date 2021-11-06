@@ -48,13 +48,13 @@ const CandidateEdit = () => {
       />
     </div>
   );
+
   const onUploadImage = () => {
-    console.log(file.current);
     setImage(file.current.files[0]);
   };
+
   const onUploadCV = () => {
-    console.log(CV.current);
-    setCV(CV.current?.files[0]);
+    setCV(CV.current.files[0]);
   };
 
   let formData = new FormData();
@@ -65,11 +65,18 @@ const CandidateEdit = () => {
     formData.append("source", data.source);
     formData.append("experience", data.experience);
     formData.append("school", data.school);
-    formData.append("image", file.current !== null ? image : detailId.image);
+    formData.append(
+      "image",
+      file.current !== undefined ? image : detailId.image
+    );
     formData.append("job_id", data.job_id);
     formData.append("status", data.status);
-    formData.append("cv", CV.current !== null ? Cv : detailId.cv);
-    dispatch(editCandidate(formData));
+    formData.append("cv", CV.current !== undefined ? Cv : detailId.cv);
+    dispatch(editCandidate(id, formData));
+    setShowMessage(true);
+    setTimeout(() => {
+      history.push("/admin/candidate");
+    }, 2000);
   };
   return (
     <>
@@ -89,7 +96,7 @@ const CandidateEdit = () => {
           ></i>
           <h5>Thành công!</h5>
           <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
-            Bạn đã thêm ứng viên thành công!
+            Bạn đã sửa ứng viên thành công!
           </p>
         </div>
       </Dialog>
@@ -161,12 +168,7 @@ const CandidateEdit = () => {
             <div>
               <label htmlFor="lastname6">Thêm ảnh*</label>
               <br />
-              <input
-                type="file"
-                ref={file}
-                {...register("image")}
-                onChange={onUploadImage}
-              />
+              <input type="file" ref={file} onChange={onUploadImage} />
               <img
                 src={`http://35.240.196.153/storage/images/candidate/${detailId?.image}`}
                 alt=""
@@ -177,12 +179,7 @@ const CandidateEdit = () => {
             <div>
               <label htmlFor="lastname6">CV*</label>
               <br />
-              <input
-                type="file"
-                ref={CV}
-                {...register("cv")}
-                onChange={onUploadCV}
-              />
+              <input type="file" ref={CV} onChange={onUploadCV} />
               <a
                 href={`http://35.240.196.153/storage/cv/${detailId?.cv}`}
                 rel="_blank"
@@ -194,10 +191,9 @@ const CandidateEdit = () => {
               <label htmlFor="status">Trạng thái*</label>
               <br />
               <select
-                value={detailId?.status}
+                defaultValue={detailId?.status}
                 {...register("status", { required: true })}
               >
-                <option>Trạng thái</option>
                 <option value="Vòng CV">Vòng CV</option>
                 <option value="CV pass vòng 1 (hr)">CV pass vòng 1 (hr)</option>
                 <option value="CV pass vòng 2 (TBP)">
@@ -220,9 +216,8 @@ const CandidateEdit = () => {
                 name=""
                 id=""
                 {...register("source", { required: true })}
-                value={detailId?.source}
+                defaultValue={detailId?.source}
               >
-                <option>Nguồn</option>
                 <option value="Vnws">Vnws</option>
                 <option value="Top CV">Top CV</option>
                 <option value="Tìm việc nhanh">Tìm việc nhanh</option>
@@ -243,7 +238,7 @@ const CandidateEdit = () => {
                 name=""
                 id=""
                 {...register("job_id", { required: true })}
-                value={detailId?.job_id}
+                defaultValue={detailId?.job_id}
               >
                 {data.map
                   ? data.map((item) => {

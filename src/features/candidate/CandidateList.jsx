@@ -3,7 +3,7 @@ import CustomDataTable from "components/CustomDataTable";
 import { Column } from "primereact/column";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCandidate } from "redux/candidate/action";
+import { getCandidate, removeCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -51,6 +51,12 @@ const CandidateList = () => {
     { id: 4, name: "PV Pass", code: "PV Pass" },
     { id: 5, name: "PV Faild", code: "PV Faild" },
   ];
+  const handleRemove = (id) => {
+    let confirm = window.confirm("ban chac chan muon xoas");
+    if (confirm) {
+      dispath(removeCandidate(id));
+    }
+  };
 
   const experienceBodyTemplate = (rowData) => {
     return <p>{rowData.experience} năm</p>;
@@ -84,6 +90,7 @@ const CandidateList = () => {
         <i
           className="pi pi-trash"
           style={{ color: "red", padding: "0 10px" }}
+          onClick={() => handleRemove(rowData.id)}
         ></i>
       </div>
     );
@@ -223,7 +230,7 @@ const CandidateList = () => {
           onChange={(e) => setDeadLine(e.value)}
           onClearButtonClick={() => setDeadLine([])}
           selectionMode="range"
-          placeholder="Hạn tuyển"
+          placeholder="Ngày tạo"
           readOnlyInput
         />
         <MultiSelect
