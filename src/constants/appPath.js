@@ -17,6 +17,11 @@ export const USER = "/admin/user";
 export const INTERVIEW = "/admin/interview";
 export const INTERVIEW_CREATE = "/admin/interview/create";
 
+export const CANDIDATE_INTERVIEW_LIST = "/admin/candidate/interview";
+export const CANDIDATE_INTERVIEW_SHOW = "/admin/candidate/interview/show";
+export const CANDIDATE_INTERVIEW = "/admin/candidate/interview/review";
+export const CANDIDATE_INTERVIEW_EDIT = "/admin/candidate/interview/edit/:id";
+
 export const APP_MENU_ITEM = [
   {
     label: "Yêu cầu tuyển dụng",
@@ -29,8 +34,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={JOBREQUEST}>
-                    Danh sách yêu cầu
-                  </Link>
+                    Danh sách yêu cầu{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -38,8 +43,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={JOBREQUEST_CREATE}>
-                    Tạo yêu cầu
-                  </Link>
+                    Tạo yêu cầu{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -59,8 +64,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={CANDIDATE}>
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -68,8 +73,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={CANDIDATE_CREATE}>
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -89,8 +94,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={INTERVIEW}>
-                    Danh sách lịch phỏng vấn
-                  </Link>
+                    Danh sách lịch phỏng vấn{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -98,8 +103,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to={INTERVIEW_CREATE}>
-                    Tạo lịch người phỏng vấn
-                  </Link>
+                    Tạo lịch người phỏng vấn{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -118,9 +123,12 @@ export const APP_MENU_ITEM = [
             {
               template: () => (
                 <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                  <Link
+                    className="p-menuitem-link"
+                    to={CANDIDATE_INTERVIEW_LIST}
+                  >
+                    Tạo đánh giá ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -129,10 +137,10 @@ export const APP_MENU_ITEM = [
                 <li className="p-menuitem">
                   <Link
                     className="p-menuitem-link"
-                    to="/admin/candidate/create"
+                    to={CANDIDATE_INTERVIEW_SHOW}
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Đánh giá{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -152,8 +160,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -164,8 +172,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -185,8 +193,8 @@ export const APP_MENU_ITEM = [
               template: () => (
                 <li className="p-menuitem">
                   <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên
-                  </Link>
+                    Danh sách ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },
@@ -197,8 +205,8 @@ export const APP_MENU_ITEM = [
                     className="p-menuitem-link"
                     to="/admin/candidate/create"
                   >
-                    Tạo nguồn ứng viên
-                  </Link>
+                    Tạo nguồn ứng viên{" "}
+                  </Link>{" "}
                 </li>
               ),
             },

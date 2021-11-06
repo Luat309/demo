@@ -22,11 +22,11 @@ ReactDOM.render(
       <CustomConfirmBox />
       <Router>
         <Switch>
-          <Route path="/login" component={Login} exact={true} />
-          <PrivateRoute path="/" component={App} exact={false} />
-        </Switch>
-      </Router>
-    </Provider>
+          <Route path="/login" component={Login} exact={true} />{" "}
+          <PrivateRoute path="/" component={App} exact={false} />{" "}
+        </Switch>{" "}
+      </Router>{" "}
+    </Provider>{" "}
   </React.StrictMode>,
   document.getElementById("root")
 );

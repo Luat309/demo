@@ -7,8 +7,8 @@ import { fetchJobRequest } from "./jobRequest/actionCreator";
 import { fetchInterview } from "./interview/actionCreator";
 
 const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, checkLogin))
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk, checkLogin))
 );
 
 if (localStorage.getItem("currentUser")) {
