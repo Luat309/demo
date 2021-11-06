@@ -22,6 +22,7 @@ const CandidateInterViewShow = () => {
   const history = useHistory();
 
   const candidateInterview = useSelector(getCandidateInterviews);
+  console.log(candidateInterview);
 
   useEffect(() => {
     dispatch(getCandidateInterview());
@@ -85,6 +86,7 @@ const CandidateInterViewShow = () => {
         <Column field="job_name" header="Dự án"></Column>
         <Column field="viTriUngTuyen" header="Vị trí ứng tuyển"></Column>
         <Column field="reviews" header="Nhận xét"></Column>
+        <Column field="result" header="Kết quả"></Column>
         <Column header="Hành động" body={actionBodyTemplate}></Column>
       </CustomDataTable>
     </div>

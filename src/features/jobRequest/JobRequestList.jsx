@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -25,6 +25,7 @@ import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
 import { showConfirm } from "redux/confirmBox/actionCreator";
+import { InputText } from "primereact/inputtext";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
 
