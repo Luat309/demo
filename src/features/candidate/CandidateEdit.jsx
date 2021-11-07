@@ -172,6 +172,7 @@ const CandidateEdit = () => {
               <img
                 src={`http://35.240.196.153/storage/images/candidate/${detailId?.image}`}
                 alt=""
+                width="350px"
               />
             </div>
           </div>

@@ -42,9 +42,9 @@ const CandidateInterviewList = () => {
   const timeBodyTemplate = (rowData) => {
     return (
       <p>
-        {moment(rowData.time_start).format("hh/mm/ss dd/mm/yyyy")}
+        {moment(rowData.time_start).format("HH:mm, DD/MM/YYYY")}
         {"-"}
-        {moment(rowData.time_end).format("H:m:ss dd/mm/yyyy")}
+        {moment(rowData.time_end).format("HH:mm, DD/MM/YYYY")}
       </p>
     );
   };
@@ -64,13 +64,17 @@ const CandidateInterviewList = () => {
     setDateInterview(data);
   };
   const actionBodyTemplate = (rowData) => {
+    console.log(rowData.time_end, "end");
+    console.log(rowData.time_start, "start");
     return (
       <>
-        <Button
-          onClick={() => handleCandidateInterView(rowData)}
-          label="Đánh giá"
-          className="p-button-raised p-button-secondary p-button-text"
-        />
+        {moment(rowData.time_end).isBefore() && (
+          <Button
+            onClick={() => handleCandidateInterView(rowData)}
+            label="Đánh giá"
+            className="p-button-raised p-button-secondary p-button-text "
+          />
+        )}
       </>
     );
   };
@@ -86,21 +90,27 @@ const CandidateInterviewList = () => {
         <CandidateInterview data={dateInterview} />
       </Dialog>
       <CustomBreadCrumb items={items} />
-      <CustomDataTable value={data}>
-        <Column
-          field="candidate_id"
-          header="Yêu cầu tuyển dụng"
-          body={jobBodyTemplate}
-        ></Column>
-        <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
-        <Column field="location" header="Địa điểm"></Column>
-        <Column
-          field="name_candidate"
-          header="Ứng viên"
-          body={candidateBodyTemplate}
-        ></Column>
-        <Column field="" header="Hành động" body={actionBodyTemplate}></Column>
-      </CustomDataTable>
+      <div className="card">
+        <CustomDataTable value={data} showSearch={true} selectionMode="single">
+          <Column
+            field="job_id"
+            header="Yêu cầu tuyển dụng"
+            body={jobBodyTemplate}
+          ></Column>
+          <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
+          <Column field="location" header="Địa điểm"></Column>
+          <Column
+            field="name_candidate"
+            header="Ứng viên"
+            body={candidateBodyTemplate}
+          ></Column>
+          <Column
+            field=""
+            header="Hành động"
+            body={actionBodyTemplate}
+          ></Column>
+        </CustomDataTable>
+      </div>
     </div>
   );
 };
