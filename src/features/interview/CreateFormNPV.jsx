@@ -1,230 +1,160 @@
-import { useState } from "react";
-import CustomBreadCrumb from "components/CustomBreadCrumb";
-import JobRequestService from "services/JobRequestService";
-import { classNames } from "primereact/utils";
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-// import { InputNumber } from "primereact/inputnumber";
-import { Chips } from 'primereact/chips';
-import { useForm, Controller } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Button } from "primereact/button";
-import { Calendar } from "primereact/calendar";
+import CustomBreadCrumb from "components/CustomBreadCrumb";
+import InputTextController from "components/InputTextController";
+import CalenderController from "components/CalenderController";
+import DropdownController from "components/DropdownController";
+import ChipsController from "components/ChipsController";
+import { insertJobRequest } from "redux/jobRequest/actionCreator";
+import MultiSelectController from "components/MultiSelectController";
+import { getApprovedJobRequest } from "redux/jobRequest/selector";
+import { getCandidates } from "redux/candidate/selector";
+import { ROUND_INTERVIEW } from "constants/app";
+import { createInterview } from "redux/interview/actionCreator";
 
-const items = [{ label: "Lịch phỏng vấn" }, { label: "Tạo lịch phỏng vấn" }];
+const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
-const CreateForm = () => {
-  const [showMessage, setShowMessage] = useState(false);
-
-  const service = new JobRequestService();
-
-  const defaultValues = {
-    title: "",
-    time_start: "",
-    time_end: "",
-    round_no: 0,
-    receiver: "",
-    job_id: "",
-    position: "",
-    // petitioner: "",
-    // wage: "",
-  };
-
+const FormInsertInterview = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
-  } = useForm({ defaultValues });
+  } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log("DATA", data);
-    // await service.createRecruitment(data);
+  const approvedJobRequest = useSelector(getApprovedJobRequest);
+  const candidates = useSelector(getCandidates);
 
-    // setShowMessage(true);
+  const fields = [
+    {
+      label: "Thời gian bắt đầu",
+      name: "time_start",
+      type: "calender",
+      showTime: true,
+      autoFocus: true,
+    },
+    { label: "Tiêu đề", name: "title", type: "inputText" },
+    {
+      label: "Thời gian kết thúc",
+      name: "time_end",
+      type: "calender",
+      showTime: true,
+    },
+    { label: "Người nhận", name: "receiver", type: "chips" },
+    { label: "Địa điểm", name: "location", type: "inputText" },
+    {
+      label: "Tên ứng viên",
+      name: "name_candidate",
+      type: "multiSelect",
+      options: candidates,
+      optionLabel: "name",
+    },
+    {
+      label: "Yêu cầu tuyển dụng",
+      name: "job_id",
+      type: "dropdown",
+      options: approvedJobRequest,
+      optionLabel: "title",
+    },
+    {
+      label: "Vòng phỏng vấn",
+      name: "round_no",
+      type: "dropdown",
+      options: ROUND_INTERVIEW,
+      optionLabel: "title",
+    },
+  ];
 
-    // reset();
+  const formRender = fields.map(({ type, ...rest }, index) => {
+    switch (type) {
+      case "calender":
+        return (
+          <CalenderController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+
+      case "chips":
+        return (
+          <ChipsController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+
+      case "multiSelect":
+        return (
+          <MultiSelectController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+
+      case "dropdown":
+        return (
+          <DropdownController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+
+      default:
+        return (
+          <InputTextController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+    }
+  });
+
+  const onSubmit = (data) => {
+    try {
+      // console.log("OLE GUNAR SOLSA", {
+      //   ...data,
+      //   job_id: data.job_id?.id,
+      //   receiver: data.receiver.join(","),
+      //   name_candidate: data.name_candidate.map((item) => item.id).join(","),
+      // });
+
+      dispatch(createInterview({
+        ...data,
+        job_id: data.job_id?.id,
+        receiver: data.receiver.join(","),
+        name_candidate: data.name_candidate.map((item) => item.id).join(","),
+      }));
+
+      // history.push("/admin/jobrequest");
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  const getFormErrorMessage = (name) => {
-    return (
-      errors[name] && <small className="p-error">{errors[name].message}</small>
-    );
-  };
-
-  const dialogFooter = (
-    <div className="p-d-flex p-jc-center">
-      <Button
-        label="OK"
-        className="p-button-text"
-        autoFocus
-        onClick={() => setShowMessage(false)}
-      />
-    </div>
-  );
 
   return (
     <>
-      <Dialog
-        visible={showMessage}
-        onHide={() => setShowMessage(false)}
-        position="top"
-        footer={dialogFooter}
-        showHeader={false}
-        breakpoints={{ "960px": "80vw" }}
-        style={{ width: "30vw" }}
-      >
-        <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
-          <i
-            className="pi pi-check-circle"
-            style={{ fontSize: "5rem", color: "var(--green-500)" }}
-          ></i>
-          <h5>Thành công!</h5>
-          <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
-            Bạn đã tạo yêu cầu tuyển dụng thành công!
-          </p>
-        </div>
-      </Dialog>
-
       <CustomBreadCrumb items={items} />
-
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="p-fluid p-formgrid p-grid">
-            <div className="p-field p-col-12 p-md-6">
-              <label
-                htmlFor="time_start"
-                className={classNames({ "p-error": errors.name })}
-              >
-                Thời gian bắt đầu*
-              </label>
-              <Controller
-                name="time_start"
-                control={control}
-                rules={{ required: "Không được để trống trường này!" }}
-                render={({ field, fieldState }) => (
-                  <Calendar
-                    id={field.name}
-                    className={classNames({
-                      "p-invalid": fieldState.invalid,
-                    })}
-                    dateFormat="dd/mm/yy"
-                    // value={date8}
-                    // onChange={(e) => setDate8(e.value)}
-                    {...field}
-                    showTime
-                    showSeconds
-                  />
-                )}
-              />
-              {getFormErrorMessage("time_start")}
-            </div>
-
-            <div className="p-field p-col-12 p-md-6">
-              <label
-                htmlFor="title"
-                className={classNames({ "p-error": errors.name })}
-              >
-                Title*
-              </label>
-              <Controller
-                name="title"
-                control={control}
-                rules={{ required: "Không được để trống trường này!" }}
-                render={({ field, fieldState }) => (
-                  <InputText
-                    id={field.name}
-                    {...field}
-                    className={classNames({ "p-invalid": fieldState.invalid })}
-                  />
-                )}
-              />
-              {getFormErrorMessage("title")}
-            </div>
-
-            <div className="p-field p-col-12 p-md-6">
-              <label
-                htmlFor="time_end"
-                className={classNames({ "p-error": errors.name })}
-              >
-                Thời gian kết thúc*
-              </label>
-              <Controller
-                name="time_end"
-                control={control}
-                rules={{ required: "Không được để trống trường này!" }}
-                render={({ field, fieldState }) => (
-                  <Calendar
-                    id={field.name}
-                    className={classNames({
-                      "p-invalid": fieldState.invalid,
-                    })}
-                    dateFormat="dd/mm/yy"
-                    // value={date8}
-                    // onChange={(e) => setDate8(e.value)}
-                    {...field}
-                    showTime
-                    showSeconds
-                  />
-                )}
-              />
-              {getFormErrorMessage("time_end")}
-            </div>
-
-            <div className="p-field p-col-12 p-md-6">
-              <div className="p-field">
-                <label
-                  htmlFor="receiver"
-                  className={classNames({ "p-error": errors.name })}
-                >
-                  Người nhận*
-                </label>
-                <Controller
-                  name="receiver"
-                  control={control}
-                  rules={{ required: "Không được để trống trường này!" }}
-                  render={({ field, fieldState }) => (
-                    <Chips
-                      id={field.name}
-                      {...field}
-                      className={classNames({
-                        "p-invalid": fieldState.invalid,
-                      })}
-                    />
-                  )}
-                />
-                {getFormErrorMessage("receiver")}
-              </div>
-
-              <div className="p-field">
-                <label
-                  htmlFor="position"
-                  className={classNames({ "p-error": errors.name })}
-                >
-                  Địa điểm*
-                </label>
-                <Controller
-                  name="position"
-                  control={control}
-                  rules={{ required: "Không được để trống trường này!" }}
-                  render={({ field, fieldState }) => (
-                    <InputText
-                      id={field.name}
-                      {...field}
-                      className={classNames({
-                        "p-invalid": fieldState.invalid,
-                      })}
-                    />
-                  )}
-                />
-                {getFormErrorMessage("position")}
-              </div>
-            </div>
-          </div>
-          <Button type="submit" label="Thêm kế hoạch" />
+          <div className="p-fluid p-formgrid p-grid">{formRender}</div>
+          <Button type="submit" label="Thêm lịch phỏng vấn" />
         </form>
       </div>
     </>
   );
 };
 
-export default CreateForm;
+export default FormInsertInterview;

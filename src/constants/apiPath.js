@@ -14,7 +14,7 @@ export const CANDIDATE_INTERVIEW_CREATE = "/reviews/create";
 export const CANDIDATE_INTERVIEW_EDIT = "/reviews/edit/";
 
 export const INTERVIEW_LIST = "/interviews";
-export const INTERVIEW_CREATE = "/interviews/create";
+export const INTERVIEW_CREATE = "/interviews";
 export const INTERVIEW_EDIT = "/interviews/edit/";
 export const INTERVIEW_DELETE = "/interviews/delete/";
 

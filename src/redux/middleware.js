@@ -1,5 +1,5 @@
 export const checkLogin = (store) => (next) => (action) => {
-  if (action.payload?.message === "Chua dang nhap") {
+  if (action.payload === "Token has expired") {
     alert("Phiên đăng nhập đã hết hạn!");
     localStorage.removeItem("currentUser");
     window.location.href = "/login";

@@ -39,26 +39,26 @@ const Login = () => {
   } = useForm({ defaultValues });
 
   const onSubmit = async (data) => {
-    const res = await service.login(data);
+    const res = await service
+      .login(data)
+      .then((res) => {
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({
+            email: data.email,
+            accessToken: res.data.access_token,
+            user: res.data.user,
+          })
+        );
 
-    if (res.status === 200) {
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-          email: data.email,
-          accessToken: res.data.access_token,
-          user: res.data.user
-        })
-      );
-    } else {
-      alert("Sai tài khoản hoặc mật khẩu, vui lòng thử lại!");
-      return;
-    }
+        window.location.href = "/admin/jobrequest";
+      })
+      .catch((error) => {
+        alert("Sai tài khoản hoặc mật khẩu, vui lòng thử lại!");
+        return;
+      });
 
     // history.push("/admin/dashboard");
-    window.location.href = "/admin/jobrequest";
-
-    reset();
   };
 
   const getFormErrorMessage = (name) => {

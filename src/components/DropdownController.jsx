@@ -1,18 +1,16 @@
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
 import { INVALID_FORM_MESSAGE } from "constants/app";
-import formatTime from "utils/formatTime";
 
-const minDate = new Date();
-
-const CalenderController = ({
+const DropdownController = ({
   label,
   required = true,
   control,
+  options = [],
+  optionLabel = "name",
   name,
   errors,
-  showTime = false,
   ...rest
 }) => {
   return (
@@ -26,21 +24,12 @@ const CalenderController = ({
         control={control}
         rules={{ required: INVALID_FORM_MESSAGE.INVALID_EMPTY }}
         render={({ field, fieldState }) => (
-          <Calendar
+          <Dropdown
             id={field.name}
+            options={options}
+            optionLabel={optionLabel}
             className={classNames({ "p-invalid": fieldState.invalid })}
-            dateFormat="dd/mm/yy"
-            showTime={showTime}
-            showSeconds={showTime}
-            minDate={minDate}
             {...field}
-            onChange={(e) => {
-              if (showTime) {
-                return field.onChange(formatTime.formatShortsDateTime(e.value));
-              }
-
-              return field.onChange(formatTime.formatShortsDate(e.value));
-            }}
             {...rest}
           />
         )}
@@ -52,4 +41,4 @@ const CalenderController = ({
   );
 };
 
-export default CalenderController;
+export default DropdownController;
