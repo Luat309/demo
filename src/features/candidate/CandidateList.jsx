@@ -15,6 +15,7 @@ import { MultiSelect } from "primereact/multiselect";
 import { Tag } from "primereact/tag";
 import { InputText } from "primereact/inputtext";
 import { compareTimeFromTo } from "utils/compareTime";
+import "./style.scss";
 
 const CandidateList = () => {
   const items = [{ label: "Ứng viên" }, { label: " Danh sách ứng viên" }];
@@ -27,8 +28,7 @@ const CandidateList = () => {
   const job = useSelector(getJobRequest);
   const [deadLine, setDeadLine] = useState([]);
   const [statusFilter, setStatusFilter] = useState([]);
-  const [exp, setExp] = useState();
-  const [jobs, setJob] = useState("");
+  const [titlejob, setTitleJob] = useState();
 
   useEffect(() => {
     dispath(getCandidate());
@@ -68,6 +68,7 @@ const CandidateList = () => {
     return job.map
       ? job.map((item) => {
           if (item.id === rowData.job_id) {
+            setTitleJob(item.title);
             return <p>{item.title}</p>;
           }
           return "";
@@ -100,6 +101,7 @@ const CandidateList = () => {
     setShowMessage(true);
     setDetailCandidate(value);
   };
+  console.log(detailCandidate, "");
 
   const dialogFooter = (
     <div className="p-d-flex p-jc-center">
@@ -130,7 +132,7 @@ const CandidateList = () => {
 
     return "Trạng thái";
   };
-  console.log(exp);
+
   const dataFilter = useMemo(() => {
     const statusSelected = statusFilter.map((item) => item.id);
 
@@ -160,48 +162,56 @@ const CandidateList = () => {
         footer={dialogFooter}
         style={{ width: "80%" }}
       >
-        <div className="p-d-flex p-ai-center p-dir-col p-px-3 ">
-          <table className="table_detail">
-            <tr>
-              <th>Tên: </th>
-              <td>{detailCandidate?.name}</td>
-            </tr>
-            <tr>
-              <th>Số điện thoại: </th>
-              <td>{detailCandidate?.phone}</td>
-            </tr>
-            <tr>
-              <th>Nguồn: </th>
-              <td> {detailCandidate?.source}</td>
-            </tr>
-            <tr>
-              <th>Kinh nghiệm: </th>
-              <td>{detailCandidate?.experience}</td>
-            </tr>
-            <tr>
-              <th>CV: </th>
-              <td>
-                <a
-                  href={`http://35.240.196.153/storage/cv/${detailCandidate?.cv}`}
-                  rel="_blank"
-                >
-                  CV
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <th>Trường </th>
-              <td> {detailCandidate?.school}</td>
-            </tr>
-            <tr>
-              <th>Trạng thái</th>
-              <td>{detailCandidate?.status}</td>
-            </tr>
-            <tr>
-              <th>Dự án</th>
-              <td>{detailCandidate?.job_id}</td>
-            </tr>
-          </table>
+        <div className="container">
+          <div className="flex ">
+            <img
+              src={`http://35.240.196.153/storage/images/candidate/${detailCandidate?.image}`}
+              alt=""
+              width="250px"
+              className="mx-5"
+            />
+
+            <div>
+              <table className="table_detail">
+                <tr>
+                  <th>Tên: </th>
+                  <td>{detailCandidate?.name}</td>
+                </tr>
+                <tr>
+                  <th>Số điện thoại: </th>
+                  <td>{detailCandidate?.phone}</td>
+                </tr>
+                <tr>
+                  <th>Nguồn: </th>
+                  <td> {detailCandidate?.source}</td>
+                </tr>
+                <tr>
+                  <th>Kinh nghiệm: </th>
+                  <td>{detailCandidate?.experience}</td>
+                </tr>
+                <tr>
+                  <th>CV: </th>
+                  <td>
+                    <a href={detailCandidate?.cv} rel="_blank">
+                      Đường dẫn CV
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Trường </th>
+                  <td> {detailCandidate?.school}</td>
+                </tr>
+                <tr>
+                  <th>Trạng thái</th>
+                  <td>{detailCandidate?.status}</td>
+                </tr>
+                <tr>
+                  <th>Dự án</th>
+                  <td>{titlejob}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </Dialog>
 
@@ -244,22 +254,6 @@ const CandidateList = () => {
           placeholder="Trạng thái"
           display="chip"
         />
-        <span className="p-input-icon-left mr-1">
-          <i className="pi pi-search" />
-          <InputText
-            value={exp}
-            placeholder="Kinh nghiệm"
-            onChange={(e) => setExp(e.target.value)}
-          />
-        </span>
-        <span className="p-input-icon-left">
-          <i className="pi pi-search" />
-          <InputText
-            value={jobs}
-            placeholder="Dự án"
-            onChange={(e) => setJob(e.target.value)}
-          />
-        </span>
       </div>
 
       <div className="card">

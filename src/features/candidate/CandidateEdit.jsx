@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { editCandidate } from "redux/candidate/action";
-import { getData, getJobRequest } from "redux/jobRequest/selector";
+import { getJobRequest } from "redux/jobRequest/selector";
 import "./style.scss";
 
 const items = [{ label: "Ứng viên" }, { label: " Sửa ứng viên" }];
@@ -51,6 +51,7 @@ const CandidateEdit = () => {
 
   const onUploadImage = () => {
     setImage(file.current.files[0]);
+    console.log(file);
   };
 
   const onUploadCV = () => {
