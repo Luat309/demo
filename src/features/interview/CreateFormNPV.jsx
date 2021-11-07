@@ -4,10 +4,15 @@ import { useForm } from "react-hook-form";
 import { Button } from "primereact/button";
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import InputTextController from "components/InputTextController";
-import InputNumberController from "components/InputNumberController";
-import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
+import DropdownController from "components/DropdownController";
+import ChipsController from "components/ChipsController";
 import { insertJobRequest } from "redux/jobRequest/actionCreator";
+import MultiSelectController from "components/MultiSelectController";
+import { getApprovedJobRequest } from "redux/jobRequest/selector";
+import { getCandidates } from "redux/candidate/selector";
+import { ROUND_INTERVIEW } from "constants/app";
+import { createInterview } from "redux/interview/actionCreator";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
@@ -20,30 +25,51 @@ const FormInsertInterview = () => {
     handleSubmit,
   } = useForm();
 
+  const approvedJobRequest = useSelector(getApprovedJobRequest);
+  const candidates = useSelector(getCandidates);
+
   const fields = [
-    { label: "Thời gian bắt đầu", name: "time_start", type: "calender", autoFocus: true },
+    {
+      label: "Thời gian bắt đầu",
+      name: "time_start",
+      type: "calender",
+      showTime: true,
+      autoFocus: true,
+    },
     { label: "Tiêu đề", name: "title", type: "inputText" },
-    { label: "Thời gian kết thúc", name: "time_end", type: "calender" },
-    { label: "Người nhận", name: "receiver", type: "inputNumber" },
+    {
+      label: "Thời gian kết thúc",
+      name: "time_end",
+      type: "calender",
+      showTime: true,
+    },
+    { label: "Người nhận", name: "receiver", type: "chips" },
     { label: "Địa điểm", name: "location", type: "inputText" },
-    { label: "Tên ứng viên", name: "name_candidate", type: "inputText" },
-    { label: "Yêu cầu tuyển dụng", name: "job_id", type: "inputText" },
-    { label: "Vòng phỏng vấn", name: "round_no", type: "inputText" },
-    // { label: "Đặc điểm của dự án", name: "description", type: "editor" },
+    {
+      label: "Tên ứng viên",
+      name: "name_candidate",
+      type: "multiSelect",
+      options: candidates,
+      optionLabel: "name",
+    },
+    {
+      label: "Yêu cầu tuyển dụng",
+      name: "job_id",
+      type: "dropdown",
+      options: approvedJobRequest,
+      optionLabel: "title",
+    },
+    {
+      label: "Vòng phỏng vấn",
+      name: "round_no",
+      type: "dropdown",
+      options: ROUND_INTERVIEW,
+      optionLabel: "title",
+    },
   ];
 
   const formRender = fields.map(({ type, ...rest }, index) => {
     switch (type) {
-      case "inputNumber":
-        return (
-          <InputNumberController
-            key={index}
-            {...rest}
-            control={control}
-            errors={errors}
-          />
-        );
-
       case "calender":
         return (
           <CalenderController
@@ -54,9 +80,29 @@ const FormInsertInterview = () => {
           />
         );
 
-      case "editor":
+      case "chips":
         return (
-          <EditorController
+          <ChipsController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+
+      case "multiSelect":
+        return (
+          <MultiSelectController
+            key={index}
+            {...rest}
+            control={control}
+            errors={errors}
+          />
+        );
+
+      case "dropdown":
+        return (
+          <DropdownController
             key={index}
             {...rest}
             control={control}
@@ -78,12 +124,24 @@ const FormInsertInterview = () => {
 
   const onSubmit = (data) => {
     try {
-      dispatch(insertJobRequest(data));
+      // console.log("OLE GUNAR SOLSA", {
+      //   ...data,
+      //   job_id: data.job_id?.id,
+      //   receiver: data.receiver.join(","),
+      //   name_candidate: data.name_candidate.map((item) => item.id).join(","),
+      // });
 
-      history.push("/admin/jobrequest");
+      dispatch(createInterview({
+        ...data,
+        job_id: data.job_id?.id,
+        receiver: data.receiver.join(","),
+        name_candidate: data.name_candidate.map((item) => item.id).join(","),
+      }));
+
+      // history.push("/admin/jobrequest");
     } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   return (

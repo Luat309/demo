@@ -20,7 +20,12 @@ const reducer = (state = initialState, action) => {
             };
 
         case INTERVIEW_INSERT:
-            break;
+            return {
+                ...state,
+                message: action.message,
+                data: action?.payload ? [...state.data, action.payload] : state.data,
+                status: action.status,
+              };
 
         case INTERVIEW_UPDATE:
             break;

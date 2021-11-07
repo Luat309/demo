@@ -1,1 +1,1 @@
-export const getCandidates = (state) => state.candidate.candidate;
+export const getCandidates = (state) => state.cadidate.cadidate;

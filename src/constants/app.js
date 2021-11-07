@@ -80,7 +80,7 @@ export const APPROVAL_STATUS = {
   TU_CHOI: 0,
   DA_DUYET: 1,
   HET_HAN: 2,
-  CHO_DUYET: 3
+  CHO_DUYET: 3,
 };
 
 export const ROLE = {
@@ -93,5 +93,11 @@ export const VI_TRI_TUYEN_DUNG = [];
 
 export const INVALID_FORM_MESSAGE = {
   INVALID_EMPTY: "Không được để trống trường này!",
-  INVALID_EMAIL: "Email không hợp lệ"
+  INVALID_EMAIL: "Email không hợp lệ",
 };
+
+export const ROUND_INTERVIEW = [
+  { id: 1, title: "Vòng 1", value: 1 },
+  { id: 2, title: "Vòng 2", value: 2 },
+  { id: 3, title: "Vòng Final", value: 3 },
+];

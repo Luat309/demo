@@ -32,7 +32,7 @@ export const fetchJobRequest = () => async (dispatch) => {
       dispatch({
         type: JOBREQUEST_FETCH,
         status: STATUS_REQUEST.ERROR,
-        payload: error.message,
+        payload: error.response.data.message,
       });
     });
 };

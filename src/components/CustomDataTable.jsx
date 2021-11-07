@@ -26,7 +26,7 @@ const CustomDataTable = React.forwardRef(
 
     return (
       <DataTable
-        // className="p-datatable-sm"
+        className="p-datatable-sm"
         header={showSearch && header}
         stripedRows
         value={dataTable}
