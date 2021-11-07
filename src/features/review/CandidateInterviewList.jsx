@@ -86,21 +86,27 @@ const CandidateInterviewList = () => {
         <CandidateInterview data={dateInterview} />
       </Dialog>
       <CustomBreadCrumb items={items} />
-      <CustomDataTable value={data}>
-        <Column
-          field="candidate_id"
-          header="Yêu cầu tuyển dụng"
-          body={jobBodyTemplate}
-        ></Column>
-        <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
-        <Column field="location" header="Địa điểm"></Column>
-        <Column
-          field="name_candidate"
-          header="Ứng viên"
-          body={candidateBodyTemplate}
-        ></Column>
-        <Column field="" header="Hành động" body={actionBodyTemplate}></Column>
-      </CustomDataTable>
+      <div className="card">
+        <CustomDataTable value={data}>
+          <Column
+            field="candidate_id"
+            header="Yêu cầu tuyển dụng"
+            body={jobBodyTemplate}
+          ></Column>
+          <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
+          <Column field="location" header="Địa điểm"></Column>
+          <Column
+            field="name_candidate"
+            header="Ứng viên"
+            body={candidateBodyTemplate}
+          ></Column>
+          <Column
+            field=""
+            header="Hành động"
+            body={actionBodyTemplate}
+          ></Column>
+        </CustomDataTable>
+      </div>
     </div>
   );
 };

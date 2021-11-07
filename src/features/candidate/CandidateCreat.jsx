@@ -51,6 +51,7 @@ const CandidateCreat = () => {
     formData.append("name", data.name);
     formData.append("phone", data.phone);
     formData.append("source", data.source);
+    formData.append("email", data.email);
     formData.append("experience", data.experience);
     formData.append("school", data.school);
     formData.append("image", image);
@@ -117,6 +118,22 @@ const CandidateCreat = () => {
               <br />
               <input type="text" {...register("phone", { required: true })} />
               {errors.phone && (
+                <span style={{ color: "red", marginBottom: "7px" }}>
+                  Bắt buộc phải nhập.
+                </span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="email">Email*</label>
+              <br />
+              <input
+                type="text"
+                min={0}
+                {...register("email", {
+                  required: true,
+                })}
+              />
+              {errors.email && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
                 </span>
@@ -206,7 +223,10 @@ const CandidateCreat = () => {
               <select name="" id="" {...register("job_id", { required: true })}>
                 {data.map
                   ? data.map((item) => {
-                      return <option value={item.id}>{item.title}</option>;
+                      if (item.status === 1) {
+                        return <option value={item.id}>{item.title}</option>;
+                      }
+                      return "";
                     })
                   : ""}
               </select>
