@@ -6,10 +6,11 @@ const CandidateDetail = ({ data }) => {
       <h2 style={{ textAlign: "center" }}>Đánh giá ứng viên</h2>
       <p style={{ textAlign: "center" }}>Vòng {data?.round}</p>
       <div className="flex">
-        <div className="col-2 mr-1">
+        <div className="col-2 mx-5">
           <img
             src={`http://35.240.196.153/storage/images/candidate/${data?.image}`}
             alt=""
+            width="250px"
           />
           <p>Họ tên : {data?.candidate_name}</p>
           <p>Email : {data?.email}</p>
