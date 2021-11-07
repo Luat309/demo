@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 message: action.message,
-                data: action?.payload ? [...state.data, action.payload] : state.data,
+                data: action?.payload ? state.data.concat(action.payload) : state.data,
                 status: action.status,
               };
 

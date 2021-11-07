@@ -7,6 +7,9 @@ import { getMessage, getStatus } from "redux/messageBox/selector";
 const CustomMessageBox = () => {
   const status = useSelector(getStatus);
   const message = useSelector(getMessage);
+  const type = useSelector(state => state.messageBox.type);
+  const callback = useSelector(state => state.messageBox.callback);
+
   const dispatch = useDispatch();
 
   const dialogFooter = (
@@ -15,7 +18,12 @@ const CustomMessageBox = () => {
         label="OK"
         className="p-button-text"
         autoFocus
-        onClick={() => dispatch(hideMessage())}
+        onClick={() => {
+          if (callback) {
+            callback();
+          }
+          dispatch(hideMessage());
+        }}
       />
     </div>
   );

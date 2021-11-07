@@ -3,6 +3,8 @@ import { HIDE_MESSAGE, SHOW_MESSAGE } from "./constant";
 const initialState = {
   visible: false,
   message: null,
+  type: "SUCCESS",
+  callback: () => { console.log("OK") }
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +13,7 @@ const reducer = (state = initialState, action) => {
       return {
         visible: true,
         message: action.message,
+        callback: action.callback
       };
 
     case HIDE_MESSAGE:

@@ -13,6 +13,7 @@ import { getApprovedJobRequest } from "redux/jobRequest/selector";
 import { getCandidates } from "redux/candidate/selector";
 import { ROUND_INTERVIEW } from "constants/app";
 import { createInterview } from "redux/interview/actionCreator";
+import { useState } from "react";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
@@ -24,9 +25,16 @@ const FormInsertInterview = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const [loading, setLoading] = useState(false);
 
   const approvedJobRequest = useSelector(getApprovedJobRequest);
   const candidates = useSelector(getCandidates);
+  const users = [
+    { id: 1, name: "Hoàng Vân Anh" },
+    { id: 2, name: "Vũ Quốc Luật" },
+    { id: 3, name: "Nguyễn Thị Thu Trang" },
+    { id: 4, name: "Đỗ Phương Hoa" },
+  ];
 
   const fields = [
     {
@@ -43,10 +51,16 @@ const FormInsertInterview = () => {
       type: "calender",
       showTime: true,
     },
-    { label: "Người nhận", name: "receiver", type: "chips" },
+    {
+      label: "Người phỏng vấn",
+      name: "receiver",
+      type: "multiSelect",
+      options: users,
+      optionLabel: "name",
+    },
     { label: "Địa điểm", name: "location", type: "inputText" },
     {
-      label: "Tên ứng viên",
+      label: "Ứng viên",
       name: "name_candidate",
       type: "multiSelect",
       options: candidates,
@@ -124,21 +138,22 @@ const FormInsertInterview = () => {
 
   const onSubmit = (data) => {
     try {
-      // console.log("OLE GUNAR SOLSA", {
-      //   ...data,
-      //   job_id: data.job_id?.id,
-      //   receiver: data.receiver.join(","),
-      //   name_candidate: data.name_candidate.map((item) => item.id).join(","),
-      // });
+      setLoading(true);
 
-      dispatch(createInterview({
-        ...data,
-        job_id: data.job_id?.id,
-        receiver: data.receiver.join(","),
-        name_candidate: data.name_candidate.map((item) => item.id).join(","),
-      }));
+      dispatch(
+        createInterview(
+          {
+            ...data,
+            job_id: data.job_id?.id,
+            receiver: data.receiver.map((item) => item.id).join(","),
+            name_candidate: data.name_candidate
+              .map((item) => item.id)
+              .join(","),
+          },
+          () => history.push("/admin/interview")
+        )
+      );
 
-      // history.push("/admin/jobrequest");
     } catch (error) {
       console.log(error);
     }
@@ -150,7 +165,7 @@ const FormInsertInterview = () => {
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-fluid p-formgrid p-grid">{formRender}</div>
-          <Button type="submit" label="Thêm lịch phỏng vấn" />
+          <Button loading={loading} type="submit" label="Thêm lịch phỏng vấn" />
         </form>
       </div>
     </>

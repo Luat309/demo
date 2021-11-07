@@ -39,20 +39,20 @@ const InterviewList = () => {
           className="p-button-rounded p-button-text p-button-info"
           icon="pi pi-eye"
         />
-        <Button
+        {/* <Button
           tooltip="Cập nhật"
-          // onClick={() => handleClickUpdate(data)}
+          onClick={() => handleClickUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
-          // disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <Button
           tooltip="Xóa"
-          // onClick={() => handleClickDelete(data)}
+          onClick={() => handleClickDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
-          // disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
-        />
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
+        /> */}
       </>
     );
   };
