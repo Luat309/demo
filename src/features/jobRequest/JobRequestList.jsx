@@ -16,21 +16,18 @@ import { Calendar } from "primereact/calendar";
 import {
   approvalJobRequest,
   deleteJobRequest,
-  fetchJobRequest,
   rejectJobRequest,
-  resetStatus,
 } from "redux/jobRequest/actionCreator";
 import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
 import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
 import { showConfirm } from "redux/confirmBox/actionCreator";
-import { InputText } from "primereact/inputtext";
+import PermissionButton from "components/PermissionButton";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
 
 const cols = [
-  // { field: "description", header: "Dac diem cua du an" },
   { field: "title", header: "Tên dự án", width: "250px" },
   { field: "deadline", header: "Hạn tuyển", width: "120px" },
   { field: "position", header: "Vị trí tuyển dụng", width: "250px" },
@@ -129,47 +126,50 @@ const JobRequestList = () => {
     }
   };
 
-  console.log('USER', user.role !== 1)
-
   const genActionCol = (data) => {
     return (
       <>
-        <Button
+        <PermissionButton
+          name="viewDetailJobRequest"
           tooltip="Xem chi tiết"
           onClick={() => handleClickView(data)}
           className="p-button-rounded p-button-text p-button-info"
           icon="pi pi-eye"
         />
-        <Button
+        <PermissionButton
+          name="updateJobRequest"
           tooltip="Cập nhật"
           onClick={() => handleClickUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
           disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
-        <Button
+        <PermissionButton
+          name="deleteJobRequest"
           tooltip="Xóa"
           onClick={() => handleClickDelete(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
           disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
-        <Button
+        <PermissionButton
+          name="appovalJobRequest"
           tooltip="Phê duyệt"
           onClick={() => handleClickApproval(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-check-circle"
           disabled={
-            data.status !== APPROVAL_STATUS.CHO_DUYET || user.role !== 1
+            data.status !== APPROVAL_STATUS.CHO_DUYET
           }
         />
-        <Button
+        <PermissionButton
+          name="rejectJobRequest"
           tooltip="Từ chối"
           onClick={() => handleClickReject(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-times-circle"
           disabled={
-            data.status !== APPROVAL_STATUS.CHO_DUYET || user.role !== 1
+            data.status !== APPROVAL_STATUS.CHO_DUYET
           }
         />
       </>
@@ -282,7 +282,8 @@ const JobRequestList = () => {
       <CustomBreadCrumb items={items} />
 
       <div className="filter">
-        <Button
+        <PermissionButton
+          name="insertJobRequest"
           icon="pi pi-plus"
           className="p-button-raised"
           label="Thêm mới"

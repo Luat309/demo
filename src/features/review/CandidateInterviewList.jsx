@@ -91,7 +91,7 @@ const CandidateInterviewList = () => {
       </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
-        <CustomDataTable value={data} showSearch={true} selectionMode="single">
+        <CustomDataTable dataTable={data} showSearch={true} selectionMode="single">
           <Column
             field="job_id"
             header="Yêu cầu tuyển dụng"

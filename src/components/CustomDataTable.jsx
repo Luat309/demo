@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
 import { Column } from "primereact/column";
 
 const CustomDataTable = React.forwardRef(
-  ({ children, dataTable, showSearch = false, ...rest }, ref) => {
+  ({ children, dataTable = [], showSearch = false, ...rest }, ref) => {
     const [globalFilter, setGlobalFilter] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const header = (
       <div className="table-header">
@@ -24,6 +25,12 @@ const CustomDataTable = React.forwardRef(
       return props.rowIndex + 1;
     };
 
+    useEffect(() => {
+      if (dataTable.length > 0) {
+        setLoading(false);
+      }
+    }, [dataTable]);
+
     return (
       <DataTable
         className="p-datatable-sm"
@@ -36,19 +43,20 @@ const CustomDataTable = React.forwardRef(
         paginator
         rowHover
         scrollable
-        scrollHeight="400px"
+        scrollHeight="350px"
         resizableColumns
         columnResizeMode="expand"
         rows={10}
         rowsPerPageOptions={[5, 10, 25, 50, 100]}
         emptyMessage="Không tìm thấy bản ghi"
+        loading={loading}
         {...rest}
       >
         <Column
           header="STT"
           body={genIndex}
           // selectionMode="multiple"
-          style={{ width: "50px" }}
+          style={{ width: "50px", textAlign: "center" }}
         ></Column>
         {children}
       </DataTable>

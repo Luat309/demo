@@ -18,4 +18,4 @@ const Content = (props) => {
   );
 };
 
-export default Content;
+export default React.memo(Content);

@@ -75,7 +75,7 @@ const CandidateInterViewShow = () => {
       </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
-        <CustomDataTable value={candidateInterview}>
+        <CustomDataTable dataTable={candidateInterview}>
           <Column
             field="candidate_id"
             header="Thời gian phỏng vấn"

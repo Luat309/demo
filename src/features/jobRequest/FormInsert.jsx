@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "primereact/button";
@@ -8,6 +8,7 @@ import InputNumberController from "components/InputNumberController";
 import EditorController from "components/EditorController";
 import CalenderController from "components/CalenderController";
 import { insertJobRequest } from "redux/jobRequest/actionCreator";
+import PermissionButton from "components/PermissionButton";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
@@ -83,7 +84,7 @@ const FormInsertJobRequest = () => {
       history.push("/admin/jobrequest");
     } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   return (
@@ -93,7 +94,11 @@ const FormInsertJobRequest = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-fluid p-formgrid p-grid">{formRender}</div>
 
-          <Button type="submit" label="Thêm kế hoạch" />
+          <PermissionButton
+            name="insertJobRequest"
+            type="submit"
+            label="Thêm kế hoạch"
+          />
         </form>
       </div>
     </>

@@ -13,6 +13,7 @@ import CalenderController from "components/CalenderController";
 import { updateJobRequest } from "redux/jobRequest/actionCreator";
 import { getJobRequestById } from "redux/jobRequest/selector";
 import formatTime from "utils/formatTime";
+import PermissionButton from "components/PermissionButton";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Cập nhật yêu cầu" }];
 
@@ -112,7 +113,11 @@ const FormUpdateJobRequest = () => {
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-fluid p-formgrid p-grid">{formRender}</div>
-          <Button type="submit" label="Cập nhật yêu cầu" />
+          <PermissionButton
+            name="updateJobRequest"
+            type="submit"
+            label="Cập nhật yêu cầu"
+          />
         </form>
       </div>
     </>

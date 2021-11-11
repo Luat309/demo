@@ -258,7 +258,7 @@ const CandidateList = () => {
 
       <div className="card">
         <CustomDataTable
-          value={dataFilter}
+          dataTable={dataFilter}
           showSearch={true}
           selectionMode="single"
         >

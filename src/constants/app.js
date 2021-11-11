@@ -89,6 +89,16 @@ export const ROLE = {
   USER: 4,
 };
 
+export const MANAGER = 0; // truong phong
+export const HR_MANAGER = 1; // truong phong nhan su
+export const HR = 2; // hr
+export const INTERVIEWER = 3; // nguoi phong van
+
+export const ACCOUNT_STATUS = {
+  0: "Inactive",
+  1: "Active",
+};
+
 export const VI_TRI_TUYEN_DUNG = [];
 
 export const INVALID_FORM_MESSAGE = {

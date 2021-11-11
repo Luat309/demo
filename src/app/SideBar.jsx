@@ -1,3 +1,4 @@
+import React from "react";
 import { MegaMenu } from "primereact/megamenu";
 import { APP_MENU_ITEM } from "constants/appPath";
 
@@ -9,4 +10,4 @@ const SideBar = (props) => {
   );
 };
 
-export default SideBar;
+export default React.memo(SideBar);

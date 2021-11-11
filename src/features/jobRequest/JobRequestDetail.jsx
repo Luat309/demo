@@ -1,3 +1,4 @@
+import PermissionButton from "components/PermissionButton";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 
@@ -11,13 +12,15 @@ const JobRequestDetail = ({
   const renderFooter = (name) => {
     return (
       <div>
-        <Button
+        <PermissionButton
+          name="deleteJobRequest"
           label="Xóa"
           icon="pi pi-trash"
           onClick={() => handleDelete(jobDetail)}
           className="p-button-text p-button-danger"
         />
-        <Button
+        <PermissionButton
+          name="updateJobRequest"
           label={"Cập nhật"}
           icon="pi pi-check"
           onClick={() => handleClickUpdate(jobDetail)}

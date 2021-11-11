@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { HR, HR_MANAGER, INTERVIEWER, MANAGER } from "./app";
 
 export const JOBREQUEST = "/admin/jobrequest";
 export const JOBREQUEST_CREATE = "/admin/jobrequest/create";
@@ -13,6 +14,7 @@ export const ASSESSMENT = "/admin/assessment";
 export const REPORT = "/admin/report";
 
 export const USER = "/admin/user";
+export const FEATURE = "/admin/feature";
 
 export const INTERVIEW = "/admin/interview";
 export const INTERVIEW_CREATE = "/admin/interview/create";
@@ -22,197 +24,146 @@ export const CANDIDATE_INTERVIEW_SHOW = "/admin/candidate/interview/show";
 export const CANDIDATE_INTERVIEW = "/admin/candidate/interview/review";
 export const CANDIDATE_INTERVIEW_EDIT = "/admin/candidate/interview/edit/:id";
 
-export const APP_MENU_ITEM = [
+export const PERMISSION_MENU = [
   {
-    label: "Yêu cầu tuyển dụng",
+    id: 1,
+    parentMenu: 0,
+    name: "Yêu cầu tuyển dụng",
     icon: "pi pi-fw pi-users",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={JOBREQUEST}>
-                    Danh sách yêu cầu{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={JOBREQUEST_CREATE}>
-                    Tạo yêu cầu{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
+    role: [MANAGER, HR_MANAGER, HR],
   },
   {
-    label: "Ứng viên",
+    id: 2,
+    parentMenu: 1,
+    name: "Danh sách yêu cầu",
+    path: JOBREQUEST,
+    role: [MANAGER, HR_MANAGER, HR],
+  },
+  {
+    id: 3,
+    parentMenu: 1,
+    name: "Tạo yêu cầu",
+    path: JOBREQUEST_CREATE,
+    role: [MANAGER],
+  },
+  {
+    id: 4,
+    parentMenu: 0,
+    name: "Ứng viên",
     icon: "pi pi-fw pi-video",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={CANDIDATE}>
-                    Danh sách ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={CANDIDATE_CREATE}>
-                    Tạo nguồn ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
+    role: [HR_MANAGER, HR],
   },
   {
-    label: "Lịch phỏng vấn",
+    id: 5,
+    parentMenu: 4,
+    name: "Danh sách ứng viên",
+    path: CANDIDATE,
+    role: [HR_MANAGER, HR],
+  },
+  {
+    id: 6,
+    parentMenu: 4,
+    name: "Tạo nguồn ứng viên",
+    path: CANDIDATE_CREATE,
+    role: [HR_MANAGER, HR],
+  },
+  {
+    id: 7,
+    parentMenu: 0,
+    name: "Lịch phỏng vấn",
     icon: "pi pi-fw pi-cog",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={INTERVIEW}>
-                    Danh sách lịch phỏng vấn{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to={INTERVIEW_CREATE}>
-                    Tạo lịch người phỏng vấn{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
+    role: [MANAGER, HR_MANAGER, HR, INTERVIEWER],
   },
   {
-    label: "Đánh giá ứng viên",
+    id: 8,
+    parentMenu: 7,
+    name: "Danh sách lịch phỏng vấn",
+    path: INTERVIEW,
+    role: [MANAGER, HR_MANAGER, HR, INTERVIEWER],
+  },
+  {
+    id: 9,
+    parentMenu: 7,
+    name: "Tạo lịch phỏng vấn",
+    path: INTERVIEW_CREATE,
+    role: [HR_MANAGER, HR],
+  },
+  {
+    id: 10,
+    parentMenu: 0,
+    name: "Đánh giá ứng viên",
     icon: "pi pi-fw pi-calendar",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={CANDIDATE_INTERVIEW_LIST}
-                  >
-                    Tạo đánh giá ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to={CANDIDATE_INTERVIEW_SHOW}
-                  >
-                    Đánh giá{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
+    role: [MANAGER, HR_MANAGER, HR, INTERVIEWER],
   },
   {
-    label: "Báo cáo",
-    icon: "pi pi-fw pi-cog",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to="/admin/candidate/create"
-                  >
-                    Tạo nguồn ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
+    id: 11,
+    parentMenu: 10,
+    name: "Tạo đánh giá ứng viên",
+    path: CANDIDATE_INTERVIEW_LIST,
+    role: [MANAGER, HR_MANAGER, INTERVIEWER],
   },
   {
-    label: "Quản lý User",
-    icon: "pi pi-fw pi-cog",
-    items: [
-      [
-        {
-          items: [
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link className="p-menuitem-link" to="/admin/candidate">
-                    Danh sách ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-            {
-              template: () => (
-                <li className="p-menuitem">
-                  <Link
-                    className="p-menuitem-link"
-                    to="/admin/candidate/create"
-                  >
-                    Tạo nguồn ứng viên{" "}
-                  </Link>{" "}
-                </li>
-              ),
-            },
-          ],
-        },
-      ],
-    ],
+    id: 12,
+    parentMenu: 10,
+    name: "Đánh giá",
+    path: CANDIDATE_INTERVIEW_SHOW,
+    role: [MANAGER, HR_MANAGER, HR, INTERVIEWER],
+  },
+  {
+    id: 13,
+    parentMenu: 0,
+    name: "Quản lý ứng dụng",
+    icon: "pi pi-fw pi-link",
+    role: [HR_MANAGER],
+  },
+  {
+    id: 14,
+    parentMenu: 13,
+    name: "Quản lý nhân viên",
+    path: USER,
+    role: [HR_MANAGER],
+  },
+  {
+    id: 15,
+    parentMenu: 13,
+    name: "Quản lý chức năng",
+    path: FEATURE,
+    role: [HR_MANAGER],
   },
 ];
+
+export const genAppMenu = (arr) => {
+  if (!localStorage.getItem("currentUser")) {
+    return
+  }
+  
+  const {
+    user: { role },
+  } = JSON.parse(localStorage.getItem("currentUser"));
+
+  const filterByRole = arr.filter((item) => item.role.indexOf(role) !== -1);
+  const filterParentMenu = filterByRole.filter((item) => item.parentMenu === 0);
+  const appMenu = filterParentMenu.map((parentMenu) => {
+    const findSubMenu = filterByRole
+      .filter((item) => item.parentMenu === parentMenu.id)
+      .map((item) => ({
+        template: () => (
+          <li key={item.id} className="p-menuitem">
+            <Link className="p-menuitem-link" to={item.path}>
+              {item.name}
+            </Link>{" "}
+          </li>
+        ),
+      }));
+
+    return {
+      label: parentMenu.name,
+      icon: parentMenu.icon,
+      items: [[{ items: findSubMenu }]],
+    };
+  });
+
+  return appMenu;
+};
+
+export const APP_MENU_ITEM = genAppMenu(PERMISSION_MENU);

@@ -47,7 +47,7 @@ const Login = () => {
           JSON.stringify({
             email: data.email,
             accessToken: res.data.access_token,
-            user: res.data.user,
+            user: { ...res.data.user, role: 1 },
           })
         );
 

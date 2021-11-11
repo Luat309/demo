@@ -5,6 +5,7 @@
 @import url("./custom/dataTable.css");
 @import url("./components/jobRequest/jobDetail.css");
 @import url("./components/jobRequest/jobFilter.css");
+@import url("./forbidden.css");
 html {
     font-size: 14px;
 }
@@ -138,6 +139,10 @@ code {
     margin-right: 5rem;
 }
 
+.mt-1 {
+    margin-top: 1rem;
+}
+
 .pt-0 {
     padding-top: 0;
 }
@@ -167,4 +172,12 @@ code {
 
 .col-10 {
     width: 60%;
+}
+
+.p-menu {
+    width: auto;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+    color: var(--primary-color);
 }
