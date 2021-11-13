@@ -35,11 +35,10 @@ const Login = () => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm({ defaultValues });
 
   const onSubmit = async (data) => {
-    const res = await service
+    await service
       .login(data)
       .then((res) => {
         localStorage.setItem(

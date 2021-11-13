@@ -1,6 +1,5 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
-import { CANDIDATE_INTERVIEW } from "constants/appPath";
 import moment from "moment";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
@@ -64,8 +63,6 @@ const CandidateInterviewList = () => {
     setDateInterview(data);
   };
   const actionBodyTemplate = (rowData) => {
-    console.log(rowData.time_end, "end");
-    console.log(rowData.time_start, "start");
     return (
       <>
         {moment(rowData.time_end).isBefore() && (
@@ -91,13 +88,22 @@ const CandidateInterviewList = () => {
       </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
-        <CustomDataTable dataTable={data} showSearch={true} selectionMode="single">
+        <CustomDataTable
+          dataTable={data}
+          showSearch={true}
+          selectionMode="single"
+        >
           <Column
             field="job_id"
             header="Yêu cầu tuyển dụng"
             body={jobBodyTemplate}
           ></Column>
-          <Column field="" header="Thời gian" body={timeBodyTemplate}></Column>
+          <Column
+            field=""
+            header="Thời gian"
+            body={timeBodyTemplate}
+            style={{ width: "300px" }}
+          ></Column>
           <Column field="location" header="Địa điểm"></Column>
           <Column
             field="name_candidate"

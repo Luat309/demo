@@ -15,21 +15,21 @@ const PrivateRoute = (props) => {
 
   const findPermission = PERMISSION_MENU.find((item) => item.path === pathName);
 
-  const {
-    user: { role },
-  } = JSON.parse(localStorage.getItem("currentUser"));
+  if (localStorage.getItem("currentUser")) {
+    const {
+      user: { role },
+    } = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (findPermission) {
-    const check = findPermission.role.indexOf(role);
-    if (check === -1) {
-      props = {
-        ...props,
-        component: ForBiddenPage,
-      };
+    if (findPermission) {
+      const check = findPermission.role.indexOf(role);
+      if (check === -1) {
+        props = {
+          ...props,
+          component: ForBiddenPage,
+        };
+      }
     }
   }
-
-  console.log(props);
 
   return isLogin() ? <Route {...props} /> : <Redirect to="/login" />;
 };

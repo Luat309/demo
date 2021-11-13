@@ -37,26 +37,10 @@ const CandidateList = () => {
 
   const statuses = [
     { id: 0, name: "Vòng CV", code: "Vòng CV" },
-    {
-      id: 1,
-      name: "CV pass vòng 1 (hr)",
-      code: "CV pass vòng 1 (hr)",
-    },
-    {
-      id: 2,
-      name: "CV pass vòng 2 (TBP)",
-      code: "CV pass vòng 2 (TBP)",
-    },
     { id: 3, name: "Sắp xếp PV", code: "Sắp xếp PV" },
     { id: 4, name: "PV Pass", code: "PV Pass" },
     { id: 5, name: "PV Faild", code: "PV Faild" },
   ];
-  const handleRemove = (id) => {
-    let confirm = window.confirm("ban chac chan muon xoas");
-    if (confirm) {
-      dispath(removeCandidate(id));
-    }
-  };
 
   const experienceBodyTemplate = (rowData) => {
     return <p>{rowData.experience} năm</p>;
@@ -87,11 +71,6 @@ const CandidateList = () => {
           className="pi pi-pencil"
           style={{ color: "orange" }}
           onClick={() => history.push(`/admin/candidate/edit/${rowData.id}`)}
-        ></i>
-        <i
-          className="pi pi-trash"
-          style={{ color: "red", padding: "0 10px" }}
-          onClick={() => handleRemove(rowData.id)}
         ></i>
       </div>
     );

@@ -1,6 +1,7 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import { CANDIDATE_INTERVIEW_SHOW } from "constants/appPath";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { Dialog } from "primereact/dialog";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,6 +10,8 @@ import { useHistory } from "react-router";
 import { createCandidateInterview } from "redux/candidateInterview/action";
 import "./style.scss";
 
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
 const items = [
   { label: "Đánh Giá Ứng viên" },
   { label: "Tạo Đánh Giá Ứng Viên" },
@@ -16,7 +19,11 @@ const items = [
 
 const CandidateInterview = ({ data }) => {
   const history = useHistory();
+  let today = new Date();
   const [showMessage, setShowMessage] = useState(false);
+  const [timeOnbroad, setTimeOnbroad] = useState();
+  let invalidDates = [today];
+  console.log(timeOnbroad);
   const dispatch = useDispatch();
   const {
     register,
@@ -33,10 +40,11 @@ const CandidateInterview = ({ data }) => {
       interview_id: data.id,
       time_start: data.time_start,
       time_end: data.time_end,
+      user_id: currentUser?.user?.id,
+      time_onbroad: timeOnbroad,
     };
     if (newValue) {
       dispatch(createCandidateInterview(newValue));
-      setShowMessage(false);
       setTimeout(() => {
         history.push(CANDIDATE_INTERVIEW_SHOW);
       }, 2000);
@@ -118,7 +126,21 @@ const CandidateInterview = ({ data }) => {
                 </span>
               )}
             </div>
-            <div style={{ margin: "20px 0" }}>
+            <div>
+              <label htmlFor="time_onbroad">Thời gian có thể onboard*</label>
+              <br />
+              <div className="p-field p-col-12 p-md-4">
+                <Calendar
+                  id="disableddays"
+                  value={timeOnbroad}
+                  onChange={(e) => setTimeOnbroad(e.value)}
+                  disabledDates={invalidDates}
+                  disabledDays={[0, 6]}
+                  readOnlyInput
+                />
+              </div>
+            </div>
+            <div>
               <p>V,Tổng kết</p>
               <label htmlFor="result">Kết quả*</label>
               <br />
@@ -187,19 +209,7 @@ const CandidateInterview = ({ data }) => {
                 </span>
               )}
             </div>
-            <div>
-              <label htmlFor="time_onbroad">Thời gian có thể onboard*</label>
-              <br />
-              <input
-                type="text"
-                {...register("time_onbroad", { required: true })}
-              />
-              {errors.time_onbroad && (
-                <span style={{ color: "red", marginBottom: "7px" }}>
-                  Bắt buộc phải nhập.
-                </span>
-              )}
-            </div>
+
             <div>
               <label htmlFor="reviews">Nhận xét*</label>
               <br />
