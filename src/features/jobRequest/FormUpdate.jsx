@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CustomBreadCrumb from "components/CustomBreadCrumb";
+import PermissionButton from "components/PermissionButton";
 import { updateJobRequest } from "redux/jobRequest/actionCreator";
 import { getJobRequestById } from "redux/jobRequest/selector";
 import formatTime from "utils/formatTime";
-import PermissionButton from "components/PermissionButton";
 import genElementsForm from "utils/genElementsForm";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Cập nhật yêu cầu" }];
@@ -29,6 +29,7 @@ const FormUpdateJobRequest = () => {
     reset({
       ...jobDetail,
       deadline: new Date(Date.parse(jobDetail.deadline)),
+      petitioner: undefined,
       created_at: undefined,
       updated_at: undefined,
       status: undefined,
@@ -51,13 +52,16 @@ const FormUpdateJobRequest = () => {
 
   const onSubmit = async (data) => {
     dispatch(
-      updateJobRequest({
-        ...data,
-        deadline: formatTime.formatShortsDate(data?.deadline),
-      })
+      updateJobRequest(
+        {
+          ...data,
+          deadline: formatTime.formatShortsDate(data?.deadline),
+        },
+        () => {
+          history.push("/admin/jobrequest");
+        }
+      )
     );
-
-    history.push("/admin/jobrequest");
   };
 
   return (

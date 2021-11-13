@@ -1,5 +1,6 @@
 import { showMessage } from "redux/messageBox/actionCreator";
 import JobRequestService from "services/JobRequestService";
+import { getIdCurrentUser, getNameCurrentUser } from "utils/localStorage";
 import {
   JOBREQUEST_FETCH,
   JOBREQUEST_INSERT,
@@ -48,7 +49,13 @@ export const insertJobRequest = (data, callback) => (dispatch) => {
       dispatch({
         type: JOBREQUEST_INSERT,
         message: "Thêm yêu cầu thành công!",
-        payload: res.data,
+        payload: {
+          ...res.data,
+          petitioner: {
+            id: getIdCurrentUser(),
+            name: getNameCurrentUser(),
+          }
+        },
       });
 
       dispatch(showMessage("Thêm yêu cầu thành công!"));
@@ -64,7 +71,7 @@ export const insertJobRequest = (data, callback) => (dispatch) => {
     });
 };
 
-export const updateJobRequest = (data) => async (dispatch) => {
+export const updateJobRequest = (data, callback) => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_UPDATE,
     message: "Đang xử lý",
@@ -76,10 +83,17 @@ export const updateJobRequest = (data) => async (dispatch) => {
       dispatch({
         type: JOBREQUEST_UPDATE,
         message: "Cập nhật thành công!",
-        payload: data,
+        payload: {
+          ...data, 
+          petitioner: {
+            id: getIdCurrentUser(),
+            name: getNameCurrentUser(),
+          }
+        },
       });
 
       dispatch(showMessage("Cập nhật thành công!"));
+      callback();
     })
     .catch((error) => {
       dispatch({

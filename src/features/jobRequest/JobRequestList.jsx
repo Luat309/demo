@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
+import PermissionButton from "components/PermissionButton";
+
 import JobRequestDetail from "./JobRequestDetail";
 
 import { Button } from "primereact/button";
@@ -19,11 +21,10 @@ import {
   rejectJobRequest,
 } from "redux/jobRequest/actionCreator";
 import { getJobRequest } from "redux/jobRequest/selector";
+import { showConfirm } from "redux/confirmBox/actionCreator";
 import { APPROVAL_STATUS } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
-import { showConfirm } from "redux/confirmBox/actionCreator";
-import PermissionButton from "components/PermissionButton";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
 
@@ -140,7 +141,6 @@ const JobRequestList = () => {
           onClick={() => handleClickUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
-          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <PermissionButton
           name="deleteJobRequest"
