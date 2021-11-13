@@ -7,8 +7,7 @@ import { getMessage, getStatus } from "redux/messageBox/selector";
 const CustomMessageBox = () => {
   const status = useSelector(getStatus);
   const message = useSelector(getMessage);
-  const type = useSelector(state => state.messageBox.type);
-  const callback = useSelector(state => state.messageBox.callback);
+  const typeDialog = useSelector((state) => state.messageBox.typeDialog);
 
   const dispatch = useDispatch();
 
@@ -19,9 +18,6 @@ const CustomMessageBox = () => {
         className="p-button-text"
         autoFocus
         onClick={() => {
-          if (callback) {
-            callback();
-          }
           dispatch(hideMessage());
         }}
       />
@@ -39,11 +35,26 @@ const CustomMessageBox = () => {
       style={{ width: "30vw" }}
     >
       <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
-        <i
-          className="pi pi-check-circle"
-          style={{ fontSize: "5rem", color: "var(--green-500)" }}
-        ></i>
-        <h5 style={{ fontSize: "18px" }}>Thành công!</h5>
+        {typeDialog === "SUCCESS" && (
+          <>
+            <i
+              className="pi pi-check-circle"
+              style={{ fontSize: "5rem", color: "var(--green-500)" }}
+            ></i>
+            <h5 style={{ fontSize: "18px" }}>Thành công!</h5>
+          </>
+        )}
+
+        {typeDialog === "ERROR" && (
+          <>
+            <i
+              className="pi pi-exclamation-triangle"
+              style={{ fontSize: "5rem", color: "red" }}
+            ></i>
+            <h5 style={{ fontSize: "18px" }}>Thất bại!</h5>
+          </>
+        )}
+
         <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>{message}</p>
       </div>
     </Dialog>

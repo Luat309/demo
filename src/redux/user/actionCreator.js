@@ -1,5 +1,5 @@
 import UserService from "services/UserService";
-import STATUS_REQUEST from "constants/app";
+import { STATUS_REQUEST } from "constants/app";
 import {
   LOGIN,
   REGISTER,

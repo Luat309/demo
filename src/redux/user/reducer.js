@@ -1,4 +1,4 @@
-import STATUS_REQUEST from "constants/app";
+import { STATUS_REQUEST } from "constants/app";
 import {
   LOGIN,
   REGISTER,
@@ -18,9 +18,18 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      break;
+      return state
+
+    case GET_LIST_USER:
+      return {
+        data: action.data,
+        status: action.status,
+        message: action.message
+      }  
 
     default:
       return state;
   }
 };
+
+export default reducer;
