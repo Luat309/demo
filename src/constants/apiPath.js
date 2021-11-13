@@ -19,3 +19,8 @@ export const INTERVIEW_EDIT = "/interviews/edit/";
 export const INTERVIEW_DELETE = "/interviews/delete/";
 
 export const LOGIN = "/auth/login";
+export const GET_LIST_USER = "/user/list-user";
+export const REGISTER = "/user/user-detail/";
+export const GET_DETAIL_USER = "/user/regsiter-member";
+export const DELETE_USER = "/user/destroy/";
+export const UPDATE_USER = "/user/update-member/"
