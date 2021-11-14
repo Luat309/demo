@@ -1,18 +1,23 @@
 import { APPROVAL_STATUS } from "constants/app";
 import moment from "moment";
 
-export const getJobRequest = (state) =>
-  Array.isArray(state.jobRequest.data) &&
-  state.jobRequest.data.map((item) => {
-    return {
-      ...item,
-      status: moment(item.deadline).isBefore()
-        ? APPROVAL_STATUS.HET_HAN
-        : (item.status !== null && item.status !== undefined)
-        ? item.status
-        : APPROVAL_STATUS.CHO_DUYET,
-    };
-  });
+export const getJobRequest = (state) => {
+  if (Array.isArray(state.jobRequest.data)) {
+    return state.jobRequest.data.map((item) => {
+      return {
+        ...item,
+        petitioner: item.petitioner.name,
+        status: moment(item.deadline).isBefore()
+          ? APPROVAL_STATUS.HET_HAN
+          : item.status !== null && item.status !== undefined
+          ? item.status
+          : APPROVAL_STATUS.CHO_DUYET,
+      };
+    });
+  } else {
+    return state.jobRequest.data;
+  }
+};
 
 export const getStatusJobRequest = (state) => state.jobRequest.status;
 

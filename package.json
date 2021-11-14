@@ -1,6 +1,7 @@
 {
   "name": "frontendsskpi",
-  "version": "0.1.0",
+  "version": "2.0",
+  "description": "Pb 2.0 phan quyen sieu cap vip pro",
   "private": true,
   "author": {
     "name": "Hoang Van Anh",
@@ -8,7 +9,6 @@
     "url": "eocourl.com"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",

@@ -52,6 +52,11 @@ const CandidateInterview = ({ data }) => {
     }
   };
 
+  const option = [0, 1, 2, 3, 4, 5];
+  const mapOtion = option.map((item) => {
+    return <option value={item}>{item}</option>;
+  });
+
   return (
     <div>
       <Dialog
@@ -81,12 +86,13 @@ const CandidateInterview = ({ data }) => {
               <p>i,Tư duy</p>
               <label htmlFor="thinking">Hệ thống,login *</label>
               <br />
-              <input
-                type="number"
-                min={0}
-                max={5}
+              <select
+                name="thinking"
+                id=""
                 {...register("thinking", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.thinking && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -97,12 +103,13 @@ const CandidateInterview = ({ data }) => {
               <p>ii,Phẩm chất</p>
               <label htmlFor="phone">Kiên trì bền bỉ*</label>
               <br />
-              <input
-                min={0}
-                max={5}
-                type="number"
+              <select
+                name="persistent_perseverance"
+                id=""
                 {...register("persistent_perseverance", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.persistent_perseverance && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -112,14 +119,13 @@ const CandidateInterview = ({ data }) => {
             <div>
               <label htmlFor="career_goals">Đam mê mục tiêu rõ ràng*</label>
               <br />
-              <input
-                type="number"
-                min={0}
-                max={5}
-                {...register("career_goals", {
-                  required: true,
-                })}
-              />
+              <select
+                name="career_goals"
+                id=""
+                {...register("career_goals", { required: true })}
+              >
+                {mapOtion}
+              </select>
               {errors.career_goals && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -166,12 +172,13 @@ const CandidateInterview = ({ data }) => {
               <p>iii,Chuyên môn</p>
               <label htmlFor="specialize_skill">Chuyên môn*</label>
               <br />
-              <input
-                min={0}
-                max={5}
-                type="number"
+              <select
+                name="specialize_skill"
+                id=""
                 {...register("specialize_skill", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.specialize_skill && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -182,12 +189,13 @@ const CandidateInterview = ({ data }) => {
               <p>iiii,Khác</p>
               <label htmlFor="english">Tiếng anh*</label>
               <br />
-              <input
-                type="number"
-                min={0}
-                max={5}
+              <select
+                name="english"
+                id=""
                 {...register("english", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.english && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -197,12 +205,13 @@ const CandidateInterview = ({ data }) => {
             <div>
               <label htmlFor="adaptability">Khả năng thích ứng*</label>
               <br />
-              <input
-                min={0}
-                max={5}
-                type="number"
+              <select
+                name="adaptability"
+                id=""
                 {...register("adaptability", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.adaptability && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.

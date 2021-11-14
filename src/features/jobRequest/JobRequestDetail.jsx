@@ -9,35 +9,12 @@ const JobRequestDetail = ({
   handleClickUpdate,
   handleDelete,
 }) => {
-  const renderFooter = (name) => {
-    return (
-      <div>
-        <PermissionButton
-          name="deleteJobRequest"
-          label="Xóa"
-          icon="pi pi-trash"
-          onClick={() => handleDelete(jobDetail)}
-          className="p-button-text p-button-danger"
-        />
-        <PermissionButton
-          name="updateJobRequest"
-          label={"Cập nhật"}
-          icon="pi pi-check"
-          onClick={() => handleClickUpdate(jobDetail)}
-          className="p-button-help"
-          autoFocus
-        />
-      </div>
-    );
-  };
-
   return (
     <Dialog
       header="Thông tin chi tiết dự án"
       visible={isOpen}
       onHide={onHide}
       style={{ width: "80%" }}
-      footer={renderFooter}
     >
       <table className="jobDetail">
         <tbody>

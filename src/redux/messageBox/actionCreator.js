@@ -2,15 +2,11 @@ import { HIDE_MESSAGE, SHOW_MESSAGE } from "./constant";
 
 export const showMessage = (
   message,
-  // type = "SUCCESS",
-  callback = () => {
-    console.log("OK");
-  }
+  typeDialog = "SUCCESS",
 ) => ({
   type: SHOW_MESSAGE,
   message: message,
-  // type: type,
-  callback: callback,
+  typeDialog: typeDialog,
 });
 
 export const hideMessage = () => ({

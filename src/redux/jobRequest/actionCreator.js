@@ -1,6 +1,6 @@
-import { STATUS_REQUEST } from "constants/app";
 import { showMessage } from "redux/messageBox/actionCreator";
 import JobRequestService from "services/JobRequestService";
+import { getIdCurrentUser, getNameCurrentUser } from "utils/localStorage";
 import {
   JOBREQUEST_FETCH,
   JOBREQUEST_INSERT,
@@ -15,8 +15,8 @@ const service = new JobRequestService();
 export const fetchJobRequest = () => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_FETCH,
-    status: STATUS_REQUEST.LOADING,
-    payload: [],
+    data: "loading",
+    message: "Đang tải dữ liệu..."
   });
 
   service
@@ -24,24 +24,23 @@ export const fetchJobRequest = () => async (dispatch) => {
     .then((res) => {
       dispatch({
         type: JOBREQUEST_FETCH,
-        status: STATUS_REQUEST.SUCCEEDED,
-        payload: res.data,
+        data: res.data,
+        message: null
       });
     })
     .catch((error) => {
       dispatch({
         type: JOBREQUEST_FETCH,
-        status: STATUS_REQUEST.ERROR,
-        payload: error?.response?.data.message,
+        data: "error",
+        message: error?.response?.data.message
       });
     });
 };
 
-export const insertJobRequest = (data) => (dispatch) => {
+export const insertJobRequest = (data, callback) => (dispatch) => {
   dispatch({
     type: JOBREQUEST_INSERT,
     message: "Đang xử lý",
-    status: STATUS_REQUEST.LOADING,
   });
 
   service
@@ -50,28 +49,32 @@ export const insertJobRequest = (data) => (dispatch) => {
       dispatch({
         type: JOBREQUEST_INSERT,
         message: "Thêm yêu cầu thành công!",
-        payload: res.data,
-        status: STATUS_REQUEST.SUCCEEDED,
+        payload: {
+          ...res.data,
+          petitioner: {
+            id: getIdCurrentUser(),
+            name: getNameCurrentUser(),
+          }
+        },
       });
 
       dispatch(showMessage("Thêm yêu cầu thành công!"));
+      callback();
     })
     .catch((error) => {
       dispatch({
         type: JOBREQUEST_INSERT,
         message: error.message,
-        status: STATUS_REQUEST.ERROR,
       });
 
-      dispatch(showMessage(error.message));
+      dispatch(showMessage(error.message, "ERROR"));
     });
 };
 
-export const updateJobRequest = (data) => async (dispatch) => {
+export const updateJobRequest = (data, callback) => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_UPDATE,
     message: "Đang xử lý",
-    status: STATUS_REQUEST.LOADING,
   });
 
   service
@@ -80,20 +83,25 @@ export const updateJobRequest = (data) => async (dispatch) => {
       dispatch({
         type: JOBREQUEST_UPDATE,
         message: "Cập nhật thành công!",
-        payload: data,
-        status: STATUS_REQUEST.SUCCEEDED,
+        payload: {
+          ...data, 
+          petitioner: {
+            id: getIdCurrentUser(),
+            name: getNameCurrentUser(),
+          }
+        },
       });
 
       dispatch(showMessage("Cập nhật thành công!"));
+      callback();
     })
     .catch((error) => {
       dispatch({
         type: JOBREQUEST_UPDATE,
         message: error.message,
-        status: STATUS_REQUEST.ERROR,
       });
 
-      dispatch(showMessage(error.message));
+      dispatch(showMessage(error.message, "ERROR"));
     });
 };
 
@@ -101,7 +109,6 @@ export const deleteJobRequest = (id) => (dispatch) => {
   dispatch({
     type: JOBREQUEST_DELETE,
     message: "Đang xử lý",
-    status: STATUS_REQUEST.LOADING,
   });
 
   service
@@ -111,15 +118,17 @@ export const deleteJobRequest = (id) => (dispatch) => {
         type: JOBREQUEST_DELETE,
         message: "Xóa thành công!",
         payload: id,
-        status: STATUS_REQUEST.SUCCEEDED,
       });
+
+      dispatch(showMessage("Xóa thành công!"));
     })
     .catch((error) => {
       dispatch({
         type: JOBREQUEST_DELETE,
         message: error.message,
-        status: STATUS_REQUEST.ERROR,
       });
+
+      dispatch(showMessage(error.message, "ERROR"));
     });
 };
 
@@ -127,7 +136,6 @@ export const approvalJobRequest = (id) => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_APPROVAL,
     message: "Đang xử lý",
-    status: STATUS_REQUEST.LOADING,
   });
 
   service
@@ -137,15 +145,17 @@ export const approvalJobRequest = (id) => async (dispatch) => {
         type: JOBREQUEST_APPROVAL,
         message: "Phê duyệt thành công!",
         payload: id,
-        status: STATUS_REQUEST.SUCCEEDED,
       });
+
+      dispatch(showMessage("Phê duyệt thành công!"));
     })
     .catch((error) => {
       dispatch({
         type: JOBREQUEST_APPROVAL,
         message: error.message,
-        status: STATUS_REQUEST.ERROR,
       });
+
+      dispatch(showMessage(error.message, "ERROR"));
     });
 };
 
@@ -153,7 +163,6 @@ export const rejectJobRequest = (id) => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_REJECT,
     message: "Đang xử lý",
-    status: STATUS_REQUEST.LOADING,
   });
 
   service
@@ -163,14 +172,16 @@ export const rejectJobRequest = (id) => async (dispatch) => {
         type: JOBREQUEST_REJECT,
         message: "Từ chối thành công!",
         payload: id,
-        status: STATUS_REQUEST.SUCCEEDED,
       });
+
+      dispatch(showMessage("Từ chối thành công!"));
     })
     .catch((error) => {
       dispatch({
         type: JOBREQUEST_REJECT,
         message: error.message,
-        status: STATUS_REQUEST.ERROR,
       });
+
+      dispatch(showMessage(error.message, "ERROR"));
     });
 };

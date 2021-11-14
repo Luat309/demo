@@ -1,14 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Button } from "primereact/button";
 import CustomBreadCrumb from "components/CustomBreadCrumb";
-import InputTextController from "components/InputTextController";
-import InputNumberController from "components/InputNumberController";
-import EditorController from "components/EditorController";
-import CalenderController from "components/CalenderController";
 import { insertJobRequest } from "redux/jobRequest/actionCreator";
 import PermissionButton from "components/PermissionButton";
+import genElementsForm from "utils/genElementsForm";
+import { useEffect } from "react";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
 
@@ -19,6 +16,7 @@ const FormInsertJobRequest = () => {
     control,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const fields = [
@@ -28,63 +26,26 @@ const FormInsertJobRequest = () => {
     { label: "Số lượng tuyển dụng", name: "amount", type: "inputNumber" },
     { label: "Địa điểm làm việc", name: "location", type: "inputText" },
     { label: "Thời gian làm việc", name: "working_time", type: "inputText" },
-    { label: "Người yêu cầu", name: "petitioner", type: "inputText" },
     { label: "Mức lương", name: "wage", type: "inputText" },
     { label: "Đặc điểm của dự án", name: "description", type: "editor" },
   ];
 
-  const formRender = fields.map(({ type, ...rest }, index) => {
-    switch (type) {
-      case "inputNumber":
-        return (
-          <InputNumberController
-            key={index}
-            {...rest}
-            control={control}
-            errors={errors}
-          />
-        );
+  const formRender = genElementsForm(fields, control, errors);
 
-      case "calender":
-        return (
-          <CalenderController
-            key={index}
-            {...rest}
-            control={control}
-            errors={errors}
-          />
-        );
+  useEffect(() => {
+    const {
+      user: { name },
+    } = JSON.parse(localStorage.getItem("currentUser"));
 
-      case "editor":
-        return (
-          <EditorController
-            key={index}
-            {...rest}
-            control={control}
-            errors={errors}
-          />
-        );
-
-      default:
-        return (
-          <InputTextController
-            key={index}
-            {...rest}
-            control={control}
-            errors={errors}
-          />
-        );
-    }
-  });
+    reset({
+      petitioner: name,
+    });
+  }, [reset]);
 
   const onSubmit = (data) => {
-    try {
-      dispatch(insertJobRequest(data));
-
+    dispatch(insertJobRequest(data, () => {
       history.push("/admin/jobrequest");
-    } catch (error) {
-      console.log(error);
-    }
+    }));
   };
 
   return (
@@ -97,7 +58,7 @@ const FormInsertJobRequest = () => {
           <PermissionButton
             name="insertJobRequest"
             type="submit"
-            label="Thêm kế hoạch"
+            label="Thêm yêu cầu"
           />
         </form>
       </div>

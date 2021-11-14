@@ -1,4 +1,4 @@
-import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
+import { APPROVAL_STATUS } from "constants/app";
 import {
   JOBREQUEST_FETCH,
   JOBREQUEST_INSERT,
@@ -10,7 +10,6 @@ import {
 
 const initialState = {
   data: [],
-  status: STATUS_REQUEST.IDLE,
   message: "",
 };
 
@@ -18,8 +17,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case JOBREQUEST_FETCH:
       return {
-        status: action.status,
-        data: action.payload,
+        data: action.data,
+        message: action?.message
       };
 
     case JOBREQUEST_INSERT:
@@ -27,7 +26,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         message: action.message,
         data: action?.payload ? [...state.data, action.payload] : state.data,
-        status: action.status,
       };
 
     case JOBREQUEST_UPDATE:
@@ -42,7 +40,6 @@ const reducer = (state = initialState, action) => {
               return item;
             })
           : state.data,
-        status: action.status,
       };
 
     case JOBREQUEST_DELETE:
@@ -51,7 +48,6 @@ const reducer = (state = initialState, action) => {
         data: action?.payload
           ? state.data.filter((item) => item.id !== action.payload)
           : state.data,
-        status: action.status,
       };
 
     case JOBREQUEST_APPROVAL:
@@ -69,7 +65,6 @@ const reducer = (state = initialState, action) => {
               return item;
             })
           : state.data,
-        status: action.status,
       };
 
     case JOBREQUEST_REJECT:
@@ -87,7 +82,6 @@ const reducer = (state = initialState, action) => {
               return item;
             })
           : state.data,
-        status: action.status,
       };
 
     default:

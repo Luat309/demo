@@ -5,6 +5,7 @@ import reducerCandidateInterview from './candidateInterview/reducer'
 import reducerInterview from './interview/reducer'
 import messageBoxReducer from "./messageBox/reducer";
 import confirmBoxReducer from "./confirmBox/reducer";
+import userReducer from "./user/reducer";
 
 const rootReducer = combineReducers({
     cadidate: reducerCandidate,
@@ -13,6 +14,6 @@ const rootReducer = combineReducers({
     interview: reducerInterview,
     messageBox: messageBoxReducer,
     confirmBox: confirmBoxReducer,
-
+    user: userReducer
 })
 export default rootReducer;

@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
+import PermissionButton from "components/PermissionButton";
+
 import JobRequestDetail from "./JobRequestDetail";
 
 import { Button } from "primereact/button";
@@ -18,12 +20,11 @@ import {
   deleteJobRequest,
   rejectJobRequest,
 } from "redux/jobRequest/actionCreator";
-import { getStatusJobRequest, getJobRequest } from "redux/jobRequest/selector";
-import { APPROVAL_STATUS, STATUS_REQUEST } from "constants/app";
+import { getJobRequest } from "redux/jobRequest/selector";
+import { showConfirm } from "redux/confirmBox/actionCreator";
+import { APPROVAL_STATUS } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
-import { showConfirm } from "redux/confirmBox/actionCreator";
-import PermissionButton from "components/PermissionButton";
 
 const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
 
@@ -39,7 +40,6 @@ const cols = [
 
 const JobRequestList = () => {
   const dispatch = useDispatch();
-  const status = useSelector(getStatusJobRequest);
   const data = useSelector(getJobRequest);
   const history = useHistory();
   const [jobDetail, setJobDetail] = useState();
@@ -47,7 +47,6 @@ const JobRequestList = () => {
   const [filter, setFilter] = useState(false);
   const [statusFilter, setStatusFilter] = useState([]);
   const [deadLine, setDeadLine] = useState([]);
-  const { user } = JSON.parse(localStorage.getItem("currentUser"));
 
   const statuses = [
     { id: 0, name: "Từ chối", code: "TU_CHOI", severity: "danger" },
@@ -142,7 +141,6 @@ const JobRequestList = () => {
           onClick={() => handleClickUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
-          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <PermissionButton
           name="deleteJobRequest"
@@ -158,9 +156,7 @@ const JobRequestList = () => {
           onClick={() => handleClickApproval(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-check-circle"
-          disabled={
-            data.status !== APPROVAL_STATUS.CHO_DUYET
-          }
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
         <PermissionButton
           name="rejectJobRequest"
@@ -168,9 +164,7 @@ const JobRequestList = () => {
           onClick={() => handleClickReject(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-times-circle"
-          disabled={
-            data.status !== APPROVAL_STATUS.CHO_DUYET
-          }
+          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
       </>
     );
@@ -322,9 +316,8 @@ const JobRequestList = () => {
         </div>
       </div>
 
-      {status === STATUS_REQUEST.LOADING && "Đang tải dữ liệu..."}
-      {status === STATUS_REQUEST.ERROR && data}
-      {Array.isArray(data) && data.length > 0 && (
+      {data === "error" && "Đã xảy ra lỗi, vui lòng liên hệ với quản trị viên!"}
+      {Array.isArray(data) && (
         <div className="card">
           <CustomDataTable
             selectionMode="single"
