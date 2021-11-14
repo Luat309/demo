@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getRoleCurrentUser } from "utils/localStorage";
 import { HR, HR_MANAGER, INTERVIEWER, MANAGER } from "./app";
 
 export const JOBREQUEST = "/admin/jobrequest";
@@ -137,9 +138,7 @@ export const genAppMenu = (arr) => {
     return
   }
   
-  const {
-    user: { role },
-  } = JSON.parse(localStorage.getItem("currentUser"));
+  const role = getRoleCurrentUser();
 
   const filterByRole = arr.filter((item) => item.role.indexOf(role) !== -1);
   const filterParentMenu = filterByRole.filter((item) => item.parentMenu === 0);

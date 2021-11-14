@@ -1,6 +1,7 @@
 import { PERMISSION_MENU } from "constants/appPath";
 import React from "react";
 import { Redirect, Route } from "react-router";
+import { getRoleCurrentUser } from "utils/localStorage";
 import ForBiddenPage from "./ForbiddenPage";
 // import { isLogin } from "../services/authenticate";
 
@@ -16,9 +17,7 @@ const PrivateRoute = (props) => {
   const findPermission = PERMISSION_MENU.find((item) => item.path === pathName);
 
   if (localStorage.getItem("currentUser")) {
-    const {
-      user: { role },
-    } = JSON.parse(localStorage.getItem("currentUser"));
+    const role = getRoleCurrentUser();
 
     if (findPermission) {
       const check = findPermission.role.indexOf(role);

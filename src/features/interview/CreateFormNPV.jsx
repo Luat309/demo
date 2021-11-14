@@ -7,7 +7,6 @@ import InputTextController from "components/InputTextController";
 import CalenderController from "components/CalenderController";
 import DropdownController from "components/DropdownController";
 import ChipsController from "components/ChipsController";
-import { insertJobRequest } from "redux/jobRequest/actionCreator";
 import MultiSelectController from "components/MultiSelectController";
 import { getApprovedJobRequest } from "redux/jobRequest/selector";
 import { getCandidates } from "redux/candidate/selector";
@@ -15,7 +14,7 @@ import { ROUND_INTERVIEW } from "constants/app";
 import { createInterview } from "redux/interview/actionCreator";
 import { useState } from "react";
 
-const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Thêm yêu cầu" }];
+const items = [{ label: "Lịch phỏng vấn" }, { label: "Tạo lịch phỏng vấn" }];
 
 const FormInsertInterview = () => {
   const dispatch = useDispatch();

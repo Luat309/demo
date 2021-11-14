@@ -1,12 +1,11 @@
 import PERMISSION_BUTTON from "constants/permissionButton";
 import { Button } from "primereact/button";
+import { getRoleCurrentUser } from "utils/localStorage";
 
 const PermissionButton = ({ name, ...rest }) => {
   let button = <></>;
 
-  const {
-    user: { role },
-  } = JSON.parse(localStorage.getItem("currentUser"));
+  const role = getRoleCurrentUser();
 
   if (PERMISSION_BUTTON[name]) {
     const check = PERMISSION_BUTTON[name].indexOf(role);
