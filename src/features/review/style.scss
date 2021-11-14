@@ -46,5 +46,20 @@
             height: 100px;
             margin: 10px 0;
         }
+        select {
+            width: 100%;
+            margin: 8px 0;
+            border-radius: 8px;
+            padding: 10px;
+            border: none;
+            border: 2px solid rgb(223, 220, 220);
+        }
+    }
+}
+
+.card {
+    h5 {
+        font-weight: bold;
+        font-size: 14px;
     }
 }
