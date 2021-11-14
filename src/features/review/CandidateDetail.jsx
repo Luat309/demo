@@ -1,6 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { getCandidateInterviews } from "redux/candidateInterview/selector";
 
 const CandidateDetail = ({ data }) => {
+  const candidateInterview = useSelector(getCandidateInterviews);
+  const array = candidateInterview.filter(
+    (item) => item.candidate_id === data.candidate_id
+  );
+
   return (
     <div className="container">
       <h2 style={{ textAlign: "center" }}>Đánh giá ứng viên</h2>
@@ -16,27 +23,31 @@ const CandidateDetail = ({ data }) => {
           <p>Email : {data?.email}</p>
         </div>
         <div className="col-10">
-          <div className="flex ">
-            <div className=" mr-5">
-              <p>i,Tư duy</p>
-              <p>Hệ thống,login : {data?.thinking}</p>
-              <p>ii,Phẩm chất</p>
-              <p>Kiên trì bền bỉ : {data?.persistent_perseverance}</p>
-              <p>Đam mê mục tiêu rõ ràng : {data?.career_goals}</p>
-              <p>V,Tổng kết</p>
-              <p>Kết quả : {data?.result}</p>
-            </div>
-            <div>
-              <p>iii,Chuyên môn</p>
-              <p>Chuyên môn : {data?.specialize_skill}</p>
-              <p>iiii,Khác</p>
-              <p>Tiếng anh : {data?.english}</p>
-              <p>Khả năng thích ứng :{data?.adaptability}</p>
-              <p>Thời gian có thể onboard: {data?.time_onbroad}</p>
-              <p>Nhận xét</p>
-              <span>- {data?.reviews}</span>
-            </div>
-          </div>
+          {array?.map((item) => {
+            return (
+              <div className="flex">
+                <div className="mr-5 card" style={{ marginBottom: "60px" }}>
+                  <h5>i,Tư duy</h5>
+                  <p>Hệ thống,login : {item?.thinking}</p>
+                  <h5>ii,Phẩm chất</h5>
+                  <p>Kiên trì bền bỉ : {item?.persistent_perseverance}</p>
+                  <p>Đam mê mục tiêu rõ ràng : {item?.career_goals}</p>
+                  <h5>V,Tổng kết</h5>
+                  <p>Kết quả : {item?.result}</p>
+                </div>
+                <div className="card">
+                  <h5>iii,Chuyên môn</h5>
+                  <p>Chuyên môn : {item?.specialize_skill}</p>
+                  <h5>iiii,Khác</h5>
+                  <p>Tiếng anh : {item?.english}</p>
+                  <p>Khả năng thích ứng :{item?.adaptability}</p>
+                  <p>Thời gian có thể onboard: {item?.time_onbroad}</p>
+                  <p>Nhận xét</p>
+                  <span>- {item?.reviews}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

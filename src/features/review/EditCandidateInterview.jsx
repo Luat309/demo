@@ -31,7 +31,7 @@ const EditCandidateInterview = () => {
     const find = candidateInterview.find((item) => item.id === Number(id));
     setFindValue(find);
     reset({ ...find });
-  }, [findValue]);
+  }, []);
 
   const handleEdit = (value) => {
     dispatch(editCandidateInterview(value));
@@ -121,7 +121,6 @@ const EditCandidateInterview = () => {
             </div>
             <div style={{ margin: "20px 0" }}>
               <p>V,Tổng kết</p>
-              <label htmlFor="result">Kết quả*</label>
               <br />
               <select
                 value={findValue?.result}
@@ -142,11 +141,12 @@ const EditCandidateInterview = () => {
             </div>
           </div>
           <div className="candidate_right">
-            <div>
+            <div className="div-input">
               <p>iii,Chuyên môn</p>
               <label htmlFor="specialize_skill">Chuyên môn*</label>
               <br />
               <input
+                className="specialize_skill"
                 min={0}
                 max={5}
                 type="number"
@@ -159,11 +159,12 @@ const EditCandidateInterview = () => {
                 </span>
               )}
             </div>
-            <div>
+            <div className="div-input">
               <p>iiii,Khác</p>
               <label htmlFor="english">Tiếng anh*</label>
               <br />
               <input
+                className="english"
                 type="number"
                 min={0}
                 max={5}
@@ -176,10 +177,11 @@ const EditCandidateInterview = () => {
                 </span>
               )}
             </div>
-            <div>
+            <div className="div-input">
               <label htmlFor="adaptability">Khả năng thích ứng*</label>
               <br />
               <input
+                className="adaptability"
                 min={0}
                 max={5}
                 type="number"
@@ -206,7 +208,7 @@ const EditCandidateInterview = () => {
                 </span>
               )}
             </div>
-            <div>
+            <div className="div-input">
               <label htmlFor="reviews">Nhận xét*</label>
               <br />
               <textarea

@@ -116,10 +116,16 @@ const CandidateCreat = () => {
             <div>
               <label htmlFor="phone">Số điện thoại*</label>
               <br />
-              <input type="text" {...register("phone", { required: true })} />
+              <input
+                type="text"
+                {...register("phone", {
+                  required: true,
+                  pattern: /((09|03|07|08|05)+([0-9]{8})\b)/g,
+                })}
+              />
               {errors.phone && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
-                  Bắt buộc phải nhập.
+                  Trường này không đực để trống hoặc sai định dạng
                 </span>
               )}
             </div>
@@ -131,11 +137,14 @@ const CandidateCreat = () => {
                 min={0}
                 {...register("email", {
                   required: true,
+                  pattern:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 })}
               />
               {errors.email && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
-                  Bắt buộc phải nhập.
+                  Trường này không đực để trống hoặc sai định dạng
+                  "uer123@gmail.com"
                 </span>
               )}
             </div>
@@ -183,12 +192,7 @@ const CandidateCreat = () => {
               <label htmlFor="status">Trạng thái*</label>
               <br />
               <select name="" id="" {...register("status", { required: true })}>
-                <option>Trạng thái</option>
                 <option value="Vòng CV">Vòng CV</option>
-                <option value="CV pass vòng 1 (hr)">CV pass vòng 1 (hr)</option>
-                <option value="CV pass vòng 2 (TBP)">
-                  CV pass vòng 2 (TBP)
-                </option>
                 <option value="Sắp xếp PV">Sắp xếp PV</option>
                 <option value="PV Pass">PV Pass</option>
                 <option value="PV Faild">PV Faild</option>
@@ -203,7 +207,6 @@ const CandidateCreat = () => {
               <label htmlFor="source">Nguồn*</label>
               <br />
               <select name="" id="" {...register("source", { required: true })}>
-                <option>Nguồn</option>
                 <option value="Vnws">Vnws</option>
                 <option value="Top CV">Top CV</option>
                 <option value="Tìm việc nhanh">Tìm việc nhanh</option>

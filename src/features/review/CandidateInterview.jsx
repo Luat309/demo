@@ -1,6 +1,7 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import { CANDIDATE_INTERVIEW_SHOW } from "constants/appPath";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { Dialog } from "primereact/dialog";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,6 +10,8 @@ import { useHistory } from "react-router";
 import { createCandidateInterview } from "redux/candidateInterview/action";
 import "./style.scss";
 
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
 const items = [
   { label: "Đánh Giá Ứng viên" },
   { label: "Tạo Đánh Giá Ứng Viên" },
@@ -16,7 +19,11 @@ const items = [
 
 const CandidateInterview = ({ data }) => {
   const history = useHistory();
+  let today = new Date();
   const [showMessage, setShowMessage] = useState(false);
+  const [timeOnbroad, setTimeOnbroad] = useState();
+  let invalidDates = [today];
+  console.log(timeOnbroad);
   const dispatch = useDispatch();
   const {
     register,
@@ -33,16 +40,22 @@ const CandidateInterview = ({ data }) => {
       interview_id: data.id,
       time_start: data.time_start,
       time_end: data.time_end,
+      user_id: currentUser?.user?.id,
+      time_onbroad: timeOnbroad,
     };
     if (newValue) {
       dispatch(createCandidateInterview(newValue));
-      setShowMessage(false);
       setTimeout(() => {
         history.push(CANDIDATE_INTERVIEW_SHOW);
       }, 2000);
       reset();
     }
   };
+
+  const option = [0, 1, 2, 3, 4, 5];
+  const mapOtion = option.map((item) => {
+    return <option value={item}>{item}</option>;
+  });
 
   return (
     <div>
@@ -73,12 +86,13 @@ const CandidateInterview = ({ data }) => {
               <p>i,Tư duy</p>
               <label htmlFor="thinking">Hệ thống,login *</label>
               <br />
-              <input
-                type="number"
-                min={0}
-                max={5}
+              <select
+                name="thinking"
+                id=""
                 {...register("thinking", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.thinking && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -89,12 +103,13 @@ const CandidateInterview = ({ data }) => {
               <p>ii,Phẩm chất</p>
               <label htmlFor="phone">Kiên trì bền bỉ*</label>
               <br />
-              <input
-                min={0}
-                max={5}
-                type="number"
+              <select
+                name="persistent_perseverance"
+                id=""
                 {...register("persistent_perseverance", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.persistent_perseverance && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -104,21 +119,34 @@ const CandidateInterview = ({ data }) => {
             <div>
               <label htmlFor="career_goals">Đam mê mục tiêu rõ ràng*</label>
               <br />
-              <input
-                type="number"
-                min={0}
-                max={5}
-                {...register("career_goals", {
-                  required: true,
-                })}
-              />
+              <select
+                name="career_goals"
+                id=""
+                {...register("career_goals", { required: true })}
+              >
+                {mapOtion}
+              </select>
               {errors.career_goals && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
                 </span>
               )}
             </div>
-            <div style={{ margin: "20px 0" }}>
+            <div>
+              <label htmlFor="time_onbroad">Thời gian có thể onboard*</label>
+              <br />
+              <div className="p-field p-col-12 p-md-4">
+                <Calendar
+                  id="disableddays"
+                  value={timeOnbroad}
+                  onChange={(e) => setTimeOnbroad(e.value)}
+                  disabledDates={invalidDates}
+                  disabledDays={[0, 6]}
+                  readOnlyInput
+                />
+              </div>
+            </div>
+            <div>
               <p>V,Tổng kết</p>
               <label htmlFor="result">Kết quả*</label>
               <br />
@@ -144,12 +172,13 @@ const CandidateInterview = ({ data }) => {
               <p>iii,Chuyên môn</p>
               <label htmlFor="specialize_skill">Chuyên môn*</label>
               <br />
-              <input
-                min={0}
-                max={5}
-                type="number"
+              <select
+                name="specialize_skill"
+                id=""
                 {...register("specialize_skill", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.specialize_skill && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -160,12 +189,13 @@ const CandidateInterview = ({ data }) => {
               <p>iiii,Khác</p>
               <label htmlFor="english">Tiếng anh*</label>
               <br />
-              <input
-                type="number"
-                min={0}
-                max={5}
+              <select
+                name="english"
+                id=""
                 {...register("english", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.english && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -175,31 +205,20 @@ const CandidateInterview = ({ data }) => {
             <div>
               <label htmlFor="adaptability">Khả năng thích ứng*</label>
               <br />
-              <input
-                min={0}
-                max={5}
-                type="number"
+              <select
+                name="adaptability"
+                id=""
                 {...register("adaptability", { required: true })}
-              />
+              >
+                {mapOtion}
+              </select>
               {errors.adaptability && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
                 </span>
               )}
             </div>
-            <div>
-              <label htmlFor="time_onbroad">Thời gian có thể onboard*</label>
-              <br />
-              <input
-                type="text"
-                {...register("time_onbroad", { required: true })}
-              />
-              {errors.time_onbroad && (
-                <span style={{ color: "red", marginBottom: "7px" }}>
-                  Bắt buộc phải nhập.
-                </span>
-              )}
-            </div>
+
             <div>
               <label htmlFor="reviews">Nhận xét*</label>
               <br />
