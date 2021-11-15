@@ -5,9 +5,12 @@ export const getCandidateInterviews = (state) => {
   });
 
   let jobRequest = {};
-  state?.jobRequest?.data.forEach((item) => {
-    jobRequest[item.id] = item;
-  });
+  if (Array.isArray(state?.jobRequest?.data)) {
+    state?.jobRequest?.data.forEach((item) => {
+      jobRequest[item.id] = item;
+    });
+  }
+
   let interview = {};
   state?.interview?.data.forEach((item) => {
     interview[item.id] = item;
