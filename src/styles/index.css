@@ -6,6 +6,7 @@
 @import url("./components/jobRequest/jobDetail.css");
 @import url("./components/jobRequest/jobFilter.css");
 @import url("./forbidden.css");
+@import url("./components/notification/index.css");
 html {
     font-size: 14px;
 }

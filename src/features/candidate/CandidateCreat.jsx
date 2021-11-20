@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "primereact/button";
-import CustomBreadCrumb from "../../components/CustomBreadCrumb";
+import CustomBreadCrumb from "components/CustomBreadCrumb";
 import { useHistory } from "react-router";
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
