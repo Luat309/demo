@@ -2,16 +2,18 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { checkLogin } from "./middleware";
+import { checkLogin, pushNotification } from "./middleware";
+
 import { fetchJobRequest } from "./jobRequest/actionCreator";
 import { fetchInterview } from "./interview/actionCreator";
-import { getCandidate } from "./candidate/action";
 import { getListUsers } from "./user/actionCreator";
+
+import { getCandidate } from "./candidate/action";
 import { getRoleCurrentUser } from "utils/localStorage";
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, checkLogin))
+  composeWithDevTools(applyMiddleware(checkLogin, pushNotification, thunk))
 );
 
 if (localStorage.getItem("currentUser")) {

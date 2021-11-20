@@ -1,17 +1,44 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import socket from "./socket";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import logo from "images/logo.png";
-// import { ProgressSpinner } from "primereact/progressspinner";
 import { Menu } from "primereact/menu";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Badge } from "primereact/badge";
 import { iconStyle } from "styles/icon.style";
 import { MegaMenu } from "primereact/megamenu";
 import { APP_MENU_ITEM } from "constants/appPath";
+import NotificationList from "./NotificationList";
+
+// const notifications = [];
 
 const TopBar = (props) => {
   const history = useHistory();
+  const [notifications, setNotifications] = useState([]);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("http://localhost:3000/api/node/notifications");
+      const data = await res.json();
+
+      setNotifications((prevState) => prevState.concat(data));
+    })()
+
+    document.addEventListener("click", () => {
+      setVisible(false);
+    })
+  }, [])
+
+  useEffect(() => {
+    socket.on("res_notification", (data) => {
+      // console.log("@ gmail.com", data);
+
+      setNotifications((prevState) => prevState.concat(data));
+    });
+  }, []);
 
   const menu = useRef(null);
   const itemsAccount = [
@@ -29,6 +56,12 @@ const TopBar = (props) => {
       },
     },
   ];
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+
+    setVisible(!visible);
+  }
 
   return (
     <>
@@ -50,8 +83,11 @@ const TopBar = (props) => {
           <li>
             <i className="pi pi-globe" style={iconStyle}></i>
           </li>
-          <li>
-            <i className="pi pi-bell" style={iconStyle}></i>
+          <li style={{ position: "relative", cursor: "pointer" }}>
+            <i onClick={handleClick} className="pi pi-bell p-overlay-badge" style={iconStyle}>
+              <Badge value={notifications.length} />
+            </i>
+            {visible && <NotificationList notifications={notifications} />}
           </li>
           <li>
             <i className="pi pi-question-circle" style={iconStyle}></i>
