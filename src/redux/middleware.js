@@ -6,5 +6,5 @@ export const checkLogin = (store) => (next) => (action) => {
     return;
   }
 
-  next(action);
+  return next(action);
 };

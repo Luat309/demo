@@ -9,8 +9,10 @@ import {
   JOBREQUEST_REJECT,
   JOBREQUEST_APPROVAL,
 } from "./constant";
+import { emitEvent } from "utils/emitEvent";
 
 const service = new JobRequestService();
+const nameCurrentUser = getNameCurrentUser();
 
 export const fetchJobRequest = () => async (dispatch) => {
   dispatch({
@@ -46,6 +48,7 @@ export const insertJobRequest = (data, callback) => (dispatch) => {
   service
     .createJobRequest(data)
     .then((res) => {
+
       dispatch({
         type: JOBREQUEST_INSERT,
         message: "Thêm yêu cầu thành công!",
@@ -53,13 +56,25 @@ export const insertJobRequest = (data, callback) => (dispatch) => {
           ...res.data,
           petitioner: {
             id: getIdCurrentUser(),
-            name: getNameCurrentUser(),
+            name: nameCurrentUser,
           }
         },
       });
 
       dispatch(showMessage("Thêm yêu cầu thành công!"));
       callback();
+
+      emitEvent(
+        `<b>${nameCurrentUser}</b> đã tạo mới một yêu cầu tuyển dụng`,
+        `/admin/jobrequest/edit/${res.data.id}`,
+        "JOBREQUEST/CREATED"
+      )
+
+      emitEvent(
+        `Bạn có một yêu cầu tuyển dụng cần phê duyệt`,
+        `/admin/jobrequest`,
+        "JOBREQUEST/WAITING"
+      )
     })
     .catch((error) => {
       dispatch({
@@ -80,6 +95,7 @@ export const updateJobRequest = (data, callback) => async (dispatch) => {
   service
     .editJobRequest(data)
     .then((res) => {
+
       dispatch({
         type: JOBREQUEST_UPDATE,
         message: "Cập nhật thành công!",
@@ -87,13 +103,19 @@ export const updateJobRequest = (data, callback) => async (dispatch) => {
           ...data, 
           petitioner: {
             id: getIdCurrentUser(),
-            name: getNameCurrentUser(),
+            name: nameCurrentUser,
           }
         },
       });
 
       dispatch(showMessage("Cập nhật thành công!"));
       callback();
+
+      emitEvent(
+        `<b>${nameCurrentUser}</b> đã cập nhật một yêu cầu tuyển dụng`,
+        `/admin/jobrequest/edit/${data.id}`,
+        "JOBREQUEST/UPDATED"
+      )
     })
     .catch((error) => {
       dispatch({
@@ -123,12 +145,20 @@ export const deleteJobRequest = (id) => (dispatch) => {
       dispatch(showMessage("Xóa thành công!"));
     })
     .catch((error) => {
+      const nameCurrentUser = getNameCurrentUser();
+
       dispatch({
         type: JOBREQUEST_DELETE,
         message: error.message,
       });
 
       dispatch(showMessage(error.message, "ERROR"));
+
+      emitEvent(
+        `<b>${nameCurrentUser}</b> đã xóa một yêu cầu tuyển dụng`,
+        `/admin/jobrequest`,
+        "JOBREQUEST/DELETED"
+      )
     });
 };
 
@@ -148,6 +178,12 @@ export const approvalJobRequest = (id) => async (dispatch) => {
       });
 
       dispatch(showMessage("Phê duyệt thành công!"));
+
+      emitEvent(
+        `<b>${nameCurrentUser}</b> đã phê duyệt một yêu cầu tuyển dụng`,
+        `/admin/jobrequest`,
+        "JOBREQUEST/APPROVED"
+      )
     })
     .catch((error) => {
       dispatch({
@@ -175,6 +211,12 @@ export const rejectJobRequest = (id) => async (dispatch) => {
       });
 
       dispatch(showMessage("Từ chối thành công!"));
+
+      emitEvent(
+        `<b>${nameCurrentUser}</b> đã từ chối một yêu cầu tuyển dụng`,
+        `/admin/jobrequest`,
+        "JOBREQUEST/REJECTED"
+      )
     })
     .catch((error) => {
       dispatch({

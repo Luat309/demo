@@ -3,10 +3,12 @@ import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { checkLogin } from "./middleware";
+
 import { fetchJobRequest } from "./jobRequest/actionCreator";
 import { fetchInterview } from "./interview/actionCreator";
-import { getCandidate } from "./candidate/action";
 import { getListUsers } from "./user/actionCreator";
+
+import { getCandidate } from "./candidate/action";
 import { getRoleCurrentUser } from "utils/localStorage";
 
 const store = createStore(
