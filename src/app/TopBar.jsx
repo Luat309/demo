@@ -50,13 +50,8 @@ const TopBar = (props) => {
     socket.on("res_notification", (data) => {
       const idCurrentUser = getIdCurrentUser();
       // console.log("@ gmail.com", data);
-<<<<<<< HEAD
       if(data.userCreated !== idCurrentUser) {
         setNotifications((prevState) => [data, ...prevState]);
-=======
-      if (data.userCreated !== idCurrentUser) {
-        setNotifications((prevState) => prevState.concat(data));
->>>>>>> 138dc746d92e279ab4bf852ef69274b02b23bc66
       }
     });
   }, []);
