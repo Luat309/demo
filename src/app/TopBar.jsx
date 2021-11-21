@@ -47,7 +47,7 @@ const TopBar = (props) => {
       const idCurrentUser = getIdCurrentUser();
       // console.log("@ gmail.com", data);
       if(data.userCreated !== idCurrentUser) {
-        setNotifications((prevState) => prevState.concat(data));
+        setNotifications((prevState) => [data, ...prevState]);
       }
     });
   }, []);
