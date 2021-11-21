@@ -11,7 +11,11 @@ import { iconStyle } from "styles/icon.style";
 import { MegaMenu } from "primereact/megamenu";
 import { APP_MENU_ITEM } from "constants/appPath";
 import NotificationList from "./NotificationList";
-import { getIdCurrentUser, getNameCurrentUser, getRoleCurrentUser } from "utils/localStorage";
+import {
+  getIdCurrentUser,
+  getNameCurrentUser,
+  getRoleCurrentUser,
+} from "utils/localStorage";
 
 // const notifications = [];
 
@@ -26,28 +30,33 @@ const TopBar = (props) => {
         method: "post",
         body: JSON.stringify({
           id: getIdCurrentUser(),
-          role: getRoleCurrentUser()
+          role: getRoleCurrentUser(),
         }),
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       });
       const data = await res.json();
 
       setNotifications((prevState) => prevState.concat(data));
-    })()
+    })();
 
     document.addEventListener("click", () => {
       setVisible(false);
-    })
-  }, [])
+    });
+  }, []);
 
   useEffect(() => {
     socket.on("res_notification", (data) => {
       const idCurrentUser = getIdCurrentUser();
       // console.log("@ gmail.com", data);
+<<<<<<< HEAD
       if(data.userCreated !== idCurrentUser) {
         setNotifications((prevState) => [data, ...prevState]);
+=======
+      if (data.userCreated !== idCurrentUser) {
+        setNotifications((prevState) => prevState.concat(data));
+>>>>>>> 138dc746d92e279ab4bf852ef69274b02b23bc66
       }
     });
   }, []);
@@ -57,7 +66,9 @@ const TopBar = (props) => {
     {
       label: "Thông tin tài khoản",
       icon: "pi pi-external-link",
-      url: "https://reactjs.org/",
+      command: (e) => {
+        history.push("/admin/user/infomation");
+      },
     },
     {
       label: "Đăng xuất",
@@ -73,7 +84,7 @@ const TopBar = (props) => {
     e.stopPropagation();
 
     setVisible(!visible);
-  }
+  };
 
   return (
     <>
@@ -96,7 +107,11 @@ const TopBar = (props) => {
             <i className="pi pi-globe" style={iconStyle}></i>
           </li>
           <li style={{ position: "relative", cursor: "pointer" }}>
-            <i onClick={handleClick} className="pi pi-bell p-overlay-badge" style={iconStyle}>
+            <i
+              onClick={handleClick}
+              className="pi pi-bell p-overlay-badge"
+              style={iconStyle}
+            >
               <Badge value={notifications.length} />
             </i>
             {visible && <NotificationList notifications={notifications} />}

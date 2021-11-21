@@ -16,6 +16,7 @@ export const REPORT = "/admin/report";
 
 export const USER = "/admin/user";
 export const FEATURE = "/admin/feature";
+export const INFO_USER = "/admin/user/infomation";
 
 export const INTERVIEW = "/admin/interview";
 export const INTERVIEW_CREATE = "/admin/interview/create";
@@ -135,9 +136,9 @@ export const PERMISSION_MENU = [
 
 export const genAppMenu = (arr) => {
   if (!localStorage.getItem("currentUser")) {
-    return
+    return;
   }
-  
+
   const role = getRoleCurrentUser();
 
   const filterByRole = arr.filter((item) => item.role.indexOf(role) !== -1);
@@ -149,7 +150,8 @@ export const genAppMenu = (arr) => {
         template: () => (
           <li key={item.id} className="p-menuitem">
             <Link className="p-menuitem-link" to={item.path}>
-              {item.name}
+              {" "}
+              {item.name}{" "}
             </Link>{" "}
           </li>
         ),
