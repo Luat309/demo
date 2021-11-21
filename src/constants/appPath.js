@@ -38,7 +38,7 @@ export const PERMISSION_MENU = [
     parentMenu: 1,
     name: "Danh sách yêu cầu",
     path: JOBREQUEST,
-    role: [MANAGER, HR_MANAGER, HR],
+    role: [MANAGER, HR_MANAGER, HR, INTERVIEWER],
   },
   {
     id: 3,

@@ -1,12 +1,15 @@
 import { STATUS_REQUEST } from "constants/app";
 import { showMessage } from "redux/messageBox/actionCreator";
 import InterviewService from "services/InterviewService";
+import { emitEvent } from "utils/emitEvent";
+import { getNameCurrentUser } from "utils/localStorage";
 import {
     INTERVIEW_FETCH,
     INTERVIEW_INSERT
 } from "./constant";
 
 const service = new InterviewService();
+const nameCurrentUser = getNameCurrentUser();
 
 export const fetchInterview = () => async(dispatch) => {
     dispatch({
@@ -51,6 +54,12 @@ export const createInterview = (data, callback) => async(dispatch) => {
             });
 
             dispatch(showMessage("Tạo lịch phỏng vấn thành công!", callback));
+
+            emitEvent(
+                `<b>${nameCurrentUser}</b> đã tạo mới một lịch phỏng vấn`,
+                `/admin/interview`,
+                "INTERVIEW/CREATED"
+              )
         })
         .catch((error) => {
             dispatch({
