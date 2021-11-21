@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import logo from "images/logo.png";
@@ -8,7 +8,7 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { iconStyle } from "styles/icon.style";
 import { MegaMenu } from "primereact/megamenu";
-import { APP_MENU_ITEM } from "constants/appPath";
+import { APP_MENU_ITEM, INFO_USER } from "constants/appPath";
 
 const TopBar = (props) => {
   const history = useHistory();
@@ -18,7 +18,9 @@ const TopBar = (props) => {
     {
       label: "Thông tin tài khoản",
       icon: "pi pi-external-link",
-      url: "https://reactjs.org/",
+      command: (e) => {
+        history.push("/admin/user/infomation");
+      },
     },
     {
       label: "Đăng xuất",
