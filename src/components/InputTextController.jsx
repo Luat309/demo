@@ -20,7 +20,15 @@ const InputTextController = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: INVALID_FORM_MESSAGE.INVALID_EMPTY }}
+        rules={
+          name === "email"
+            ? {
+                required: INVALID_FORM_MESSAGE.INVALID_EMPTY,
+                pattern:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              }
+            : { required: INVALID_FORM_MESSAGE.INVALID_EMPTY, minLength: 5 }
+        }
         render={({ field, fieldState }) => (
           <InputText
             id={field.name}

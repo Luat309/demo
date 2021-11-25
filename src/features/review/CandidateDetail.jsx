@@ -12,6 +12,7 @@ const CandidateDetail = ({ data }) => {
     <div className="container">
       <h2 style={{ textAlign: "center" }}>Đánh giá ứng viên</h2>
       <p style={{ textAlign: "center" }}>Vòng {data?.round}</p>
+
       <div className="flex">
         <div className="col-2 mx-5">
           <img
@@ -23,6 +24,7 @@ const CandidateDetail = ({ data }) => {
           <p>Email : {data?.email}</p>
         </div>
         <div className="col-10">
+          <p>Người phỏng vấn : {data.email}</p>
           {array?.map((item) => {
             return (
               <div className="flex">

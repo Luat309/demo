@@ -67,4 +67,30 @@ export const getListUsers = () => (dispatch) => {
     });
 };
 
-export const register = (data) => (dispatch) => {};
+export const register = (data) => (dispatch) => {
+  dispatch({
+    type: REGISTER,
+    status: STATUS_REQUEST.LOADING,
+    data: [],
+    currentUser: {},
+  });
+
+  service
+    .getListUser(data)
+    .then((res) => {
+      dispatch({
+        type: REGISTER,
+        status: STATUS_REQUEST.SUCCEEDED,
+        data: res.data,
+        currentUser: {},
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: REGISTER,
+        status: STATUS_REQUEST.ERROR,
+        data: error?.response?.data.message,
+        currentUser: {},
+      });
+    });
+};

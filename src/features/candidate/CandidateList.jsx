@@ -3,7 +3,7 @@ import CustomDataTable from "components/CustomDataTable";
 import { Column } from "primereact/column";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCandidate, removeCandidate } from "redux/candidate/action";
+import { getCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -13,7 +13,6 @@ import { useHistory } from "react-router";
 import { Calendar } from "primereact/calendar";
 import { MultiSelect } from "primereact/multiselect";
 import { Tag } from "primereact/tag";
-import { InputText } from "primereact/inputtext";
 import { compareTimeFromTo } from "utils/compareTime";
 import "./style.scss";
 
@@ -64,12 +63,12 @@ const CandidateList = () => {
       <div>
         <i
           className="pi pi-eye"
-          style={{ color: "blue", padding: "0 10px" }}
+          style={{ color: "blue", padding: "0 15px", fontSize: "20px" }}
           onClick={() => handleDetailCandidate(rowData)}
         ></i>
         <i
           className="pi pi-pencil"
-          style={{ color: "orange" }}
+          style={{ color: "orange", fontSize: "20px" }}
           onClick={() => history.push(`/admin/candidate/edit/${rowData.id}`)}
         ></i>
       </div>
@@ -132,6 +131,8 @@ const CandidateList = () => {
     );
   }, [deadLine, statusFilter, cadidate]);
 
+  console.log(dataFilter, "hihiyhghf");
+
   return (
     <>
       <Dialog
@@ -171,7 +172,11 @@ const CandidateList = () => {
                 <tr>
                   <th>CV: </th>
                   <td>
-                    <a href={detailCandidate?.cv} rel="_blank">
+                    <a
+                      href={detailCandidate?.cv}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Đường dẫn CV
                     </a>
                   </td>

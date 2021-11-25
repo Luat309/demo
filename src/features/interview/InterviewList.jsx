@@ -3,11 +3,8 @@ import CustomDataTable from "components/CustomDataTable";
 import { STATUS_REQUEST } from "constants/app";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { getInterviews, getStatusInterview } from "redux/interview/selector";
-// import JobRequestDetail from "./JobRequestDetail";
 
 const items = [
   { label: "Lịch phỏng vấn" },
@@ -27,8 +24,6 @@ const cols = [
 const InterviewList = () => {
   const statusInterview = useSelector(getStatusInterview);
   const interviews = useSelector(getInterviews);
-  // const [jobDetail, setJobDetail] = useState();
-  // const [isOpen, setIsOpen] = useState(false);
 
   const genActionCol = (data) => {
     return (
@@ -97,10 +92,7 @@ const InterviewList = () => {
       {statusInterview === STATUS_REQUEST.LOADING && "Đang tải dữ liệu..."}
       {statusInterview === STATUS_REQUEST.SUCCEEDED && (
         <div className="card">
-          <CustomDataTable
-            selectionMode="single"
-            dataTable={interviews}
-          >
+          <CustomDataTable selectionMode="single" dataTable={interviews}>
             {columns}
           </CustomDataTable>
         </div>

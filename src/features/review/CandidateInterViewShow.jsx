@@ -12,6 +12,7 @@ import CandidateDetail from "./CandidateDetail";
 import { useHistory } from "react-router";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { getCandidate } from "redux/candidate/action";
+import PermissionButton from "components/PermissionButton";
 
 const items = [{ label: "Đánh Giá Ứng viên" }, { label: " Đánh giá" }];
 const CandidateInterViewShow = () => {
@@ -20,8 +21,14 @@ const CandidateInterViewShow = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [valueDetail, setValueDetail] = useState();
   const history = useHistory();
-
   const candidateInterview = useSelector(getCandidateInterviews);
+  console.log(candidateInterview);
+  const unique = [];
+  candidateInterview.map((x) =>
+    unique.filter((a) => a.candidate_id === x.candidate_id).length > 0
+      ? null
+      : unique.push(x)
+  );
 
   useEffect(() => {
     dispatch(getCandidateInterview());
@@ -49,16 +56,22 @@ const CandidateInterViewShow = () => {
       <div>
         <i
           className="pi pi-eye mr-1"
-          style={{ color: "blue", padding: "0 10px" }}
+          style={{
+            color: "blue",
+            padding: "0 10px",
+            background: "white",
+            border: "none",
+          }}
           onClick={() => handleDetail(rowData)}
-        ></i>
-        <i
-          className="pi pi-pencil"
-          style={{ color: "orange" }}
+        />
+        <PermissionButton
+          icon="pi pi-pencil"
+          name="editEvaluate"
+          style={{ color: "orange", background: "white", border: "none" }}
           onClick={() =>
             history.push(`/admin/candidate/interview/edit/${rowData.id}`)
           }
-        ></i>
+        />
       </div>
     );
   };
@@ -75,7 +88,7 @@ const CandidateInterViewShow = () => {
       </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
-        <CustomDataTable dataTable={candidateInterview}>
+        <CustomDataTable dataTable={unique}>
           <Column
             field="candidate_id"
             header="Thời gian phỏng vấn"

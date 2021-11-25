@@ -71,9 +71,7 @@ const JobRequestList = () => {
         () => {
           dispatch(deleteJobRequest(data.id));
         },
-        () => {
-          console.log("Không");
-        }
+        () => {}
       )
     );
   };
@@ -85,9 +83,7 @@ const JobRequestList = () => {
         () => {
           dispatch(approvalJobRequest(data.id));
         },
-        () => {
-          console.log("Phe duyet cc");
-        }
+        () => {}
       )
     );
   };
@@ -99,9 +95,7 @@ const JobRequestList = () => {
         () => {
           dispatch(rejectJobRequest(data.id));
         },
-        () => {
-          console.log("Tu choi cc");
-        }
+        () => {}
       )
     );
   };

@@ -16,8 +16,6 @@ const CandidateCreat = () => {
   const items = [{ label: "Ứng viên" }, { label: " Thêm ứng viên" }];
   const [showMessage, setShowMessage] = useState(false);
   const history = useHistory();
-  const CV = useRef(null);
-  const file = useRef(null);
   const [image, setImage] = useState();
   const [Cv, setCV] = useState();
   const dispatch = useDispatch();
@@ -38,32 +36,30 @@ const CandidateCreat = () => {
     reset,
   } = useForm({});
 
-  const onUploadImage = () => {
-    setImage(file.current.files[0]);
-  };
-
-  const onUploadCV = () => {
-    setCV(CV.current.files[0]);
-  };
-
   let formData = new FormData();
+
   const onHandleSubmit = (data) => {
+    const defaultUrl =
+      "https://image.shutterstock.com/image-vector/avatar-vector-male-profile-gray-260nw-538707355.jpg";
     formData.append("name", data.name);
     formData.append("phone", data.phone);
     formData.append("source", data.source);
     formData.append("email", data.email);
     formData.append("experience", data.experience);
     formData.append("school", data.school);
-    formData.append("image", image);
+    formData.append(
+      "image",
+      data.image[0] === undefined ? undefined : data.image[0]
+    );
     formData.append("job_id", data.job_id);
     formData.append("status", data.status);
-    formData.append("cv", Cv);
+    formData.append("cv", data.cv[0]);
     dispatch(addCandidate(formData));
     setShowMessage(true);
-    setTimeout(() => {
-      history.push(CANDIDATE);
-    }, 2000);
-    reset();
+    // setTimeout(() => {
+    //   history.push(CANDIDATE);
+    // }, 2000);
+    // reset();
   };
 
   const dialogFooter = (
@@ -106,7 +102,10 @@ const CandidateCreat = () => {
             <div>
               <label htmlFor="name">Họ và tên*</label>
               <br />
-              <input type="text" {...register("name", { required: true })} />
+              <input
+                type="text"
+                {...register("name", { required: true, minLength: 5 })}
+              />
               {errors.name && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -125,7 +124,7 @@ const CandidateCreat = () => {
               />
               {errors.phone && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
-                  Trường này không đực để trống hoặc sai định dạng
+                  Trường này không đựợc để trống hoặc sai định dạng
                 </span>
               )}
             </div>
@@ -134,7 +133,6 @@ const CandidateCreat = () => {
               <br />
               <input
                 type="text"
-                min={0}
                 {...register("email", {
                   required: true,
                   pattern:
@@ -143,8 +141,7 @@ const CandidateCreat = () => {
               />
               {errors.email && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
-                  Trường này không đực để trống hoặc sai định dạng
-                  "uer123@gmail.com"
+                  Trường này không đựơc để trống hoặc sai định dạng
                 </span>
               )}
             </div>
@@ -169,7 +166,10 @@ const CandidateCreat = () => {
             <div>
               <label htmlFor="school">Trường*</label>
               <br />
-              <input type="text" {...register("school", { required: true })} />
+              <input
+                type="text"
+                {...register("school", { required: true, minLength: 5 })}
+              />
               {errors.school && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
@@ -179,14 +179,23 @@ const CandidateCreat = () => {
             <div>
               <label htmlFor="lastname6">Thêm ảnh*</label>
               <br />
-              <input type="file" ref={file} onChange={onUploadImage} />
+              <input type="file" id="image" {...register("image")} />
             </div>
           </div>
           <div className="candidate_right">
             <div>
               <label htmlFor="lastname6">CV*</label>
               <br />
-              <input type="file" ref={CV} onChange={onUploadCV} />
+              <input
+                type="file"
+                id="cv"
+                {...register("cv", { required: true })}
+              />
+              {errors.cv && (
+                <span style={{ color: "red", marginBottom: "7px" }}>
+                  Bắt buộc phải nhập.
+                </span>
+              )}
             </div>
             <div style={{ margin: "20px 0" }}>
               <label htmlFor="status">Trạng thái*</label>

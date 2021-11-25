@@ -42,12 +42,14 @@ const CandidateInterview = ({ data }) => {
       time_end: data.time_end,
       user_id: currentUser?.user?.id,
       time_onbroad: timeOnbroad,
+      email: currentUser?.user?.name,
     };
+    console.log(newValue, "value hdshh");
     if (newValue) {
       dispatch(createCandidateInterview(newValue));
-      setTimeout(() => {
-        history.push(CANDIDATE_INTERVIEW_SHOW);
-      }, 2000);
+      // setTimeout(() => {
+      //   history.push(CANDIDATE_INTERVIEW_SHOW);
+      // }, 2000);
       reset();
     }
   };

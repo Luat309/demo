@@ -18,14 +18,20 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      return state
+      return state;
 
     case GET_LIST_USER:
       return {
         data: action.data,
         status: action.status,
-        message: action.message
-      }  
+        message: action.message,
+      };
+    case REGISTER:
+      return {
+        data: action.data,
+        status: action.status,
+        message: action.message,
+      };
 
     default:
       return state;

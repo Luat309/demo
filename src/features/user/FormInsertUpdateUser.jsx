@@ -11,6 +11,11 @@ const FormInsertUpdateUser = (props) => {
     reset,
   } = useForm();
 
+  const status = [
+    { status: 0, name: "Ngừng hoạt động" },
+    { status: 1, name: "Hoạt động" },
+  ];
+
   const fields = [
     {
       label: "Mã nhân viên",
@@ -22,11 +27,17 @@ const FormInsertUpdateUser = (props) => {
     { label: "Email", name: "email", type: "inputText" },
     { label: "Mật khẩu", name: "password", type: "inputText" },
     { label: "Chức vụ", name: "role", type: "inputText" },
-    { label: "Trạng thái ", name: "status", type: "inputText" },
+    {
+      label: "Trạng thái ",
+      name: "status",
+      type: "dropdown",
+      options: status,
+      optionLabel: "name",
+    },
   ];
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data, "hihi");
   };
 
   const formRender = genElementsForm(fields, control, errors);
