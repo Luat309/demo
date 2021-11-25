@@ -1,7 +1,8 @@
+import { NODEJS } from "constants/app";
 import { io } from "socket.io-client";
 import { getIdCurrentUser, getRoleCurrentUser } from "utils/localStorage";
 
-const socket = io("http://localhost:3000/", {
+const socket = io(NODEJS, {
     path: "/sskpi/"
 })
 

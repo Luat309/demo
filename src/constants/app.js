@@ -1,9 +1,11 @@
 // localhost
 const DOMAIN = "http://localhost:8080/";
+// export const NODEJS = "http://localhost:3000/";
 // production
-// const DOMAIN = "http://35.198.236.142/";
+// const DOMAIN = "http://34.124.182.156/";
+export const NODEJS = "http://34.124.182.156:3000/";
 
-export const REACT_APP_URL_API = "http://35.240.196.153/api";
+export const REACT_APP_URL_API = "http://34.124.182.156/api";
 
 export const THEME = [
   {
