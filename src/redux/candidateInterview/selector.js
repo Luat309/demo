@@ -20,7 +20,7 @@ export const getCandidateInterviews = (state) => {
     ...item,
     candidate_name: candidate?.[item.candidate_id]?.name,
     image: candidate?.[item.candidate_id]?.image,
-    email: candidate?.[item.candidate_id]?.email,
+    emailUV: candidate?.[item.candidate_id]?.email,
     job_name: jobRequest?.[candidate?.[item.candidate_id]?.job_id]?.title,
     viTriUngTuyen:
       jobRequest?.[candidate?.[item.candidate_id]?.job_id]?.position,

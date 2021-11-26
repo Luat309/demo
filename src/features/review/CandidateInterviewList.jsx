@@ -20,7 +20,9 @@ const CandidateInterviewList = () => {
   const job = useSelector(getJobRequest);
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useSelector((state) => state.interview);
+  console.log(data);
   const { cadidate } = useSelector((state) => state.cadidate);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const [dateInterview, setDateInterview] = useState();
 
@@ -64,16 +66,28 @@ const CandidateInterviewList = () => {
     setIsOpen(true);
     setDateInterview(data);
   };
+
+  let valueArr = data.map((item) => item.receiver.split(","));
+  let newArray = valueArr.map((item) =>
+    item.map((item) => {
+      if (item == currentUser.user.id) {
+        console.log(item, "hgugtdrc");
+      }
+    })
+  );
   const actionBodyTemplate = (rowData) => {
     return (
       <>
-        {moment(rowData.time_end).isBefore() && (
-          <PermissionButton
-            name="evaluate"
+        <Button
+          onClick={() => handleCandidateInterView(rowData)}
+          label="Đánh giá"
+        />
+        {/* {moment(rowData.time_end).isBefore() && (
+          <Button
             onClick={() => handleCandidateInterView(rowData)}
             label="Đánh giá"
           />
-        )}
+        )} */}
       </>
     );
   };

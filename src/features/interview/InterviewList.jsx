@@ -3,7 +3,10 @@ import CustomDataTable from "components/CustomDataTable";
 import { STATUS_REQUEST } from "constants/app";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { fetchInterview } from "redux/interview/actionCreator";
 import { getInterviews, getStatusInterview } from "redux/interview/selector";
 
 const items = [
@@ -25,6 +28,11 @@ const InterviewList = () => {
   const statusInterview = useSelector(getStatusInterview);
   const interviews = useSelector(getInterviews);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchInterview());
+  }, []);
   const genActionCol = (data) => {
     return (
       <>

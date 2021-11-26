@@ -1,6 +1,9 @@
+import InputTextController from "components/InputTextController";
 import { Button } from "primereact/button";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AddUser } from "redux/user/actionCreator";
 import genElementsForm from "utils/genElementsForm";
 
 const FormInsertUpdateUser = (props) => {
@@ -10,10 +13,17 @@ const FormInsertUpdateUser = (props) => {
     handleSubmit,
     reset,
   } = useForm();
+  const dispatch = useDispatch();
 
   const status = [
-    { status: 0, name: "Ngừng hoạt động" },
     { status: 1, name: "Hoạt động" },
+    { status: 0, name: "Ngừng hoạt động" },
+  ];
+  const roles = [
+    { role: 0, name: "Trưởng phòng" },
+    { role: 1, name: "Trưởng phòng nhân sự" },
+    { role: 2, name: "HR" },
+    { role: 3, name: "Người phỏng vấn " },
   ];
 
   const fields = [
@@ -25,8 +35,14 @@ const FormInsertUpdateUser = (props) => {
     },
     { label: "Tên nhân viên", name: "name", type: "inputText" },
     { label: "Email", name: "email", type: "inputText" },
-    { label: "Mật khẩu", name: "password", type: "inputText" },
-    { label: "Chức vụ", name: "role", type: "inputText" },
+    // { label: "Mật khẩu", name: "password", type: "inputText" },
+    {
+      label: "Chức vụ",
+      name: "role",
+      type: "dropdown",
+      options: roles,
+      optionLabel: "name",
+    },
     {
       label: "Trạng thái ",
       name: "status",
@@ -37,7 +53,10 @@ const FormInsertUpdateUser = (props) => {
   ];
 
   const onSubmit = (data) => {
-    console.log(data, "hihi");
+    console.log(data);
+    dispatch(
+      AddUser({ ...data, status: data.status.status, role: data.role.role })
+    );
   };
 
   const formRender = genElementsForm(fields, control, errors);
@@ -48,7 +67,19 @@ const FormInsertUpdateUser = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="p-fluid p-formgrid p-grid">{formRender}</div>
+      <div className="p-fluid p-formgrid p-grid">
+        {formRender}
+        {props.actionType !== "UPDATE" ? (
+          <InputTextController
+            label="Mật khẩu"
+            name="password"
+            control={control}
+            errors={errors}
+          />
+        ) : (
+          ""
+        )}
+      </div>
 
       <Button
         style={{

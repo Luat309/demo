@@ -22,7 +22,6 @@ const CandidateInterViewShow = () => {
   const [valueDetail, setValueDetail] = useState();
   const history = useHistory();
   const candidateInterview = useSelector(getCandidateInterviews);
-  console.log(candidateInterview);
   const unique = [];
   candidateInterview.map((x) =>
     unique.filter((a) => a.candidate_id === x.candidate_id).length > 0

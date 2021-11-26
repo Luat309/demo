@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "primereact/button";
 import CustomBreadCrumb from "components/CustomBreadCrumb";
@@ -9,17 +9,12 @@ import { addCandidate } from "redux/candidate/action";
 import { getJobRequest, getStatusJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { STATUS_REQUEST } from "constants/app";
-import { Dialog } from "primereact/dialog";
 import { CANDIDATE } from "constants/appPath";
 
 const CandidateCreat = () => {
   const items = [{ label: "Ứng viên" }, { label: " Thêm ứng viên" }];
-  const [showMessage, setShowMessage] = useState(false);
   const history = useHistory();
-  const [image, setImage] = useState();
-  const [Cv, setCV] = useState();
   const dispatch = useDispatch();
-
   const status = useSelector(getStatusJobRequest);
   const data = useSelector(getJobRequest);
 
@@ -39,62 +34,27 @@ const CandidateCreat = () => {
   let formData = new FormData();
 
   const onHandleSubmit = (data) => {
-    const defaultUrl =
-      "https://image.shutterstock.com/image-vector/avatar-vector-male-profile-gray-260nw-538707355.jpg";
+    if (data.image[0]) {
+      formData.append("image", data.image[0]);
+    }
     formData.append("name", data.name);
     formData.append("phone", data.phone);
     formData.append("source", data.source);
     formData.append("email", data.email);
     formData.append("experience", data.experience);
     formData.append("school", data.school);
-    formData.append(
-      "image",
-      data.image[0] === undefined ? undefined : data.image[0]
-    );
     formData.append("job_id", data.job_id);
     formData.append("status", data.status);
     formData.append("cv", data.cv[0]);
     dispatch(addCandidate(formData));
-    setShowMessage(true);
-    // setTimeout(() => {
-    //   history.push(CANDIDATE);
-    // }, 2000);
-    // reset();
+    setTimeout(() => {
+      history.push(CANDIDATE);
+    }, 2000);
+    reset();
   };
-
-  const dialogFooter = (
-    <div className="p-d-flex p-jc-center">
-      <Button
-        label="OK"
-        className="p-button-text"
-        autoFocus
-        onClick={() => setShowMessage(false)}
-      />
-    </div>
-  );
 
   return (
     <>
-      <Dialog
-        visible={showMessage}
-        onHide={() => setShowMessage(false)}
-        position="top"
-        footer={dialogFooter}
-        showHeader={false}
-        breakpoints={{ "960px": "80vw" }}
-        style={{ width: "30vw" }}
-      >
-        <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
-          <i
-            className="pi pi-check-circle"
-            style={{ fontSize: "5rem", color: "var(--green-500)" }}
-          ></i>
-          <h5>Thành công!</h5>
-          <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
-            Bạn đã thêm ứng viên thành công!
-          </p>
-        </div>
-      </Dialog>
       <CustomBreadCrumb items={items} />
       <div className="card">
         <form className="gird" onSubmit={handleSubmit(onHandleSubmit)}>

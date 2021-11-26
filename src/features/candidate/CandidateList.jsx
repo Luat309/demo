@@ -131,8 +131,6 @@ const CandidateList = () => {
     );
   }, [deadLine, statusFilter, cadidate]);
 
-  console.log(dataFilter, "hihiyhghf");
-
   return (
     <>
       <Dialog
@@ -144,13 +142,21 @@ const CandidateList = () => {
       >
         <div className="container">
           <div className="flex ">
-            <img
-              src={`http://35.240.196.153/storage/images/candidate/${detailCandidate?.image}`}
-              alt=""
-              width="250px"
-              className="mx-5"
-            />
-
+            {detailCandidate?.image === null ? (
+              <img
+                src="https://image.shutterstock.com/image-vector/avatar-vector-male-profile-gray-260nw-538707355.jpg"
+                alt=""
+                width="250px"
+                className="mx-5"
+              />
+            ) : (
+              <img
+                src={`http://34.124.182.156/storage/images/candidate/${detailCandidate?.image}`}
+                alt=""
+                width="250px"
+                className="mx-5"
+              />
+            )}
             <div>
               <table className="table_detail">
                 <tr>

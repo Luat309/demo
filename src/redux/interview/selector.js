@@ -15,7 +15,7 @@ export const getInterviews = (state) => {
       ...item,
       job_name: jobRequest[item.job_id]?.title,
       time_interview: item.time_start + " - " + item.time_end,
-      candidate_name: candidate?.[item.name_candidate]?.name
+      candidate_name: candidate?.[item.name_candidate]?.name,
     };
   });
 };

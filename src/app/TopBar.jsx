@@ -16,6 +16,7 @@ import {
   getNameCurrentUser,
   getRoleCurrentUser,
 } from "utils/localStorage";
+import { NODEJS } from "constants/app";
 
 // const notifications = [];
 
@@ -26,7 +27,7 @@ const TopBar = (props) => {
 
   // useEffect(() => {
   //   (async () => {
-  //     const res = await fetch("http://localhost:3000/api/node/notifications", {
+  //     const res = await fetch(NODEJS + "api/node/notifications", {
   //       method: "post",
   //       body: JSON.stringify({
   //         id: getIdCurrentUser(),
@@ -51,7 +52,7 @@ const TopBar = (props) => {
       const idCurrentUser = getIdCurrentUser();
       // console.log("@ gmail.com", data);
       if (data.userCreated !== idCurrentUser) {
-        setNotifications((prevState) => prevState.concat(data));
+        setNotifications((prevState) => [data, ...prevState]);
       }
     });
   }, []);

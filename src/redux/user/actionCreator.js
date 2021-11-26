@@ -67,7 +67,7 @@ export const getListUsers = () => (dispatch) => {
     });
 };
 
-export const register = (data) => (dispatch) => {
+export const AddUser = (data) => (dispatch) => {
   dispatch({
     type: REGISTER,
     status: STATUS_REQUEST.LOADING,
@@ -76,7 +76,7 @@ export const register = (data) => (dispatch) => {
   });
 
   service
-    .getListUser(data)
+    .register(data)
     .then((res) => {
       dispatch({
         type: REGISTER,
@@ -88,6 +88,32 @@ export const register = (data) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: REGISTER,
+        status: STATUS_REQUEST.ERROR,
+        data: error?.response?.data.message,
+        currentUser: {},
+      });
+    });
+};
+export const RemoveUser = (id) => (dispatch) => {
+  dispatch({
+    type: DELETE_USER,
+    status: STATUS_REQUEST.LOADING,
+    data: [],
+    currentUser: {},
+  });
+
+  service
+    .deleteUser(id)
+    .then((res) => {
+      dispatch({
+        type: DELETE_USER,
+        status: STATUS_REQUEST.SUCCEEDED,
+        currentUser: {},
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: DELETE_USER,
         status: STATUS_REQUEST.ERROR,
         data: error?.response?.data.message,
         currentUser: {},

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { showConfirm } from "redux/confirmBox/actionCreator";
 import { Dialog } from "primereact/dialog";
 import FeaturesDialog from "./featuresDialog";
+import { RemoveUser } from "redux/user/actionCreator";
 
 const UserGrid = (props) => {
   const [dataSelected, setDataSelected] = useState(null);
@@ -24,22 +25,23 @@ const UserGrid = (props) => {
     props.callback(data.value);
   };
 
-  const handleClickDelete = (id) => {
+  const handleClickDelete = ({ id }) => {
     dispatch(
       showConfirm("Bạn có chắc muốn xóa tài khoản này không?", () => {
-        console.log("XOA LUON");
+        dispatch(RemoveUser(id));
       })
     );
   };
 
-  const handleClickLock = (data) => {
-    if (data.status === 1) {
+  const handleClickLock = ({ id, status }) => {
+    if (status === 1) {
       dispatch(
-        showConfirm("Bạn có chắc muốn vô hiệu hóa tài khoản này không?", () => {
-          console.log("VO HIEU HOA LUON");
-        })
+        showConfirm(
+          "Bạn có chắc muốn vô hiệu hóa tài khoản này không?",
+          () => {}
+        )
       );
-    } else if (data.status === 0) {
+    } else if (status === 0) {
       dispatch(
         showConfirm("Bạn có chắc mở hoạt động tài khoản này không?", () => {
           console.log("VO HIEU HOA LUON");
