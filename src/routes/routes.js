@@ -8,16 +8,19 @@ import {
     //   INTERVIEW,
     //   INTERVIEW_CREATE,
     JOBREQUEST,
+    JOBREQUEST_DETAIL,
     JOBREQUEST_CREATE,
     JOBREQUEST_EDIT,
+    JOBREQUEST_APPROVAL,
     //   REPORT,
     CANDIDATE_INTERVIEW_LIST,
     CANDIDATE_INTERVIEW_SHOW,
     CANDIDATE_INTERVIEW_EDIT,
     FEATURE,
-    INFO_USER
+    INFO_USER,
 } from "constants/appPath";
 import { USER } from "../constants/appPath";
+
 
 const CandidateList = lazy(() =>
     import ("features/candidate/CandidateList"));
@@ -27,10 +30,14 @@ const CandidateEdit = lazy(() =>
     import ("features/candidate/CandidateEdit"));
 const JobRequestList = lazy(() =>
     import ("features/jobRequest/JobRequestList"));
+const JobRequestDetail = lazy(() => 
+    import ("features/jobRequest/JobRequestDetail"));
 const JobRequestInsert = lazy(() =>
     import ("features/jobRequest/FormInsert"));
 const JobRequestUpdate = lazy(() =>
     import ("features/jobRequest/FormUpdate"));
+const JobRequestApproval = lazy(() =>
+import ("features/jobRequest/JobRequestApproval")) 
 
 const InterviewList = lazy(() =>
     import ("features/interview/InterviewList"));
@@ -61,6 +68,12 @@ const routes = [{
         exact: true,
     },
     {
+        path: JOBREQUEST_DETAIL,
+        name: "jobrequestDetail",
+        component: JobRequestDetail,
+        exact: true,
+    },
+    {
         path: JOBREQUEST_CREATE,
         name: "jobrequestInsert",
         component: JobRequestInsert,
@@ -70,6 +83,12 @@ const routes = [{
         path: JOBREQUEST_EDIT,
         name: "jobrequestUpdate",
         component: JobRequestUpdate,
+        exact: true,
+    },
+    {
+        path: JOBREQUEST_APPROVAL,
+        name: "jobrequestApproval",
+        component: JobRequestApproval,
         exact: true,
     },
     {
@@ -86,7 +105,7 @@ const routes = [{
     },
     {
         path: CANDIDATE_EDIT,
-        name: "candidateCreate",
+        name: "candidateEdit",
         component: CandidateEdit,
         exact: true,
     },

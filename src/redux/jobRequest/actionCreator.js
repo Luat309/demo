@@ -17,7 +17,7 @@ const nameCurrentUser = getNameCurrentUser();
 export const fetchJobRequest = () => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_FETCH,
-    data: "loading",
+    data: [],
     message: "Đang tải dữ liệu..."
   });
 
@@ -66,13 +66,13 @@ export const insertJobRequest = (data, callback) => (dispatch) => {
 
       emitEvent(
         `<b>${nameCurrentUser}</b> đã tạo mới một yêu cầu tuyển dụng`,
-        `/admin/jobrequest/edit/${res.data.id}`,
+        `/admin/jobrequest/detail/${res.data.id}`,
         "JOBREQUEST/CREATED"
       )
 
       emitEvent(
         `Bạn có một yêu cầu tuyển dụng cần phê duyệt`,
-        `/admin/jobrequest`,
+        `/admin/jobrequest/approval/${res.data.id}`,
         "JOBREQUEST/WAITING"
       )
     })
@@ -113,7 +113,7 @@ export const updateJobRequest = (data, callback) => async (dispatch) => {
 
       emitEvent(
         `<b>${nameCurrentUser}</b> đã cập nhật một yêu cầu tuyển dụng`,
-        `/admin/jobrequest/edit/${data.id}`,
+        `/admin/jobrequest/detail/${data.id}`,
         "JOBREQUEST/UPDATED"
       )
     })
@@ -181,7 +181,7 @@ export const approvalJobRequest = (id) => async (dispatch) => {
 
       emitEvent(
         `<b>${nameCurrentUser}</b> đã phê duyệt một yêu cầu tuyển dụng`,
-        `/admin/jobrequest`,
+        `/admin/jobrequest/detail/${id}`,
         "JOBREQUEST/APPROVED"
       )
     })
@@ -195,14 +195,14 @@ export const approvalJobRequest = (id) => async (dispatch) => {
     });
 };
 
-export const rejectJobRequest = (id) => async (dispatch) => {
+export const rejectJobRequest = (id, reason) => async (dispatch) => {
   dispatch({
     type: JOBREQUEST_REJECT,
     message: "Đang xử lý",
   });
 
   service
-    .rejectJobRequest(id)
+    .rejectJobRequest(id, reason)
     .then((res) => {
       dispatch({
         type: JOBREQUEST_REJECT,
@@ -214,7 +214,7 @@ export const rejectJobRequest = (id) => async (dispatch) => {
 
       emitEvent(
         `<b>${nameCurrentUser}</b> đã từ chối một yêu cầu tuyển dụng`,
-        `/admin/jobrequest`,
+        `/admin/jobrequest/detail/${id}`,
         "JOBREQUEST/REJECTED"
       )
     })

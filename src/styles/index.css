@@ -182,3 +182,11 @@ code {
 .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
     color: var(--primary-color);
 }
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}

@@ -42,8 +42,6 @@ const JobRequestList = () => {
   const dispatch = useDispatch();
   const data = useSelector(getJobRequest);
   const history = useHistory();
-  const [jobDetail, setJobDetail] = useState();
-  const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState(false);
   const [statusFilter, setStatusFilter] = useState([]);
   const [deadLine, setDeadLine] = useState([]);
@@ -56,8 +54,7 @@ const JobRequestList = () => {
   ];
 
   const handleClickView = (data) => {
-    setJobDetail(data);
-    setIsOpen(true);
+    history.push(`/admin/jobrequest/detail/${data.id}`);
   };
 
   const handleClickUpdate = (data) => {
@@ -79,31 +76,7 @@ const JobRequestList = () => {
   };
 
   const handleClickApproval = (data) => {
-    dispatch(
-      showConfirm(
-        "Bạn có chắc muốn phê duyệt yêu cầu tuyển dụng này không?",
-        () => {
-          dispatch(approvalJobRequest(data.id));
-        },
-        () => {
-          console.log("Phe duyet cc");
-        }
-      )
-    );
-  };
-
-  const handleClickReject = (data) => {
-    dispatch(
-      showConfirm(
-        "Bạn có chắc muốn từ chối yêu cầu tuyển dụng này không?",
-        () => {
-          dispatch(rejectJobRequest(data.id));
-        },
-        () => {
-          console.log("Tu choi cc");
-        }
-      )
-    );
+    history.push("/admin/jobrequest/approval/" + data.id)
   };
 
   const genFormatTimeCol = (data) => {
@@ -111,7 +84,7 @@ const JobRequestList = () => {
   };
 
   const genStatusCol = (data) => {
-    switch (data.status) {
+    switch (Number(data.status)) {
       case APPROVAL_STATUS.TU_CHOI:
         return <Tag className="p-mr-2" severity="danger" value="Từ chối" />;
       case APPROVAL_STATUS.DA_DUYET:
@@ -152,18 +125,10 @@ const JobRequestList = () => {
         />
         <PermissionButton
           name="appovalJobRequest"
-          tooltip="Phê duyệt"
+          tooltip="Xử lý yêu cầu"
           onClick={() => handleClickApproval(data)}
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-check-circle"
-          disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
-        />
-        <PermissionButton
-          name="rejectJobRequest"
-          tooltip="Từ chối"
-          onClick={() => handleClickReject(data)}
-          className="p-button-rounded p-button-text p-button-danger"
-          icon="pi pi-times-circle"
           disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
         />
       </>
@@ -265,14 +230,6 @@ const JobRequestList = () => {
 
   return (
     <>
-      <JobRequestDetail
-        jobDetail={jobDetail}
-        isOpen={isOpen}
-        onHide={() => setIsOpen(false)}
-        handleClickUpdate={handleClickUpdate}
-        handleDelete={handleClickDelete}
-      />
-
       <CustomBreadCrumb items={items} />
 
       <div className="filter">

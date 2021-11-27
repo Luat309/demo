@@ -4,14 +4,16 @@ import moment from "moment";
 export const getJobRequest = (state) => {
   if (Array.isArray(state.jobRequest.data)) {
     return state.jobRequest.data.map((item) => {
+      if (item.status === null) {
+        console.log(APPROVAL_STATUS.CHO_DUYET);
+      }
+
       return {
         ...item,
         petitioner: item.petitioner.name,
-        status: moment(item.deadline).isBefore()
-          ? APPROVAL_STATUS.HET_HAN
-          : item.status !== null && item.status !== undefined
-          ? item.status
-          : APPROVAL_STATUS.CHO_DUYET,
+        status: item.status === null || item.status === undefined
+          ? APPROVAL_STATUS.CHO_DUYET
+          : item.status,
       };
     });
   } else {
