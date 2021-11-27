@@ -7,8 +7,6 @@ const NotificationItem = (props) => {
         "seen": props.status === 1,
     });
 
-    const history = useHistory();
-
     const handleClick = () => {
         window.location.href = props.path;
     }
