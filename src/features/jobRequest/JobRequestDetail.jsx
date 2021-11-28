@@ -43,6 +43,14 @@ const JobRequestDetail = (props) => {
               <th>Tên dự án: </th>
               <td>{jobDetail?.title}</td>
             </tr>
+            {
+              jobDetail?.reason && (
+                <tr>
+                  <th>Lý do từ chối: </th>
+                  <td>{jobDetail.reason}</td>
+                </tr>
+              )
+            }
             <tr>
               <th>Hạn tuyển dụng: </th>
               <td>{jobDetail?.deadline}</td>

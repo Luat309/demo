@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { rejectJobRequest } from "redux/jobRequest/actionCreator";
 
 
+
 const FormReject = ({
     visible,
     onHide,
@@ -46,10 +47,11 @@ const FormReject = ({
             footer={renderFooter()}
         >
             <div class="p-field p-col-12">
-                <label for="time_start" class="">
+                <label for="reason" class="">
                     Lý do <span style={{ color: "#ff2020" }}>*</span>
                 </label>
                 <InputTextarea 
+                    id="reason"
                     style={{ width: "100%" }} 
                     rows={5} 
                     value={value}
