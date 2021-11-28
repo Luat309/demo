@@ -28,37 +28,37 @@ const TopBar = (props) => {
 
   const playSound = () => {
     const audio = new Audio(sound.default);
-      
-    audio.play()
-  }
 
-  useEffect(() => {
-    (async () => {
-      const res = await fetch(NODEJS + "api/node/notifications", {
-        method: "post",
-        body: JSON.stringify({
-          id: getIdCurrentUser(),
-          role: getRoleCurrentUser(),
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
+    audio.play();
+  };
 
-      setNotifications((prevState) => prevState.concat(data));
-    })();
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await fetch(NODEJS + "api/node/notifications", {
+  //       method: "post",
+  //       body: JSON.stringify({
+  //         id: getIdCurrentUser(),
+  //         role: getRoleCurrentUser(),
+  //       }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const data = await res.json();
 
-    document.addEventListener("click", () => {
-      setVisible(false);
-    });
-  }, []);
+  //     setNotifications((prevState) => prevState.concat(data));
+  //   })();
+
+  //   document.addEventListener("click", () => {
+  //     setVisible(false);
+  //   });
+  // }, []);
 
   useEffect(() => {
     socket.on("res_notification", (data) => {
       const idCurrentUser = getIdCurrentUser();
       // console.log("@ gmail.com", data);
-      if(data.userCreated !== idCurrentUser) {
+      if (data.userCreated !== idCurrentUser) {
         playSound();
         setNotifications((prevState) => [data, ...prevState]);
       }

@@ -1,5 +1,6 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
+import PermissionButton from "components/PermissionButton";
 import moment from "moment";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
@@ -19,7 +20,10 @@ const CandidateInterviewList = () => {
   const job = useSelector(getJobRequest);
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useSelector((state) => state.interview);
+  console.log(data);
   const { cadidate } = useSelector((state) => state.cadidate);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   const [dateInterview, setDateInterview] = useState();
 
   useEffect(() => {
@@ -69,7 +73,6 @@ const CandidateInterviewList = () => {
           <Button
             onClick={() => handleCandidateInterView(rowData)}
             label="Đánh giá"
-            className="p-button-raised p-button-secondary p-button-text "
           />
         )}
       </>

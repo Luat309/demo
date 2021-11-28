@@ -1,7 +1,7 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
@@ -14,11 +14,6 @@ const CandidateEdit = () => {
   const { id } = useParams();
   const [showMessage, setShowMessage] = useState(false);
   const history = useHistory();
-  const CV = useRef(null);
-  const file = useRef(null);
-
-  const [image, setImage] = useState();
-  const [Cv, setCV] = useState();
   const dispatch = useDispatch();
   const { cadidate } = useSelector((state) => state.cadidate);
   const [detailId, setdetailId] = useState();
@@ -35,7 +30,7 @@ const CandidateEdit = () => {
   useEffect(() => {
     const data = cadidate.find((item) => item.id === Number(id));
     setdetailId(data);
-    reset({ ...data });
+    reset({ ...data, image: null, cv: null });
   }, []);
 
   const dialogFooter = (
@@ -49,15 +44,6 @@ const CandidateEdit = () => {
     </div>
   );
 
-  const onUploadImage = () => {
-    setImage(file.current.files[0]);
-    console.log(file);
-  };
-
-  const onUploadCV = () => {
-    setCV(CV.current.files[0]);
-  };
-
   let formData = new FormData();
 
   const onHandleSubmit = (data) => {
@@ -68,11 +54,11 @@ const CandidateEdit = () => {
     formData.append("school", data.school);
     formData.append(
       "image",
-      file.current !== undefined ? image : detailId.image
+      data.image === null ? detailId.image : data.image[0]
     );
     formData.append("job_id", data.job_id);
     formData.append("status", data.status);
-    formData.append("cv", CV.current !== undefined ? Cv : detailId.cv);
+    formData.append("cv", data.cv === null ? detailId.cv : data.cv[0]);
     dispatch(editCandidate(id, formData));
     setShowMessage(true);
     setTimeout(() => {
@@ -169,7 +155,7 @@ const CandidateEdit = () => {
             <div>
               <label htmlFor="lastname6">Thêm ảnh*</label>
               <br />
-              <input type="file" ref={file} onChange={onUploadImage} />
+              <input type="file" {...register("image", { required: false })} />
               <img
                 src={`http://35.240.196.153/storage/images/candidate/${detailId?.image}`}
                 alt=""
@@ -181,13 +167,31 @@ const CandidateEdit = () => {
             <div>
               <label htmlFor="lastname6">CV*</label>
               <br />
-              <input type="file" ref={CV} onChange={onUploadCV} />
-              <a
-                href={`http://35.240.196.153/storage/cv/${detailId?.cv}`}
-                rel="_blank"
-              >
+              <input type="file" {...register("cv")} />
+              {errors.cv && (
+                <span style={{ color: "red", marginBottom: "7px" }}>
+                  Bắt buộc phải nhập.
+                </span>
+              )}
+              <br />
+              <a href={detailId?.cv} target="_blank" rel="noreferrer">
                 Đường dẫn file CV
               </a>
+            </div>
+            <br />
+            <div>
+              <label htmlFor="lastname6">Email*</label>
+              <br />
+              <input
+                type="text"
+                value={detailId?.email}
+                {...register("email", { required: true })}
+              />
+              {errors.email && (
+                <span style={{ color: "red", marginBottom: "7px" }}>
+                  Bắt buộc phải nhập.
+                </span>
+              )}
             </div>
             <div style={{ margin: "20px 0" }}>
               <label htmlFor="status">Trạng thái*</label>

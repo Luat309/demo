@@ -1,9 +1,7 @@
 export const getInterviews = (state) => {
   const jobRequest = {};
 
-  if (
-    Array.isArray(state?.cadidate?.cadidate)
-  ) {
+  if (Array.isArray(state?.cadidate?.cadidate)) {
     state?.jobRequest?.data.forEach((item) => {
       jobRequest[item.id] = item;
     });
@@ -16,7 +14,7 @@ export const getInterviews = (state) => {
       time_interview: item.time_start + " - " + item.time_end,
       // candidate_name: candidate?.[item.name_candidate]?.name,
       candidate_name: item.name_candidate.name,
-      receiver: item.receiver.name
+      receiver: item.receiver.name,
     };
   });
 };

@@ -23,6 +23,7 @@ const InputNumberController = ({
         rules={{
           required: INVALID_FORM_MESSAGE.INVALID_EMPTY,
           min: { value: 1, message: "Giá trị nhập vào phải lớn hơn 0" },
+          max: { value: 99, message: "Giá trị nhập vào phải nhỏ hơn 99" },
         }}
         render={({ field, fieldState }) => (
           <InputNumber

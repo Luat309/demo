@@ -8,11 +8,19 @@ import { useDispatch } from "react-redux";
 import { showConfirm } from "redux/confirmBox/actionCreator";
 import { Dialog } from "primereact/dialog";
 import FeaturesDialog from "./featuresDialog";
+import {
+  DisableUser,
+  getListUsers,
+  RemoveUser,
+} from "redux/user/actionCreator";
+import UpdateUser from "./updateUser";
 
 const UserGrid = (props) => {
   const [dataSelected, setDataSelected] = useState(null);
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     setDataSelected(null);
@@ -24,22 +32,26 @@ const UserGrid = (props) => {
     props.callback(data.value);
   };
 
-  const handleClickDelete = (id) => {
+  const handleClickDelete = ({ id }) => {
     dispatch(
       showConfirm("Bạn có chắc muốn xóa tài khoản này không?", () => {
-        console.log("XOA LUON");
+        dispatch(RemoveUser(id));
       })
     );
   };
+  const HandleUpdate = (data) => {
+    setIsOpen(true);
+    setUser(data);
+  };
 
-  const handleClickLock = (data) => {
-    if (data.status === 1) {
+  const handleClickLock = ({ id, status }) => {
+    if (status === 1) {
       dispatch(
         showConfirm("Bạn có chắc muốn vô hiệu hóa tài khoản này không?", () => {
-          console.log("VO HIEU HOA LUON");
+          dispatch(DisableUser(id));
         })
       );
-    } else if (data.status === 0) {
+    } else if (status === 0) {
       dispatch(
         showConfirm("Bạn có chắc mở hoạt động tài khoản này không?", () => {
           console.log("VO HIEU HOA LUON");
@@ -53,7 +65,7 @@ const UserGrid = (props) => {
       <>
         <Button
           tooltip="Cập nhật"
-          onClick={() => props.onOpenDialog(data, "UPDATE")}
+          onClick={() => HandleUpdate(data)}
           className="p-button-rounded p-button-text p-button-help"
           icon="pi pi-pencil"
         />
@@ -63,7 +75,7 @@ const UserGrid = (props) => {
           className="p-button-rounded p-button-text p-button-danger"
           icon="pi pi-trash"
         />
-        {data.status === 1 ? (
+        {data?.status === 1 ? (
           <Button
             tooltip="Khóa tài khoản"
             onClick={() => handleClickLock(data)}
@@ -143,6 +155,15 @@ const UserGrid = (props) => {
           {columns}
         </CustomDataTable>
       </Fieldset>
+
+      <Dialog
+        header={"Cập nhật thông tin nhân viên"}
+        visible={isOpen}
+        style={{ width: "60%" }}
+        onHide={() => setIsOpen(false)}
+      >
+        <UpdateUser user={user} />
+      </Dialog>
     </>
   );
 };

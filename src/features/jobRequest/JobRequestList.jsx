@@ -68,15 +68,13 @@ const JobRequestList = () => {
         () => {
           dispatch(deleteJobRequest(data.id));
         },
-        () => {
-          console.log("Không");
-        }
+        () => {}
       )
     );
   };
 
   const handleClickApproval = (data) => {
-    history.push("/admin/jobrequest/approval/" + data.id)
+    history.push("/admin/jobrequest/approval/" + data.id);
   };
 
   const genFormatTimeCol = (data) => {

@@ -1,35 +1,52 @@
 import { STATUS_REQUEST } from "constants/app";
 import {
-  LOGIN,
-  REGISTER,
-  GET_LIST_USER,
-  GET_DETAIL_USER,
-  UPDATE_USER,
-  DELETE_USER,
+    LOGIN,
+    REGISTER,
+    GET_LIST_USER,
+    GET_DETAIL_USER,
+    UPDATE_USER,
+    DELETE_USER,
 } from "./constant";
 
 const initialState = {
-  data: [],
-  currentUser: {},
-  status: STATUS_REQUEST.IDLE,
-  message: "",
+    data: [],
+    currentUser: {},
+    status: STATUS_REQUEST.IDLE,
+    message: "",
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LOGIN:
-      return state
+    switch (action.type) {
+        case LOGIN:
+            return state;
 
-    case GET_LIST_USER:
-      return {
-        data: action.data,
-        status: action.status,
-        message: action.message
-      }  
+        case GET_LIST_USER:
+            return {
+                data: action.data,
+                status: action.status,
+                message: action.message,
+            };
+        case REGISTER:
+            {
+                return {
+                    data: [...state.data, action.payload],
+                    status: action.status,
+                    message: action.message,
+                };
+            }
+        case DELETE_USER:
+            {
+                const filter = state.data.filter((item) => item.id !== action.payload)
+                return {
+                    data: filter,
+                    status: action.status,
+                    message: action.message,
+                }
+            }
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };
 
 export default reducer;
