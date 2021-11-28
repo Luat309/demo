@@ -29,3 +29,28 @@
   list-style: none;
   margin-bottom: 1em;
 }
+
+.label {
+  right: -75px;
+  top: 50px;
+  transform: rotateZ(45deg);
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 300px;
+  text-align: center;
+  color: #fff;
+}
+
+.label.approval {
+  background-color: #83c44e;
+}
+
+.label.reject {
+  background-color: #dc3545;
+}
+
+.label.waiting {
+  background-color: var(--primary-color);
+}

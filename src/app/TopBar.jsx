@@ -17,6 +17,7 @@ import {
   getRoleCurrentUser,
 } from "utils/localStorage";
 import { NODEJS } from "constants/app";
+const sound = require("./sound.mp3");
 
 // const notifications = [];
 
@@ -24,6 +25,12 @@ const TopBar = (props) => {
   const history = useHistory();
   const [notifications, setNotifications] = useState([]);
   const [visible, setVisible] = useState(false);
+
+  const playSound = () => {
+    const audio = new Audio(sound.default);
+
+    audio.play();
+  };
 
   // useEffect(() => {
   //   (async () => {
@@ -52,6 +59,7 @@ const TopBar = (props) => {
       const idCurrentUser = getIdCurrentUser();
       // console.log("@ gmail.com", data);
       if (data.userCreated !== idCurrentUser) {
+        playSound();
         setNotifications((prevState) => [data, ...prevState]);
       }
     });

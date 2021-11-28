@@ -3,8 +3,10 @@ import { getRoleCurrentUser } from "utils/localStorage";
 import { HR, HR_MANAGER, INTERVIEWER, MANAGER } from "./app";
 
 export const JOBREQUEST = "/admin/jobrequest";
+export const JOBREQUEST_DETAIL = "/admin/jobrequest/detail/:id";
 export const JOBREQUEST_CREATE = "/admin/jobrequest/create";
 export const JOBREQUEST_EDIT = "/admin/jobrequest/edit/:id";
+export const JOBREQUEST_APPROVAL = "/admin/jobrequest/approval/:id";
 
 export const CANDIDATE = "/admin/candidate";
 export const CANDIDATE_CREATE = "/admin/candidate/create";

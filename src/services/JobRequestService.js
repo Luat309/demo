@@ -31,9 +31,10 @@ export default class JobRequestService {
     });
   }
 
-  rejectJobRequest(id) {
+  rejectJobRequest(id, reason) {
     return Utils.post(JOBREQUEST_APPROVE + id, {
       status: APPROVAL_STATUS.TU_CHOI,
+      reason: reason
     });
   }
 }

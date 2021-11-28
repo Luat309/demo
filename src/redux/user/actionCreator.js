@@ -8,6 +8,7 @@ import {
   UPDATE_USER,
   DELETE_USER,
 } from "./constant";
+import { showMessage } from "redux/messageBox/actionCreator";
 
 const service = new UserService();
 
@@ -84,6 +85,7 @@ export const AddUser = (data) => (dispatch) => {
         data: res.data,
         currentUser: {},
       });
+      dispatch(showMessage("Thêm nhân viên  thành công!"));
     })
     .catch((error) => {
       dispatch({
@@ -92,6 +94,7 @@ export const AddUser = (data) => (dispatch) => {
         data: error?.response?.data.message,
         currentUser: {},
       });
+      dispatch(showMessage(error.message, "ERROR"));
     });
 };
 export const RemoveUser = (id) => (dispatch) => {
