@@ -178,6 +178,21 @@ const CandidateEdit = () => {
                 Đường dẫn file CV
               </a>
             </div>
+            <br />
+            <div>
+              <label htmlFor="lastname6">Email*</label>
+              <br />
+              <input
+                type="text"
+                value={detailId?.email}
+                {...register("email", { required: true })}
+              />
+              {errors.email && (
+                <span style={{ color: "red", marginBottom: "7px" }}>
+                  Bắt buộc phải nhập.
+                </span>
+              )}
+            </div>
             <div style={{ margin: "20px 0" }}>
               <label htmlFor="status">Trạng thái*</label>
               <br />

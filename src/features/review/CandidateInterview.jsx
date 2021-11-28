@@ -104,7 +104,7 @@ const CandidateInterview = ({ data: item }) => {
         english: data.english.id,
         adaptability: data.adaptability.id,
         result: data.result.id,
-        candidate_id: item.name_candidate,
+        candidate_id: item.name_candidate.id,
         interview_id: item.id,
         time_start: item.time_start,
         time_end: item.time_end,
@@ -112,6 +112,7 @@ const CandidateInterview = ({ data: item }) => {
         email: currentUser?.user?.name,
       })
     );
+    history.push(CANDIDATE_INTERVIEW_SHOW);
     reset();
   };
 

@@ -27,11 +27,13 @@ const reducer = (state = initialState, action) => {
                 message: action.message,
             };
         case REGISTER:
-            return {
-                data: action.data,
-                status: action.status,
-                message: action.message,
-            };
+            {
+                return {
+                    data: [...state.data, action.payload],
+                    status: action.status,
+                    message: action.message,
+                };
+            }
         case DELETE_USER:
             {
                 const filter = state.data.filter((item) => item.id !== action.payload)

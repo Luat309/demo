@@ -63,9 +63,8 @@ const CandidateInterViewShow = () => {
           }}
           onClick={() => handleDetail(rowData)}
         />
-        <PermissionButton
-          icon="pi pi-pencil"
-          name="editEvaluate"
+        <i
+          className="pi pi-pencil"
           style={{ color: "orange", background: "white", border: "none" }}
           onClick={() =>
             history.push(`/admin/candidate/interview/edit/${rowData.id}`)

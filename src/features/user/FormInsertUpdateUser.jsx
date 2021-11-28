@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { AddUser } from "redux/user/actionCreator";
+import { AddUser, getListUsers } from "redux/user/actionCreator";
 import genElementsForm from "utils/genElementsForm";
 
 const FormInsertUpdateUser = (props) => {
@@ -15,9 +15,6 @@ const FormInsertUpdateUser = (props) => {
     reset,
   } = useForm();
   const dispatch = useDispatch();
-  const history = useHistory();
-
-  const { user } = JSON.parse(localStorage.getItem("currentUser"));
 
   const status = [
     { status: 1, name: "Hoạt động" },
@@ -61,11 +58,9 @@ const FormInsertUpdateUser = (props) => {
       AddUser({
         ...data,
         status: data.status.status,
-        role: data.role.role,
-        roleIds: [user.id],
+        roleIds: [data.role.role],
       })
     );
-    history.push("/admin/user");
   };
 
   const formRender = genElementsForm(fields, control, errors);

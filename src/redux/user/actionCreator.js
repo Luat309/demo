@@ -7,6 +7,7 @@ import {
   GET_DETAIL_USER,
   UPDATE_USER,
   DELETE_USER,
+  DISIABLE_USER,
 } from "./constant";
 import { showMessage } from "redux/messageBox/actionCreator";
 
@@ -68,58 +69,68 @@ export const getListUsers = () => (dispatch) => {
     });
 };
 
-export const AddUser = (data) => (dispatch) => {
+export const AddUser = (data) => async (dispatch) => {
+  try {
+    const res = await service.register(data);
+    console.log(res, "fdfg");
+    dispatch({ type: REGISTER, payload: res.data.data });
+    dispatch(showMessage("Thêm user thành công!"));
+  } catch (error) {
+    dispatch({
+      type: REGISTER,
+      status: STATUS_REQUEST.ERROR,
+      data: error?.response?.data.message,
+      currentUser: {},
+    });
+    dispatch(showMessage("Thêm user thất bại!", error));
+  }
+};
+export const RemoveUser = (id) => async (dispatch) => {
+  try {
+    await service.deleteUser(id);
+    dispatch({ type: DELETE_USER, payload: id });
+    dispatch(showMessage("Xoas thành công!"));
+  } catch (error) {}
+};
+export const DisableUser = (id) => (dispatch) => {
   dispatch({
-    type: REGISTER,
+    type: DISIABLE_USER,
     status: STATUS_REQUEST.LOADING,
     data: [],
     currentUser: {},
   });
 
   service
-    .register(data)
+    .disableMember(id)
     .then((res) => {
       dispatch({
-        type: REGISTER,
+        type: DISIABLE_USER,
         status: STATUS_REQUEST.SUCCEEDED,
-        data: res.data,
         currentUser: {},
       });
-      dispatch(showMessage("Thêm nhân viên  thành công!"));
     })
     .catch((error) => {
       dispatch({
-        type: REGISTER,
+        type: DISIABLE_USER,
         status: STATUS_REQUEST.ERROR,
         data: error?.response?.data.message,
         currentUser: {},
       });
-      dispatch(showMessage(error.message, "ERROR"));
     });
 };
-export const RemoveUser = (id) => (dispatch) => {
-  dispatch({
-    type: DELETE_USER,
-    status: STATUS_REQUEST.LOADING,
-    data: [],
-    currentUser: {},
-  });
-
-  service
-    .deleteUser(id)
-    .then((res) => {
-      dispatch({
-        type: DELETE_USER,
-        status: STATUS_REQUEST.SUCCEEDED,
-        currentUser: {},
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: DELETE_USER,
-        status: STATUS_REQUEST.ERROR,
-        data: error?.response?.data.message,
-        currentUser: {},
-      });
+export const updateUser = (data) => async (dispatch) => {
+  console.log(data, "vghhjk");
+  try {
+    const res = await service.updateUser(data);
+    dispatch({ type: UPDATE_USER, payload: res.data });
+    dispatch(showMessage("Sửa user thành công!"));
+  } catch (error) {
+    dispatch({
+      type: UPDATE_USER,
+      status: STATUS_REQUEST.ERROR,
+      data: error?.response?.data.message,
+      currentUser: {},
     });
+    dispatch(showMessage("Sửa user thất bại!", error));
+  }
 };

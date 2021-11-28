@@ -21,7 +21,7 @@ const UserList = () => {
 
   useEffect(() => {
     dispatch(getListUsers());
-  }, []);
+  }, [dispatch]);
 
   const handleOpenDialog = (data = {}, actionType = "INSERT") => {
     setVisible(true);

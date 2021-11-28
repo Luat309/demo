@@ -166,7 +166,7 @@ const CandidateCreat = () => {
                 <option value="PV Pass">PV Pass</option>
                 <option value="PV Faild">PV Faild</option>
               </select>
-              {errors.phone && (
+              {errors.status && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
                 </span>
@@ -176,6 +176,7 @@ const CandidateCreat = () => {
               <label htmlFor="source">Nguồn*</label>
               <br />
               <select name="" id="" {...register("source", { required: true })}>
+                <option value="">Chọn nguồn</option>
                 <option value="Vnws">Vnws</option>
                 <option value="Top CV">Top CV</option>
                 <option value="Tìm việc nhanh">Tìm việc nhanh</option>
@@ -183,7 +184,7 @@ const CandidateCreat = () => {
                 <option value="University campaign">University campaign</option>
                 <option value="Network">Network</option>
               </select>
-              {errors.phone && (
+              {errors.source && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
                 </span>
@@ -193,6 +194,7 @@ const CandidateCreat = () => {
               <label>Dự án*</label>
               <br />
               <select name="" id="" {...register("job_id", { required: true })}>
+                <option value=""> Chọn dự án </option>
                 {data.map
                   ? data.map((item) => {
                       if (item.status === 1) {
@@ -202,7 +204,7 @@ const CandidateCreat = () => {
                     })
                   : ""}
               </select>
-              {errors.phone && (
+              {errors.job_id && (
                 <span style={{ color: "red", marginBottom: "7px" }}>
                   Bắt buộc phải nhập.
                 </span>

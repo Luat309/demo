@@ -66,28 +66,15 @@ const CandidateInterviewList = () => {
     setIsOpen(true);
     setDateInterview(data);
   };
-
-  let valueArr = data.map((item) => item.receiver.split(","));
-  let newArray = valueArr.map((item) =>
-    item.map((item) => {
-      if (item == currentUser.user.id) {
-        console.log(item, "hgugtdrc");
-      }
-    })
-  );
   const actionBodyTemplate = (rowData) => {
     return (
       <>
-        <Button
-          onClick={() => handleCandidateInterView(rowData)}
-          label="Đánh giá"
-        />
-        {/* {moment(rowData.time_end).isBefore() && (
+        {moment(rowData.time_end).isBefore() && (
           <Button
             onClick={() => handleCandidateInterView(rowData)}
             label="Đánh giá"
           />
-        )} */}
+        )}
       </>
     );
   };
