@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Editor } from "primereact/editor";
-import { INVALID_FORM_MESSAGE } from "constants/app";
+import { ERROR_FORM_MESSAGE } from "constants/app";
 
 const EditorController = ({
   label,
@@ -25,10 +25,11 @@ const EditorController = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: INVALID_FORM_MESSAGE.INVALID_EMPTY }}
+        rules={{ required: ERROR_FORM_MESSAGE.EMPTY }}
         render={({ field, fieldState }) => (
           <Editor
             style={{ height: "250px" }}
+            id={field.name}
             className={classNames({
               "p-invalid": fieldState.invalid,
             })}

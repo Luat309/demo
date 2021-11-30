@@ -1,7 +1,8 @@
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import { InputNumber } from "primereact/inputnumber";
-import { INVALID_FORM_MESSAGE } from "constants/app";
+// import { InputNumber } from "primereact/inputnumber";
+import { InputText } from "primereact/inputtext";
+import { ERROR_FORM_MESSAGE } from "constants/app";
 
 const InputNumberController = ({
   label,
@@ -21,15 +22,15 @@ const InputNumberController = ({
         name={name}
         control={control}
         rules={{
-          required: INVALID_FORM_MESSAGE.INVALID_EMPTY,
+          required: ERROR_FORM_MESSAGE.EMPTY,
           min: { value: 1, message: "Giá trị nhập vào phải lớn hơn 0" },
+          pattern: { value: /^[0-9]*$/, message: ERROR_FORM_MESSAGE.NUMBER },
         }}
         render={({ field, fieldState }) => (
-          <InputNumber
+          <InputText
             id={field.name}
-            {...field}
-            onChange={(e) => field.onChange(e.value)}
             className={classNames({ "p-invalid": fieldState.invalid })}
+            {...field}
             {...rest}
           />
         )}

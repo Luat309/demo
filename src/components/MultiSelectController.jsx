@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { MultiSelect } from "primereact/multiselect";
-import { INVALID_FORM_MESSAGE } from "constants/app";
+import { ERROR_FORM_MESSAGE } from "constants/app";
 
 const MultiSelectController = ({
   label,
@@ -22,7 +22,7 @@ const MultiSelectController = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: INVALID_FORM_MESSAGE.INVALID_EMPTY }}
+        rules={{ required: ERROR_FORM_MESSAGE.EMPTY }}
         render={({ field, fieldState }) => (
           <MultiSelect
             id={field.name}

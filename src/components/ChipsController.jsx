@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Chips } from 'primereact/chips';
-import { INVALID_FORM_MESSAGE } from "constants/app";
+import { ERROR_FORM_MESSAGE } from "constants/app";
 
 const ChipsController = ({
   label,
@@ -20,7 +20,7 @@ const ChipsController = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: INVALID_FORM_MESSAGE.INVALID_EMPTY }}
+        rules={{ required: ERROR_FORM_MESSAGE.EMPTY }}
         render={({ field, fieldState }) => (
           <Chips
             id={field.name}

@@ -5,23 +5,26 @@ import { useParams } from "react-router";
 import { getJobRequestById } from "redux/jobRequest/selector";
 
 const JobRequestDetail = (props) => {
-  const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Chi tiết yêu cầu" }];
+  const items = [
+    { label: "Yêu cầu tuyển dụng", url: "/admin/jobrequest" },
+    { label: "Chi tiết yêu cầu" },
+  ];
   const statuses = {
     0: "TỪ CHỐI",
     1: "ĐÃ DUYỆT",
     2: "HẾT HẠN",
-    "null": "CHỜ DUYỆT"
-  }
+    null: "CHỜ DUYỆT",
+  };
   const { id } = useParams();
   const jobDetail = useSelector(getJobRequestById(id));
 
   const classLabel = classNames(
     "label",
     "absolute",
-    {"approval": jobDetail?.status === 1},
-    {"reject": jobDetail?.status === 0},
-    {"waiting": jobDetail?.status === null}
-  )
+    { approval: jobDetail?.status === 1 },
+    { reject: jobDetail?.status === 0 },
+    { waiting: jobDetail?.status === null }
+  );
 
   // console.log(jobDetail, "ABC");
 
@@ -34,23 +37,19 @@ const JobRequestDetail = (props) => {
       <CustomBreadCrumb items={items} />
 
       <div style={{ overflow: "hidden" }} className="card relative">
-        <div className={classLabel}>
-          {statuses[jobDetail?.status]}
-        </div>
+        <div className={classLabel}>{statuses[jobDetail?.status]}</div>
         <table className="jobDetail">
           <tbody>
             <tr>
               <th>Tên dự án: </th>
               <td>{jobDetail?.title}</td>
             </tr>
-            {
-              jobDetail?.reason && (
-                <tr>
-                  <th>Lý do từ chối: </th>
-                  <td>{jobDetail.reason}</td>
-                </tr>
-              )
-            }
+            {jobDetail?.reason && (
+              <tr>
+                <th>Lý do từ chối: </th>
+                <td>{jobDetail.reason}</td>
+              </tr>
+            )}
             <tr>
               <th>Hạn tuyển dụng: </th>
               <td>{jobDetail?.deadline}</td>

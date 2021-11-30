@@ -101,11 +101,16 @@ export const ACCOUNT_STATUS = {
   1: "Active",
 };
 
+export const KHONG_TON_TAI = -1;
+
 export const VI_TRI_TUYEN_DUNG = [];
 
-export const INVALID_FORM_MESSAGE = {
-  INVALID_EMPTY: "Không được để trống trường này!",
-  INVALID_EMAIL: "Email không hợp lệ",
+export const ERROR_FORM_MESSAGE = {
+  EMPTY: "Không được để trống trường này!",
+  EMAIL: "Email không hợp lệ",
+  NUMBER: "Giá trị nhập vào phải là một số",
+  MIN_LENGTH: "Giá trị nhập vào phải có ít nhất ",
+  MAX_LENGTH: "Giá trị nhập vào chỉ có tối đa ",
 };
 
 export const ROUND_INTERVIEW = [

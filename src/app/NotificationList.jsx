@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { useHistory } from "react-router";
 import formatTime from "utils/formatTime";
 
 const NotificationItem = (props) => {
@@ -14,7 +13,9 @@ const NotificationItem = (props) => {
     return (
         <div onClick={handleClick} className={classNoti}>
             <p dangerouslySetInnerHTML={{ __html: props.title }}></p>
-            <span style={{ fontSize: "13px" }}>{formatTime.formatDateTime(props.create_at)}</span>
+            <span style={{ fontSize: "12px" }}>
+                {formatTime.formatDateTime(props.create_at)}
+            </span>
         </div>
     );
 };

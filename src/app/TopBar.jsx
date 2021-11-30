@@ -116,7 +116,7 @@ const TopBar = (props) => {
               className="pi pi-bell p-overlay-badge"
               style={iconStyle}
             >
-              <Badge value={notifications.length} />
+              {notifications.length > 0 && <Badge value={notifications.length} />}
             </i>
             {visible && <NotificationList notifications={notifications} />}
           </li>

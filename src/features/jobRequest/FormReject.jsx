@@ -12,11 +12,12 @@ const FormReject = ({
     onHide,
     id
 }) => {
-
+    const [isStartType, setIsStartType] = useState(false);
     const [value, setValue] = useState("");
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
+        setIsStartType(true);
         setValue(e.target.value);
     }
     
@@ -58,7 +59,7 @@ const FormReject = ({
                     onChange={handleChange}
                     placeholder="Nhập lý do từ chối yêu cầu..."
                 />
-                {!value.trim() && <small className="p-error">Không được để trống.</small>}
+                {(isStartType && !value.trim()) && <small className="p-error">Không được để trống.</small>}
             </div>    
         </Dialog>
     )

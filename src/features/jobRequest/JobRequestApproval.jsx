@@ -13,7 +13,7 @@ import { approvalJobRequest } from "redux/jobRequest/actionCreator";
 import { useState } from "react";
 import FormReject from "./FormReject";
 
-const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Xử lý yêu cầu" }];
+const items = [{ label: "Yêu cầu tuyển dụng", url: "/admin/jobrequest" }, { label: "Xử lý yêu cầu" }];
 
 const JobRequestApproval = () => {
     const { id } = useParams();
@@ -23,7 +23,7 @@ const JobRequestApproval = () => {
     const [visible, setVisible] = useState(false);
 
     if(!jobDetail) {
-        return "Không tìm thấy yêu cầu này!";
+        return "Yêu cầu này đã bị xóa hoặc không tồn tại!";
     }
 
     const genStatusTag = (status) => {
@@ -90,14 +90,12 @@ const JobRequestApproval = () => {
                         <>
                             <PermissionButton
                                 name="appovalJobRequest"
-                                tooltip="Phê duyệt"
                                 onClick={() => handleClickApproval()}
                                 className="p-button-success mr-1"
                                 label="Phê duyệt"                
                             />
                             <PermissionButton
                                 name="rejectJobRequest"
-                                tooltip="Từ chối"
                                 onClick={() => setVisible(true)}
                                 className="p-button-danger"
                                 label="Từ chối"                

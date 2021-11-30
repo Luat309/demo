@@ -40,6 +40,7 @@
 .notification_item {
   padding: 0.5rem;
   border-radius: 4px;
+  border-bottom: 1px solid var(--surface-d);
 }
 
 .notification_item.seen {

@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
-import { INVALID_FORM_MESSAGE } from "constants/app";
+import { ERROR_FORM_MESSAGE } from "constants/app";
 import formatTime from "utils/formatTime";
 
 const minDate = new Date();
@@ -24,7 +24,7 @@ const CalenderController = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: INVALID_FORM_MESSAGE.INVALID_EMPTY }}
+        rules={{ required: ERROR_FORM_MESSAGE.EMPTY }}
         render={({ field, fieldState }) => (
           <Calendar
             id={field.name}

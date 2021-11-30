@@ -26,7 +26,10 @@ import { APPROVAL_STATUS } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
 
-const items = [{ label: "Yêu cầu tuyển dụng" }, { label: "Danh sách yêu cầu" }];
+const items = [
+  { label: "Yêu cầu tuyển dụng", url: "/admin/jobrequest" },
+  { label: "Danh sách yêu cầu" },
+];
 
 const cols = [
   { field: "title", header: "Tên dự án", width: "250px" },
@@ -76,7 +79,7 @@ const JobRequestList = () => {
   };
 
   const handleClickApproval = (data) => {
-    history.push("/admin/jobrequest/approval/" + data.id)
+    history.push("/admin/jobrequest/approval/" + data.id);
   };
 
   const genFormatTimeCol = (data) => {

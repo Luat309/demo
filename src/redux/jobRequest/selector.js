@@ -1,13 +1,8 @@
 import { APPROVAL_STATUS } from "constants/app";
-import moment from "moment";
 
 export const getJobRequest = (state) => {
   if (Array.isArray(state.jobRequest.data)) {
     return state.jobRequest.data.map((item) => {
-      if (item.status === null) {
-        console.log(APPROVAL_STATUS.CHO_DUYET);
-      }
-
       return {
         ...item,
         petitioner: item.petitioner.name,
