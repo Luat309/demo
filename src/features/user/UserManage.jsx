@@ -5,25 +5,23 @@ import TreeUser from "./Tree";
 import UserGrid from "./UserGrid";
 import { Dialog } from "primereact/dialog";
 import FormInsertUpdateUser from "./FormInsertUpdateUser";
-import { fakeApiGetUser } from "./fakeApi";
+import { useDispatch, useSelector } from "react-redux";
+import { getListUsers } from "redux/user/actionCreator";
 
 const UserList = () => {
   const [detailUser, setDetailUser] = useState(null);
   const [visible, setVisible] = useState(false);
   const [titleDialog, setTitleDialog] = useState(null);
   const [bodyDialog, setBodyDialog] = useState(null);
-  const [dataTable, setDataTable] = useState([]);
   const [role, setRole] = useState(999);
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.user);
 
   const items = [{ label: "Quản lý ứng dụng" }, { label: "Quản lý User" }];
 
   useEffect(() => {
-    (async () => {
-      const res = await fakeApiGetUser();
-      setDataTable(res);
-      // setDetailUser(res[0]);
-    })();
-  }, []);
+    dispatch(getListUsers());
+  }, [dispatch]);
 
   const handleOpenDialog = (data = {}, actionType = "INSERT") => {
     setVisible(true);
@@ -39,10 +37,12 @@ const UserList = () => {
   const dataFilter = useMemo(() => {
     setDetailUser(null);
 
-    if (role === 999) return dataTable;
+    if (role === 999) return data;
 
-    return dataTable.filter((item) => item.role === role);
-  }, [dataTable, role]);
+    return data.filter((item) => {
+      return item.roles[0].id === role;
+    });
+  }, [data, role]);
 
   return (
     <>

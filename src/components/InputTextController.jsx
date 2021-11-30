@@ -26,6 +26,12 @@ const InputTextController = ({
                     required: ERROR_FORM_MESSAGE.EMPTY,
                     minLength: { value: minLength, message: ERROR_FORM_MESSAGE.MIN_LENGTH + minLength + " kí tự" },
                     maxLength: { value: maxLength, message: ERROR_FORM_MESSAGE.MIN_LENGTH + maxLength + " kí tự" },
+                    pattern: {
+                        value: name === "email" 
+                            ? /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                            : /^.*$/,
+                        message: ERROR_FORM_MESSAGE.EMAIL    
+                    }
                 }}
                 render={({ field, fieldState }) => (
                     <InputText

@@ -25,6 +25,7 @@ const InputNumberController = ({
           required: ERROR_FORM_MESSAGE.EMPTY,
           min: { value: 1, message: "Giá trị nhập vào phải lớn hơn 0" },
           pattern: { value: /^[0-9]*$/, message: ERROR_FORM_MESSAGE.NUMBER },
+          max: { value: 99, message: "Giá trị nhập vào phải nhỏ hơn 99" },
         }}
         render={({ field, fieldState }) => (
           <InputText

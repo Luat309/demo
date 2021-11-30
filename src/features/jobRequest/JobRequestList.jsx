@@ -71,9 +71,7 @@ const JobRequestList = () => {
         () => {
           dispatch(deleteJobRequest(data.id));
         },
-        () => {
-          console.log("Không");
-        }
+        () => {}
       )
     );
   };

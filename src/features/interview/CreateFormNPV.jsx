@@ -148,13 +148,16 @@ const FormInsertInterview = () => {
             name_candidate: data.name_candidate
               .map((item) => item.id)
               .join(","),
+            totalReceiver: data.receiver
+              .map((item) => item.id)
+              .join(",")
+              .split(",").length,
           },
           () => history.push("/admin/interview")
         )
       );
-
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 

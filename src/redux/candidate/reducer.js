@@ -1,8 +1,9 @@
-const { GET_CANDIDATE, CREATE_CANDIDATE, DELETE_CANDIDATE, EDIT_CANDIDATE } = require("./contanst");
+const { GET_CANDIDATE, CREATE_CANDIDATE, DELETE_CANDIDATE, EDIT_CANDIDATE, REJECT } = require("./contanst");
 
 
 const initialState = {
-    cadidate: []
+    cadidate: [],
+    error: ""
 }
 const reducer = (state = initialState, action) => {
     const { type, payload } = action
@@ -20,6 +21,11 @@ const reducer = (state = initialState, action) => {
                     return item
                 })
                 return {...state, cadidate: filterCandidate }
+            }
+        case REJECT:
+            return {
+                ...state,
+                error: payload
             }
 
         case DELETE_CANDIDATE:
