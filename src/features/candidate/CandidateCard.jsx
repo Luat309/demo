@@ -12,7 +12,7 @@ const CandidateCard = ({
 
     const header = (
         <>
-            {/* <div className="label">{status}</div> */}
+            <div className="label_candidate">{status}</div>
             <img 
                 alt="Card" 
                 src={`http://34.124.182.156/storage/images/candidate/${image}`} 

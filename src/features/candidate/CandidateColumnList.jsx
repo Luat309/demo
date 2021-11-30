@@ -9,7 +9,7 @@ const CandidateColumnList = ({
         <div className="p-grid">
             {
                 candidates.map(candidate => (
-                    <div key={candidate.id} className="p-col-3">
+                    <div key={candidate.id} className="p-lg-3 p-md-6">
                         <CandidateCard {...candidate} />
                     </div>
                 ))
