@@ -4,7 +4,7 @@ const PERMISSION_BUTTON = {
     // JOB REQUEST
     insertJobRequest: [MANAGER],
     viewDetailJobRequest: [MANAGER, HR_MANAGER],
-    updateJobRequest: [MANAGER, HR_MANAGER],
+    updateJobRequest: [HR_MANAGER],
     deleteJobRequest: [MANAGER, HR_MANAGER],
     appovalJobRequest: [HR_MANAGER],
     rejectJobRequest: [HR_MANAGER],

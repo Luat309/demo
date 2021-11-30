@@ -7,6 +7,7 @@ import { getCandidate } from "redux/candidate/action";
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import { SplitButton } from "primereact/splitbutton";
 import { getJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
 import { useHistory } from "react-router";
@@ -15,6 +16,7 @@ import { MultiSelect } from "primereact/multiselect";
 import { Tag } from "primereact/tag";
 import { compareTimeFromTo } from "utils/compareTime";
 import "./style.scss";
+import CandidateColumnList from "./CandidateColumnList";
 
 const CandidateList = () => {
   const items = [{ label: "Ứng viên" }, { label: " Danh sách ứng viên" }];
@@ -28,7 +30,8 @@ const CandidateList = () => {
   const [deadLine, setDeadLine] = useState([]);
   const [statusFilter, setStatusFilter] = useState([]);
   const [titlejob, setTitleJob] = useState();
-
+  const [display, setDisplay] = useState("grid");
+ 
   useEffect(() => {
     dispath(getCandidate());
     dispath(fetchJobRequest());
@@ -39,6 +42,23 @@ const CandidateList = () => {
     { id: 3, name: "Sắp xếp PV", code: "Sắp xếp PV" },
     { id: 4, name: "PV Pass", code: "PV Pass" },
     { id: 5, name: "PV Faild", code: "PV Faild" },
+  ];
+
+  const itemsBtn = [
+    {
+      label: "Grid",
+      icon: "pi pi-refresh",
+      command: () => {
+        setDisplay("grid");
+      },
+    },
+    {
+      label: "Column",
+      icon: "pi pi-times",
+      command: () => {
+        setDisplay("column");
+      },
+    }
   ];
 
   const experienceBodyTemplate = (rowData) => {
@@ -212,13 +232,20 @@ const CandidateList = () => {
           <br /> bằng bảng Excel
         </h4>
       </div>
-      <div className="input-search"></div>
-      <Button
-        icon="pi pi-filter"
-        className="p-button-raised p-button-help"
-        label="Bộ lọc"
-        onClick={() => setFilter(!filter)}
-      />
+      <div className="input-search">
+        <Button
+          icon="pi pi-filter"
+          className="p-button-raised p-button-help mr-1"
+          label="Bộ lọc"
+          onClick={() => setFilter(!filter)}
+        />
+        <SplitButton
+          icon="pi pi-filter"
+          className="p-button-raised"
+          label="Kiểu hiển thị"
+          model={itemsBtn}
+        />
+      </div>
 
       <div className={`card filter_element ${!filter && "hide"}`}>
         <Calendar
@@ -246,8 +273,8 @@ const CandidateList = () => {
         />
       </div>
 
-      <div className="card">
-        <CustomDataTable
+      <div className="card mt-1">
+        {display === "grid" && <CustomDataTable
           dataTable={dataFilter}
           showSearch={true}
           selectionMode="single"
@@ -272,7 +299,8 @@ const CandidateList = () => {
             body={actionBodyTemplate}
             style={{ width: "20%" }}
           ></Column>
-        </CustomDataTable>
+        </CustomDataTable>}
+        {display === "column" && <CandidateColumnList candidates={dataFilter} />}
       </div>
     </>
   );

@@ -33,6 +33,7 @@ const FormInsertJobRequest = () => {
         { label: "Thời gian làm việc", name: "working_time", type: "inputText" },
         { label: "Mức lương", name: "wage", type: "inputText" },
         { label: "Đặc điểm của dự án", name: "description", type: "editor" },
+        { label: "Yêu cầu", name: "request", type: "editor" },
     ];
 
     const formRender = genElementsForm(fields, control, errors);

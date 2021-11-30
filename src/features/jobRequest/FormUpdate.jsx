@@ -48,6 +48,7 @@ const FormUpdateJobRequest = () => {
         { label: "Thời gian làm việc", name: "working_time", type: "inputText" },
         { label: "Mức lương", name: "wage", type: "inputText" },
         { label: "Đặc điểm của dự án", name: "description", type: "editor" },
+        { label: "Yêu cầu", name: "request", type: "editor" },
     ];
 
     const formRender = genElementsForm(fields, control, errors);
@@ -74,6 +75,7 @@ const FormUpdateJobRequest = () => {
             <div className="card">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="p-fluid p-formgrid p-grid">{formRender}</div>
+                    
                     <PermissionButton
                         name="updateJobRequest"
                         type="submit"
