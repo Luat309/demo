@@ -1,7 +1,7 @@
 {
 	"name": "frontendsskpi",
-	"version": "2.0",
-	"description": "Pb 2.0 phan quyen sieu cap vip pro",
+	"version": "2.0.1",
+	"description": "Tạch tạch tạch",
 	"private": true,
 	"author": {
 		"name": "Hoang Van Anh",
@@ -73,12 +73,6 @@
 		]
 	},
 	"devDependencies": {
-		"eslint": "^7.32.0",
-		"eslint-config-standard": "^16.0.3",
-		"eslint-plugin-import": "^2.25.3",
-		"eslint-plugin-node": "^11.1.0",
-		"eslint-plugin-promise": "^5.2.0",
-		"eslint-plugin-react": "^7.27.1",
 		"prettier": "2.5.0"
 	}
 }

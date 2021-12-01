@@ -50,7 +50,7 @@ function App() {
 			>
 				<h3>Choose Theme</h3>
 				{THEME.map((theme) => {
-					return (
+				  	return (
 						<Button
 							key={theme.href}
 							onClick={() => setTheme(theme.href)}
