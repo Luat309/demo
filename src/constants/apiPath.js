@@ -3,11 +3,11 @@ export const CANDIDATE_CREATE = "/candidate/create";
 export const CANDIDATE_EDIT = "/candidate/edit/";
 export const CANDIDATE_DELETE = "/candidate/delete/";
 
-export const JOBREQUEST_LIST = '/jobrequest';
-export const JOBREQUEST_CREATE = '/jobrequest/create';
-export const JOBREQUEST_EDIT = '/jobrequest/edit/';
-export const JOBREQUEST_DELETE = '/jobrequest/delete/';
-export const JOBREQUEST_APPROVE = '/jobrequest/approve/';
+export const JOBREQUEST_LIST = "/jobrequest";
+export const JOBREQUEST_CREATE = "/jobrequest/create";
+export const JOBREQUEST_EDIT = "/jobrequest/edit/";
+export const JOBREQUEST_DELETE = "/jobrequest/delete/";
+export const JOBREQUEST_APPROVE = "/jobrequest/approve/";
 
 export const CANDIDATE_INTERVIEW_LIST = "/reviews";
 export const CANDIDATE_INTERVIEW_CREATE = "/reviews/create";
@@ -23,5 +23,5 @@ export const GET_LIST_USER = "/user/list-user";
 export const REGISTER = "/user/regsiter-member";
 export const GET_DETAIL_USER = "/user/regsiter-member";
 export const DELETE_USER = "/user/destroy/";
-export const UPDATE_USER = "/user/update-member/"
-export const DISABLE_MEMBER = "/user/disable-member/"
+export const UPDATE_USER = "/user/update-member/";
+export const DISABLE_MEMBER = "/user/disable-member/";

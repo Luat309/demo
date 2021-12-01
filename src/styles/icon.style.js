@@ -1,4 +1,4 @@
 export const iconStyle = {
-  fontSize: "1.5em",
-  color: "var(--text-color-secondary)",
+	fontSize: "1.5em",
+	color: "var(--text-color-secondary)",
 };

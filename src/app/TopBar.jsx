@@ -12,9 +12,9 @@ import { MegaMenu } from "primereact/megamenu";
 import { APP_MENU_ITEM } from "constants/appPath";
 import NotificationList from "./NotificationList";
 import {
-  getIdCurrentUser,
-  getNameCurrentUser,
-  getRoleCurrentUser,
+	getIdCurrentUser,
+	getNameCurrentUser,
+	getRoleCurrentUser,
 } from "utils/localStorage";
 import { NODEJS } from "constants/app";
 const sound = require("./sound.mp3");
@@ -22,128 +22,140 @@ const sound = require("./sound.mp3");
 // const notifications = [];
 
 const TopBar = (props) => {
-  const history = useHistory();
-  const [notifications, setNotifications] = useState([]);
-  const [visible, setVisible] = useState(false);
+	const history = useHistory();
+	const [notifications, setNotifications] = useState([]);
+	const [visible, setVisible] = useState(false);
 
-  const playSound = () => {
-    const audio = new Audio(sound.default);
+	const playSound = () => {
+		const audio = new Audio(sound.default);
 
-    audio.play();
-  };
+		audio.play();
+	};
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await fetch(NODEJS + "api/node/notifications", {
-  //       method: "post",
-  //       body: JSON.stringify({
-  //         id: getIdCurrentUser(),
-  //         role: getRoleCurrentUser(),
-  //       }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data = await res.json();
+	// useEffect(() => {
+	//   (async () => {
+	//     const res = await fetch(NODEJS + "api/node/notifications", {
+	//       method: "post",
+	//       body: JSON.stringify({
+	//         id: getIdCurrentUser(),
+	//         role: getRoleCurrentUser(),
+	//       }),
+	//       headers: {
+	//         "Content-Type": "application/json",
+	//       },
+	//     });
+	//     const data = await res.json();
 
-  //     setNotifications((prevState) => prevState.concat(data));
-  //   })();
+	//     setNotifications((prevState) => prevState.concat(data));
+	//   })();
 
-  //   document.addEventListener("click", () => {
-  //     setVisible(false);
-  //   });
-  // }, []);
+	//   document.addEventListener("click", () => {
+	//     setVisible(false);
+	//   });
+	// }, []);
 
-  useEffect(() => {
-    socket.on("res_notification", (data) => {
-      const idCurrentUser = getIdCurrentUser();
-      // console.log("@ gmail.com", data);
-      if (data.userCreated !== idCurrentUser) {
-        playSound();
-        setNotifications((prevState) => [data, ...prevState]);
-      }
-    });
-  }, []);
+	useEffect(() => {
+		socket.on("res_notification", (data) => {
+			const idCurrentUser = getIdCurrentUser();
+			// console.log("@ gmail.com", data);
+			if (data.userCreated !== idCurrentUser) {
+				playSound();
+				setNotifications((prevState) => [data, ...prevState]);
+			}
+		});
+	}, []);
 
-  const menu = useRef(null);
-  const itemsAccount = [
-    {
-      label: "Thông tin tài khoản",
-      icon: "pi pi-external-link",
-      command: (e) => {
-        history.push("/admin/user/infomation");
-      },
-    },
-    {
-      label: "Đăng xuất",
-      icon: "pi pi-upload",
-      command: (e) => {
-        localStorage.removeItem("currentUser");
-        history.push("/login");
-      },
-    },
-  ];
+	const menu = useRef(null);
+	const itemsAccount = [
+		{
+			label: "Thông tin tài khoản",
+			icon: "pi pi-external-link",
+			command: (e) => {
+				history.push("/admin/user/infomation");
+			},
+		},
+		{
+			label: "Đăng xuất",
+			icon: "pi pi-upload",
+			command: (e) => {
+				localStorage.removeItem("currentUser");
+				history.push("/login");
+			},
+		},
+	];
 
-  const handleClick = (e) => {
-    e.stopPropagation();
+	const handleClick = (e) => {
+		e.stopPropagation();
 
-    setVisible(!visible);
-  };
+		setVisible(!visible);
+	};
 
-  return (
-    <>
-      <div className="layout-topbar">
-        <Link to="/">
-          <img src={logo} alt="SSKPI" />
-        </Link>
-        <span
-          className="p-input-icon-left"
-          style={{
-            marginLeft: "60px",
-          }}
-        >
-          <i className="pi pi-search" />
-          <InputText placeholder="Search" />
-        </span>
+	return (
+		<>
+			<div className="layout-topbar">
+				<Link to="/">
+					<img src={logo} alt="SSKPI" />
+				</Link>
+				<span
+					className="p-input-icon-left"
+					style={{
+						marginLeft: "60px",
+					}}
+				>
+					<i className="pi pi-search" />
+					<InputText placeholder="Search" />
+				</span>
 
-        <ul className="topbar-menu">
-          <li>
-            <i className="pi pi-globe" style={iconStyle}></i>
-          </li>
-          <li style={{ position: "relative", cursor: "pointer" }}>
-            <i
-              onClick={handleClick}
-              className="pi pi-bell p-overlay-badge"
-              style={iconStyle}
-            >
-              {notifications.length > 0 && <Badge value={notifications.length} />}
-            </i>
-            {visible && <NotificationList notifications={notifications} />}
-          </li>
-          <li>
-            <i className="pi pi-question-circle" style={iconStyle}></i>
-          </li>
-          <li style={{ width: "auto" }}>
-            <Menu model={itemsAccount} popup ref={menu} id="popup_menu" />
-            <Button
-              label={"Hi, " + getNameCurrentUser()}
-              onClick={(event) => menu.current.toggle(event)}
-              aria-controls="popup_menu"
-              aria-haspopup
-            />
-          </li>
-        </ul>
-      </div>
-      {props.layout.name === "Horizontal" && (
-        <MegaMenu
-          style={{
-            padding: "5px",
-          }}
-          model={APP_MENU_ITEM}
-        />
-      )}
-    </>
-  );
+				<ul className="topbar-menu">
+					<li>
+						<i className="pi pi-globe" style={iconStyle}></i>
+					</li>
+					<li style={{ position: "relative", cursor: "pointer" }}>
+						<i
+							onClick={handleClick}
+							className="pi pi-bell p-overlay-badge"
+							style={iconStyle}
+						>
+							{notifications.length > 0 && (
+								<Badge value={notifications.length} />
+							)}
+						</i>
+						{visible && (
+							<NotificationList notifications={notifications} />
+						)}
+					</li>
+					<li>
+						<i
+							className="pi pi-question-circle"
+							style={iconStyle}
+						></i>
+					</li>
+					<li style={{ width: "auto" }}>
+						<Menu
+							model={itemsAccount}
+							popup
+							ref={menu}
+							id="popup_menu"
+						/>
+						<Button
+							label={"Hi, " + getNameCurrentUser()}
+							onClick={(event) => menu.current.toggle(event)}
+							aria-controls="popup_menu"
+							aria-haspopup
+						/>
+					</li>
+				</ul>
+			</div>
+			{props.layout.name === "Horizontal" && (
+				<MegaMenu
+					style={{
+						padding: "5px",
+					}}
+					model={APP_MENU_ITEM}
+				/>
+			)}
+		</>
+	);
 };
 
 export default React.memo(TopBar);

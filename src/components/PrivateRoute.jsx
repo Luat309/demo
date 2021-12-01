@@ -6,32 +6,34 @@ import ForBiddenPage from "./ForbiddenPage";
 // import { isLogin } from "../services/authenticate";
 
 const isLogin = () => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+	const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    return Boolean(currentUser?.email && currentUser?.accessToken);
+	return Boolean(currentUser?.email && currentUser?.accessToken);
 };
 
 const PrivateRoute = (props) => {
-    const pathName = window.location.pathname;
+	const pathName = window.location.pathname;
 
-    const findPermission = PERMISSION_MENU.find((item) => item.path === pathName);
+	const findPermission = PERMISSION_MENU.find(
+		(item) => item.path === pathName
+	);
 
-    if (localStorage.getItem("currentUser")) {
-        const role = getRoleCurrentUser();
+	if (localStorage.getItem("currentUser")) {
+		const role = getRoleCurrentUser();
 
-        if (findPermission) {
-            const check = findPermission.role.indexOf(role);
+		if (findPermission) {
+			const check = findPermission.role.indexOf(role);
 
-            if (check === -1) {
-                props = {
-                    ...props,
-                    component: ForBiddenPage,
-                };
-            }
-        }
-    }
+			if (check === -1) {
+				props = {
+					...props,
+					component: ForBiddenPage,
+				};
+			}
+		}
+	}
 
-    return isLogin() ? <Route {...props} /> : <Redirect to="/login" />;
+	return isLogin() ? <Route {...props} /> : <Redirect to="/login" />;
 };
 
 export default React.memo(PrivateRoute);

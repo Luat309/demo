@@ -3,13 +3,12 @@ import { io } from "socket.io-client";
 import { getIdCurrentUser, getRoleCurrentUser } from "utils/localStorage";
 
 const socket = io(NODEJS, {
-    path: "/sskpi/"
-})
+	path: "/sskpi/",
+});
 
 const id = getIdCurrentUser();
 const role = getRoleCurrentUser();
 
-socket.emit("subscribe", {id, role});
-
+socket.emit("subscribe", { id, role });
 
 export default socket;

@@ -1,29 +1,35 @@
 export const getRoleCurrentUser = () => {
-    if(localStorage.getItem("currentUser")) {
-        const { user : { role } } = JSON.parse(localStorage.getItem("currentUser"));
+	if (localStorage.getItem("currentUser")) {
+		const {
+			user: { role },
+		} = JSON.parse(localStorage.getItem("currentUser"));
 
-        return role;
-    }
+		return role;
+	}
 
-    return null
-}
+	return null;
+};
 
 export const getNameCurrentUser = () => {
-    if(localStorage.getItem("currentUser")) {
-        const { user : { name } } = JSON.parse(localStorage.getItem("currentUser"));
+	if (localStorage.getItem("currentUser")) {
+		const {
+			user: { name },
+		} = JSON.parse(localStorage.getItem("currentUser"));
 
-        return name;
-    }
+		return name;
+	}
 
-    return null
-}
+	return null;
+};
 
 export const getIdCurrentUser = () => {
-    if(localStorage.getItem("currentUser")) {
-        const { user : { id } } = JSON.parse(localStorage.getItem("currentUser"));
+	if (localStorage.getItem("currentUser")) {
+		const {
+			user: { id },
+		} = JSON.parse(localStorage.getItem("currentUser"));
 
-        return id;
-    }
+		return id;
+	}
 
-    return null
-}
+	return null;
+};

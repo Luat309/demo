@@ -9,163 +9,169 @@ import { showConfirm } from "redux/confirmBox/actionCreator";
 import { Dialog } from "primereact/dialog";
 import FeaturesDialog from "./featuresDialog";
 import {
-  DisableUser,
-  getListUsers,
-  RemoveUser,
+	DisableUser,
+	getListUsers,
+	RemoveUser,
 } from "redux/user/actionCreator";
 import UpdateUser from "./updateUser";
 
 const UserGrid = (props) => {
-  const [dataSelected, setDataSelected] = useState(null);
-  const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState();
+	const [dataSelected, setDataSelected] = useState(null);
+	const dispatch = useDispatch();
+	const [visible, setVisible] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const [user, setUser] = useState();
 
-  useEffect(() => {
-    setDataSelected(null);
-  }, [props?.dataTable]);
+	useEffect(() => {
+		setDataSelected(null);
+	}, [props?.dataTable]);
 
-  const handleSelectionChange = (data) => {
-    setDataSelected(data.value);
+	const handleSelectionChange = (data) => {
+		setDataSelected(data.value);
 
-    props.callback(data.value);
-  };
+		props.callback(data.value);
+	};
 
-  const handleClickDelete = ({ id }) => {
-    dispatch(
-      showConfirm("Bạn có chắc muốn xóa tài khoản này không?", () => {
-        dispatch(RemoveUser(id));
-      })
-    );
-  };
-  const HandleUpdate = (data) => {
-    setIsOpen(true);
-    setUser(data);
-  };
+	const handleClickDelete = ({ id }) => {
+		dispatch(
+			showConfirm("Bạn có chắc muốn xóa tài khoản này không?", () => {
+				dispatch(RemoveUser(id));
+			})
+		);
+	};
+	const HandleUpdate = (data) => {
+		setIsOpen(true);
+		setUser(data);
+	};
 
-  const handleClickLock = ({ id, status }) => {
-    if (status === 1) {
-      dispatch(
-        showConfirm("Bạn có chắc muốn vô hiệu hóa tài khoản này không?", () => {
-          dispatch(DisableUser(id));
-        })
-      );
-    } else if (status === 0) {
-      dispatch(
-        showConfirm("Bạn có chắc mở hoạt động tài khoản này không?", () => {
-          console.log("VO HIEU HOA LUON");
-        })
-      );
-    }
-  };
+	const handleClickLock = ({ id, status }) => {
+		if (status === 1) {
+			dispatch(
+				showConfirm(
+					"Bạn có chắc muốn vô hiệu hóa tài khoản này không?",
+					() => {
+						dispatch(DisableUser(id));
+					}
+				)
+			);
+		} else if (status === 0) {
+			dispatch(
+				showConfirm(
+					"Bạn có chắc mở hoạt động tài khoản này không?",
+					() => {
+						console.log("VO HIEU HOA LUON");
+					}
+				)
+			);
+		}
+	};
 
-  const genActionCol = (data) => {
-    return (
-      <>
-        <Button
-          tooltip="Cập nhật"
-          onClick={() => HandleUpdate(data)}
-          className="p-button-rounded p-button-text p-button-help"
-          icon="pi pi-pencil"
-        />
-        <Button
-          tooltip="Xóa"
-          onClick={() => handleClickDelete(data)}
-          className="p-button-rounded p-button-text p-button-danger"
-          icon="pi pi-trash"
-        />
-        {data?.status === 1 ? (
-          <Button
-            tooltip="Khóa tài khoản"
-            onClick={() => handleClickLock(data)}
-            className="p-button-rounded p-button-text p-button-danger"
-            icon="pi pi-lock"
-          />
-        ) : (
-          <Button
-            tooltip="Mở tài khoản"
-            onClick={() => handleClickLock(data)}
-            className="p-button-rounded p-button-text p-button-success"
-            icon="pi pi-unlock"
-          />
-        )}
-        <Button
-          tooltip="Quyền truy cập"
-          onClick={() => setVisible(true)}
-          className="p-button-rounded p-button-text"
-          icon="pi pi-cog"
-        />
-      </>
-    );
-  };
+	const genActionCol = (data) => {
+		return (
+			<>
+				<Button
+					tooltip="Cập nhật"
+					onClick={() => HandleUpdate(data)}
+					className="p-button-rounded p-button-text p-button-help"
+					icon="pi pi-pencil"
+				/>
+				<Button
+					tooltip="Xóa"
+					onClick={() => handleClickDelete(data)}
+					className="p-button-rounded p-button-text p-button-danger"
+					icon="pi pi-trash"
+				/>
+				{data?.status === 1 ? (
+					<Button
+						tooltip="Khóa tài khoản"
+						onClick={() => handleClickLock(data)}
+						className="p-button-rounded p-button-text p-button-danger"
+						icon="pi pi-lock"
+					/>
+				) : (
+					<Button
+						tooltip="Mở tài khoản"
+						onClick={() => handleClickLock(data)}
+						className="p-button-rounded p-button-text p-button-success"
+						icon="pi pi-unlock"
+					/>
+				)}
+				<Button
+					tooltip="Quyền truy cập"
+					onClick={() => setVisible(true)}
+					className="p-button-rounded p-button-text"
+					icon="pi pi-cog"
+				/>
+			</>
+		);
+	};
 
-  const genStatusCol = (data) => ACCOUNT_STATUS[data.status];
+	const genStatusCol = (data) => ACCOUNT_STATUS[data.status];
 
-  const cols = [
-    {
-      field: "employee_code",
-      header: "Mã nhân viên",
-    },
-    {
-      field: "name",
-      header: "Họ tên",
-    },
-    {
-      field: "status",
-      header: "Trạng thái",
-      body: genStatusCol,
-    },
-    {
-      field: "action",
-      header: <i className="pi pi-cog" />,
-      body: genActionCol,
-      style: { textAlign: "center" },
-    },
-  ];
+	const cols = [
+		{
+			field: "employee_code",
+			header: "Mã nhân viên",
+		},
+		{
+			field: "name",
+			header: "Họ tên",
+		},
+		{
+			field: "status",
+			header: "Trạng thái",
+			body: genStatusCol,
+		},
+		{
+			field: "action",
+			header: <i className="pi pi-cog" />,
+			body: genActionCol,
+			style: { textAlign: "center" },
+		},
+	];
 
-  const columns = cols.map((col) => <Column key={col.field} {...col} />);
+	const columns = cols.map((col) => <Column key={col.field} {...col} />);
 
-  return (
-    <>
-      <Dialog
-        header={"Quyền truy cập chức năng"}
-        visible={visible}
-        style={{ width: "60%" }}
-        onHide={() => setVisible(false)}
-      >
-        <FeaturesDialog />
-      </Dialog>
-      <Fieldset className="mt-1" legend="Danh sách nhân viên" toggleable>
-        <Button
-          icon="pi pi-plus"
-          className="p-mb-2"
-          label="Thêm nhân viên"
-          onClick={() => props.onOpenDialog()}
-        />
-        <CustomDataTable
-          dataTable={props?.dataTable}
-          selection={dataSelected || props?.dataTable?.[0]}
-          selectionMode="single"
-          onSelectionChange={handleSelectionChange}
-          stripedRows={false}
-          rows={5}
-          showSearch={true}
-        >
-          {columns}
-        </CustomDataTable>
-      </Fieldset>
+	return (
+		<>
+			<Dialog
+				header={"Quyền truy cập chức năng"}
+				visible={visible}
+				style={{ width: "60%" }}
+				onHide={() => setVisible(false)}
+			>
+				<FeaturesDialog />
+			</Dialog>
+			<Fieldset className="mt-1" legend="Danh sách nhân viên" toggleable>
+				<Button
+					icon="pi pi-plus"
+					className="p-mb-2"
+					label="Thêm nhân viên"
+					onClick={() => props.onOpenDialog()}
+				/>
+				<CustomDataTable
+					dataTable={props?.dataTable}
+					selection={dataSelected || props?.dataTable?.[0]}
+					selectionMode="single"
+					onSelectionChange={handleSelectionChange}
+					stripedRows={false}
+					rows={5}
+					showSearch={true}
+				>
+					{columns}
+				</CustomDataTable>
+			</Fieldset>
 
-      <Dialog
-        header={"Cập nhật thông tin nhân viên"}
-        visible={isOpen}
-        style={{ width: "60%" }}
-        onHide={() => setIsOpen(false)}
-      >
-        <UpdateUser user={user} />
-      </Dialog>
-    </>
-  );
+			<Dialog
+				header={"Cập nhật thông tin nhân viên"}
+				visible={isOpen}
+				style={{ width: "60%" }}
+				onHide={() => setIsOpen(false)}
+			>
+				<UpdateUser user={user} />
+			</Dialog>
+		</>
+	);
 };
 
 export default UserGrid;

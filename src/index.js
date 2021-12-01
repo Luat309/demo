@@ -16,19 +16,19 @@ import CustomMessageBox from "components/CustomMessageBox";
 import CustomConfirmBox from "components/CustomConfirmBox";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <CustomMessageBox />
-      <CustomConfirmBox />
-      <Router>
-        <Switch>
-          <Route path="/login" component={Login} exact={true} />
-          <PrivateRoute path="/" component={App} exact={false} />
-        </Switch>
-      </Router>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+	<React.StrictMode>
+		<Provider store={store}>
+			<CustomMessageBox />
+			<CustomConfirmBox />
+			<Router>
+				<Switch>
+					<Route path="/login" component={Login} exact={true} />
+					<PrivateRoute path="/" component={App} exact={false} />
+				</Switch>
+			</Router>
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

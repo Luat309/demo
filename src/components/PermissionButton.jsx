@@ -3,22 +3,20 @@ import { KHONG_TON_TAI } from "constants/app";
 import { Button } from "primereact/button";
 import { getRoleCurrentUser } from "utils/localStorage";
 
-
-
 const PermissionButton = ({ name, ...rest }) => {
-    let button = <></>;
+	let button = <></>;
 
-    const role = getRoleCurrentUser();
+	const role = getRoleCurrentUser();
 
-    if (PERMISSION_BUTTON[name]) {
-        const check = PERMISSION_BUTTON[name].indexOf(role);
+	if (PERMISSION_BUTTON[name]) {
+		const check = PERMISSION_BUTTON[name].indexOf(role);
 
-        if (check !== KHONG_TON_TAI) {
-            button = <Button {...rest} />;
-        }
-    }
+		if (check !== KHONG_TON_TAI) {
+			button = <Button {...rest} />;
+		}
+	}
 
-    return button;
+	return button;
 };
 
 export default PermissionButton;
