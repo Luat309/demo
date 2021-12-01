@@ -71,6 +71,29 @@ export const LAYOUT = [
 	{ name: "Horizontal", code: "HORIZONTAL" },
 ];
 
+export const FONT_FAMILY = [
+	{
+		id: 1,
+		name: "Inter",
+		href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap",
+	},
+	{
+		id: 2,
+		name: "JetBrains Mono",
+		href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap",
+	},
+	{
+		id: 3,
+		name: "Quicksand",
+		href: "https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap",
+	},
+	{
+		id: 4,
+		name: "Comforter",
+		href: "https://fonts.googleapis.com/css2?family=Comforter&display=swap",
+	},
+];
+
 export const STATUS_REQUEST = {
 	IDLE: "IDLE",
 	LOADING: "LOADING",

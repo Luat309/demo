@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TopBar from "./TopBar";
-import { LAYOUT, THEME } from "constants/app";
+import { FONT_FAMILY, LAYOUT, THEME } from "constants/app";
 import { Button } from "primereact/button";
 import Content from "./Content";
 import SideBar from "./SideBar";
@@ -17,6 +17,11 @@ function App() {
 		const layout = JSON.parse(localStorage.getItem("layout"));
 		return layout ?? { name: "Vertical", code: "VERTICAL" };
 	});
+	const [fontFamily, setFontFamily] = useState({
+		id: 4,
+		name: "Comforter",
+		href: "https://fonts.googleapis.com/css2?family=Comforter&display=swap",
+	});
 
 	useEffect(() => {
 		let themeLink = document.getElementById("app-theme");
@@ -26,9 +31,17 @@ function App() {
 		}
 	}, [theme, layout]);
 
-	const onLayoutChange = (e) => {
+	useEffect(() => {
+		document.getElementById("app-fontFamily").href = fontFamily.href;
+	}, [fontFamily]);
+
+	const handleChangeLayout = (e) => {
 		setLayout(e.value);
 		localStorage.setItem("layout", JSON.stringify(e.value));
+	};
+
+	const handleChangeFontFamily = (e) => {
+		setFontFamily(e.value);
 	};
 
 	return (
@@ -50,7 +63,7 @@ function App() {
 			>
 				<h3>Choose Theme</h3>
 				{THEME.map((theme) => {
-				  	return (
+					return (
 						<Button
 							key={theme.href}
 							onClick={() => setTheme(theme.href)}
@@ -66,13 +79,29 @@ function App() {
 					);
 				})}
 
-				<h3>Layout</h3>
+				<h3 style={{ marginTop: "15px", marginBottom: "5px" }}>
+					Layout
+				</h3>
 				<Dropdown
 					value={layout}
 					options={LAYOUT}
-					onChange={onLayoutChange}
+					onChange={handleChangeLayout}
 					optionLabel="name"
 					placeholder="Select Layout"
+					style={{
+						width: "100%",
+					}}
+				/>
+
+				<h3 style={{ marginTop: "15px", marginBottom: "5px" }}>
+					Font Family
+				</h3>
+				<Dropdown
+					value={fontFamily}
+					options={FONT_FAMILY}
+					onChange={handleChangeFontFamily}
+					optionLabel="name"
+					placeholder="Select Font Family"
 					style={{
 						width: "100%",
 					}}

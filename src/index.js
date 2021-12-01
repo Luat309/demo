@@ -1,17 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "app/App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import React from "react";
+import ReactDOM from "react-dom";
+import store from "redux/store";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "styles/index.css";
 import "primeflex/primeflex.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import PrivateRoute from "components/PrivateRoute";
+
+import App from "app/App";
 import Login from "features/user/Login";
 import { Provider } from "react-redux";
-import store from "redux/store";
+import PrivateRoute from "components/PrivateRoute";
 import CustomMessageBox from "components/CustomMessageBox";
 import CustomConfirmBox from "components/CustomConfirmBox";
 
