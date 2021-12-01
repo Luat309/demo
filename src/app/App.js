@@ -17,10 +17,15 @@ function App() {
 		const layout = JSON.parse(localStorage.getItem("layout"));
 		return layout ?? { name: "Vertical", code: "VERTICAL" };
 	});
-	const [fontFamily, setFontFamily] = useState({
-		id: 4,
-		name: "Comforter",
-		href: "https://fonts.googleapis.com/css2?family=Comforter&display=swap",
+	const [fontFamily, setFontFamily] = useState(() => {
+		const fontFamily = JSON.parse(localStorage.getItem("fontFamily"));
+		return (
+			fontFamily ?? {
+				id: 4,
+				name: "Comforter",
+				href: "https://fonts.googleapis.com/css2?family=Comforter&display=swap",
+			}
+		);
 	});
 
 	useEffect(() => {
@@ -42,6 +47,7 @@ function App() {
 
 	const handleChangeFontFamily = (e) => {
 		setFontFamily(e.value);
+		localStorage.setItem("fontFamily", JSON.stringify(e.value));
 	};
 
 	return (
