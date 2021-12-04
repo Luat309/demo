@@ -103,9 +103,9 @@ export const STATUS_REQUEST = {
 
 export const APPROVAL_STATUS = {
 	TU_CHOI: 0,
-	DA_DUYET: 1,
-	HET_HAN: 2,
-	CHO_DUYET: 3,
+	DA_DUYET: 2,
+	// HET_HAN: 2,
+	CHO_DUYET: 1,
 };
 
 export const ROLE = {

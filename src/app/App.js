@@ -21,9 +21,9 @@ function App() {
 		const fontFamily = JSON.parse(localStorage.getItem("fontFamily"));
 		return (
 			fontFamily ?? {
-				id: 4,
-				name: "Comforter",
-				href: "https://fonts.googleapis.com/css2?family=Comforter&display=swap",
+				id: 1,
+				name: "Inter",
+				href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap",
 			}
 		);
 	});
