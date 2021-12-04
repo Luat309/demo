@@ -123,6 +123,7 @@ const JobRequestList = () => {
 					name="updateJobRequest"
 					tooltip="Cập nhật"
 					onClick={() => handleClickUpdate(data)}
+					disabled={data.status === APPROVAL_STATUS.DA_DUYET}
 					className="p-button-rounded p-button-text p-button-help"
 					icon="pi pi-pencil"
 				/>
@@ -132,7 +133,7 @@ const JobRequestList = () => {
 					onClick={() => handleClickDelete(data)}
 					className="p-button-rounded p-button-text p-button-danger"
 					icon="pi pi-trash"
-					disabled={data.status !== APPROVAL_STATUS.CHO_DUYET}
+					disabled={data.status === APPROVAL_STATUS.DA_DUYET}
 				/>
 				<PermissionButton
 					name="appovalJobRequest"

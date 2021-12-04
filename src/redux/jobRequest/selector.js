@@ -6,10 +6,10 @@ export const getJobRequest = (state) => {
 			return {
 				...item,
 				petitioner: item.petitioner.name,
-				status:
-					item.status === null || item.status === undefined
-						? APPROVAL_STATUS.CHO_DUYET
-						: item.status,
+				// status:
+				// 	item.status === null || item.status === undefined
+				// 		? APPROVAL_STATUS.CHO_DUYET
+				// 		: item.status,
 			};
 		});
 	} else {

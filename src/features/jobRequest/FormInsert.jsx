@@ -19,7 +19,7 @@ const FormInsertJobRequest = () => {
 	const history = useHistory();
 	const {
 		control,
-		formState: { errors },
+		formState: { errors, submitCount },
 		handleSubmit,
 		reset,
 	} = useForm();
@@ -58,6 +58,17 @@ const FormInsertJobRequest = () => {
 
 		reset({ petitioner: name });
 	}, [reset]);
+
+	useEffect(() => {
+		if(Object.keys(errors).length > 0) {
+			const el = Object.keys(errors)[0];
+			if(el === "deadline") {
+				document.getElementsByName(el)[0].focus();
+				return
+			}	
+			document.getElementById(el).focus();
+		}
+	}, [submitCount])
 
 	const onSubmit = (data) => {
 		setLoading(true);
