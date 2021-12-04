@@ -180,7 +180,7 @@ const CandidateEdit = () => {
 								{...register("image", { required: false })}
 							/>
 							<img
-								src={`http://35.240.196.153/storage/images/candidate/${detailId?.image}`}
+								src={`http://34.124.182.156/storage/images/candidate/${detailId?.image}`}
 								alt=""
 								width="350px"
 							/>

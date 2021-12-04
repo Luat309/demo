@@ -52,14 +52,7 @@ const CandidateInterviewList = () => {
 		);
 	};
 	const candidateBodyTemplate = (rowData) => {
-		return cadidate.map
-			? cadidate.map((item) => {
-					if (item.id === rowData.name_candidate) {
-						return <p>{item.name}</p>;
-					}
-					return "";
-			  })
-			: "";
+		return rowData.name_candidate.name;
 	};
 
 	const handleCandidateInterView = (data) => {

@@ -4,19 +4,21 @@ import { POSITION } from "constants/app";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { getListUsers } from "redux/user/actionCreator";
+import UserService from "services/UserService";
 
 const UserDetail = () => {
-	const dispatch = useDispatch();
-	const { data } = useSelector((state) => state.user);
-	const [userI, setUser] = useState();
+	const userApi = new UserService();
+	const [userI, setUserI] = useState();
 
 	useEffect(() => {
-		dispatch(getListUsers());
-		const { user } = JSON.parse(localStorage.getItem("currentUser"));
-		const findUser = data.find((item) => item.id === user.id);
-		setUser(findUser);
+		async function fetchData() {
+			const { user } = JSON.parse(localStorage.getItem("currentUser"));
+			try {
+				const { data } = await userApi.getDetailUser(user?.id);
+				setUserI(data);
+			} catch (error) {}
+		}
+		fetchData();
 	}, []);
 
 	const fields = [
