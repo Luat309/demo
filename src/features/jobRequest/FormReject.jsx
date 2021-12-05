@@ -16,9 +16,7 @@ const FormReject = ({ visible, onHide, id }) => {
 	};
 
 	const handleReject = () => {
-		if (!value.trim()) {
-			return;
-		}
+		if (!value.trim()) return;
 
 		dispatch(rejectJobRequest(id, value));
 		onHide();

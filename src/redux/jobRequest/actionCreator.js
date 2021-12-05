@@ -94,17 +94,7 @@ export const updateJobRequest = (data, callback) => async (dispatch) => {
 	service
 		.editJobRequest(data)
 		.then((res) => {
-			dispatch({
-				type: JOBREQUEST_UPDATE,
-				message: "Cập nhật thành công!",
-				payload: {
-					...data,
-					petitioner: {
-						id: getIdCurrentUser(),
-						name: nameCurrentUser,
-					},
-				},
-			});
+			dispatch(fetchJobRequest());
 
 			dispatch(showMessage("Cập nhật thành công!"));
 			callback();
@@ -134,11 +124,7 @@ export const deleteJobRequest = (id) => (dispatch) => {
 	service
 		.deleteJobRequest(id)
 		.then((res) => {
-			dispatch({
-				type: JOBREQUEST_DELETE,
-				message: "Xóa thành công!",
-				payload: id,
-			});
+			dispatch(fetchJobRequest());
 
 			dispatch(showMessage("Xóa thành công!"));
 		})
@@ -169,11 +155,7 @@ export const approvalJobRequest = (id) => async (dispatch) => {
 	service
 		.approvalJobRequest(id)
 		.then((res) => {
-			dispatch({
-				type: JOBREQUEST_APPROVAL,
-				message: "Phê duyệt thành công!",
-				payload: id,
-			});
+			dispatch(fetchJobRequest());
 
 			dispatch(showMessage("Phê duyệt thành công!"));
 
@@ -202,11 +184,7 @@ export const rejectJobRequest = (id, reason) => async (dispatch) => {
 	service
 		.rejectJobRequest(id, reason)
 		.then((res) => {
-			dispatch({
-				type: JOBREQUEST_REJECT,
-				message: "Từ chối thành công!",
-				payload: id,
-			});
+			dispatch(fetchJobRequest());
 
 			dispatch(showMessage("Từ chối thành công!"));
 

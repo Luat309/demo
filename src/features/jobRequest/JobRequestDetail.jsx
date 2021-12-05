@@ -11,9 +11,8 @@ const JobRequestDetail = (props) => {
 	];
 	const statuses = {
 		0: "TỪ CHỐI",
-		1: "ĐÃ DUYỆT",
-		2: "HẾT HẠN",
-		null: "CHỜ DUYỆT",
+		1: "CHỜ DUYỆT",
+		2: "ĐÃ DUYỆT",
 	};
 	const { id } = useParams();
 	const jobDetail = useSelector(getJobRequestById(id));

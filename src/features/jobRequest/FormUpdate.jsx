@@ -30,7 +30,7 @@ const FormUpdateJobRequest = () => {
 	useEffect(() => {
 		reset({
 			...jobDetail,
-			deadline: new Date(Date.parse(jobDetail.deadline)),
+			deadline: new Date(Date.parse(jobDetail?.deadline)),
 			petitioner: undefined,
 			created_at: undefined,
 			updated_at: undefined,
