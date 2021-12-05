@@ -96,7 +96,7 @@ const JobRequestApproval = () => {
 				</Fieldset>
 
 				<Fieldset className="mt-1" legend="Xử lý yêu cầu" toggleable>
-					{jobDetail.status === null ? (
+					{jobDetail.status === APPROVAL_STATUS.CHO_DUYET ? (
 						<>
 							<PermissionButton
 								name="appovalJobRequest"

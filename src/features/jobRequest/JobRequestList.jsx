@@ -51,9 +51,8 @@ const JobRequestList = () => {
 
 	const statuses = [
 		{ id: 0, name: "Từ chối", code: "TU_CHOI", severity: "danger" },
-		{ id: 1, name: "Đã duyệt", code: "DA_DUYET", severity: "success" },
-		{ id: 2, name: "Hết hạn", code: "HET_HAN", severity: "danger" },
-		{ id: 3, name: "Chờ duyệt", code: "MOI_TAO", severity: "primary" },
+		{ id: 2, name: "Đã duyệt", code: "DA_DUYET", severity: "success" },
+		{ id: 1, name: "Chờ duyệt", code: "MOI_TAO", severity: "primary" },
 	];
 
 	const handleClickView = (data) => {
@@ -97,10 +96,6 @@ const JobRequestList = () => {
 						severity="success"
 						value=" Đã duyệt"
 					/>
-				);
-			case APPROVAL_STATUS.HET_HAN:
-				return (
-					<Tag className="p-mr-2" severity="danger" value="Hết hạn" />
 				);
 			case APPROVAL_STATUS.CHO_DUYET:
 				return <Tag className="p-mr-2" value="Chờ duyệt" />;
