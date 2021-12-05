@@ -8,6 +8,7 @@ import { Password } from "primereact/password";
 import { classNames } from "primereact/utils";
 import { useHistory } from "react-router";
 import UserService from "services/UserService";
+import { Link } from "react-router-dom";
 // import { isLogin } from "../../services/authenticate";
 
 const isLogin = () => {
@@ -71,7 +72,7 @@ const Login = () => {
 	return (
 		<div className="login">
 			<div className="p-d-flex p-jc-center">
-				<div className="card">
+				<div className="card text-right">
 					<h5 className="p-text-center">
 						<img src={logo} alt="SSKPI" />
 					</h5>
@@ -139,6 +140,13 @@ const Login = () => {
 							</span>
 							{getFormErrorMessage("password")}
 						</div>
+						<Link
+							to={"/user/change_password_email"}
+							style={{ textDecoration: "none" }}
+						>
+							{" "}
+							Quên mật khẩu ?
+						</Link>
 
 						<Button
 							type="submit"

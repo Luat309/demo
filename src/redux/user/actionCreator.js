@@ -92,34 +92,21 @@ export const RemoveUser = (id) => async (dispatch) => {
 		dispatch(showMessage("Xoas thành công!"));
 	} catch (error) {}
 };
-export const DisableUser = (id) => (dispatch) => {
-	dispatch({
-		type: DISIABLE_USER,
-		status: STATUS_REQUEST.LOADING,
-		data: [],
-		currentUser: {},
-	});
-
-	service
-		.disableMember(id)
-		.then((res) => {
-			dispatch({
-				type: DISIABLE_USER,
-				status: STATUS_REQUEST.SUCCEEDED,
-				currentUser: {},
-			});
-		})
-		.catch((error) => {
-			dispatch({
-				type: DISIABLE_USER,
-				status: STATUS_REQUEST.ERROR,
-				data: error?.response?.data.message,
-				currentUser: {},
-			});
+export const DisableUser = (id, item) => async (dispatch) => {
+	try {
+		const res = await service.disableMember(id, item);
+		dispatch({ type: UPDATE_USER, payload: res.data });
+	} catch (error) {
+		dispatch({
+			type: UPDATE_USER,
+			status: STATUS_REQUEST.ERROR,
+			data: error?.response?.data.message,
+			currentUser: {},
 		});
+		dispatch(showMessage("Sửa user thất bại!", error));
+	}
 };
 export const updateUser = (data) => async (dispatch) => {
-	console.log(data, "vghhjk");
 	try {
 		const res = await service.updateUser(data);
 		dispatch({ type: UPDATE_USER, payload: res.data });
