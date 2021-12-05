@@ -25,3 +25,5 @@ export const GET_DETAIL_USER = "/user/user-detail/";
 export const DELETE_USER = "/user/destroy/";
 export const UPDATE_USER = "/user/update-member/";
 export const DISABLE_MEMBER = "/user/disable-member/";
+
+export const RESET_PASSWORD = "/auth/change-password";

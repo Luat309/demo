@@ -75,6 +75,13 @@ const TopBar = (props) => {
 			},
 		},
 		{
+			label: "Đổi mật khẩu",
+			icon: "pi pi-external-link",
+			command: (e) => {
+				history.push("/admin/user/rest_password");
+			},
+		},
+		{
 			label: "Đăng xuất",
 			icon: "pi pi-upload",
 			command: (e) => {
@@ -86,7 +93,6 @@ const TopBar = (props) => {
 
 	const handleClick = (e) => {
 		e.stopPropagation();
-
 		setVisible(!visible);
 	};
 

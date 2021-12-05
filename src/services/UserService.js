@@ -6,6 +6,7 @@ import {
     REGISTER,
     UPDATE_USER,
     DISABLE_MEMBER,
+    RESET_PASSWORD,
 } from "constants/apiPath";
 import { Utils } from "./util";
 
@@ -39,7 +40,10 @@ export default class UserService {
     deleteUser = (id) => {
         return Utils.del(DELETE_USER + id);
     };
-    disableMember = (id) => {
-        return Utils.post(DISABLE_MEMBER + id);
+    disableMember = (id, status) => {
+        return Utils.post(DISABLE_MEMBER + id, { status });
+    };
+    restPassword = (data) => {
+        return Utils.post(RESET_PASSWORD, data);
     };
 }

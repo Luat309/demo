@@ -81,8 +81,9 @@ const FormInsertUpdateUser = (props) => {
 							control={control}
 							errors={errors}
 						/>
+						<div className="p-col-6"></div>
 						<InputTextController
-							label="Nhập lại mậy khẩu"
+							label="Nhập lại mật khẩu"
 							name="password_confirmation"
 							control={control}
 							errors={errors}

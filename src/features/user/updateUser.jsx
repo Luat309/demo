@@ -96,26 +96,6 @@ const UpdateUser = ({ user }) => {
 					</div>
 					<div className="candidate_right">
 						<div>
-							<label htmlFor="password">Mật khẩu*</label>
-							<br />
-							<input
-								name="password"
-								id=""
-								{...register("password", { required: false })}
-								disabled
-							></input>
-							{errors.password && (
-								<span
-									style={{
-										color: "red",
-										marginBottom: "7px",
-									}}
-								>
-									Trường này không đựơc để trống .
-								</span>
-							)}
-						</div>
-						<div>
 							<label htmlFor="roles">Chức vụ*</label>
 							<br />
 							<select

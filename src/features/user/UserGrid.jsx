@@ -8,11 +8,7 @@ import { useDispatch } from "react-redux";
 import { showConfirm } from "redux/confirmBox/actionCreator";
 import { Dialog } from "primereact/dialog";
 import FeaturesDialog from "./featuresDialog";
-import {
-	DisableUser,
-	getListUsers,
-	RemoveUser,
-} from "redux/user/actionCreator";
+import { DisableUser, RemoveUser } from "redux/user/actionCreator";
 import UpdateUser from "./updateUser";
 
 const UserGrid = (props) => {
@@ -50,7 +46,7 @@ const UserGrid = (props) => {
 				showConfirm(
 					"Bạn có chắc muốn vô hiệu hóa tài khoản này không?",
 					() => {
-						dispatch(DisableUser(id));
+						dispatch(DisableUser(id, (status = 0)));
 					}
 				)
 			);
@@ -59,7 +55,7 @@ const UserGrid = (props) => {
 				showConfirm(
 					"Bạn có chắc mở hoạt động tài khoản này không?",
 					() => {
-						console.log("VO HIEU HOA LUON");
+						dispatch(DisableUser(id, (status = 1)));
 					}
 				)
 			);

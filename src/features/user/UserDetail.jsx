@@ -1,9 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { Fieldset } from "primereact/fieldset";
 import { POSITION } from "constants/app";
-import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import UserService from "services/UserService";
 
 const UserDetail = () => {
