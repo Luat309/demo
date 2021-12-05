@@ -19,7 +19,6 @@ import {
     FEATURE,
     INFO_USER,
     RESET_PASSWORD,
-    CHANGE_PASSWORD,
 } from "constants/appPath";
 import { USER } from "../constants/appPath";
 
@@ -63,8 +62,6 @@ const UserInfo = lazy(() =>
     import ("features/user/UserDetail"));
 const RestPassword = lazy(() =>
     import ("features/user/RestPassword"));
-const ChangePassword = lazy(() =>
-    import ("features/user/ForgotPasswordEmail"));
 const FeatureManage = lazy(() =>
     import ("features/feature/FeatureManage"));
 
@@ -169,13 +166,7 @@ const routes = [{
         name: "rest_password",
         component: RestPassword,
         exact: true,
-    },
-    {
-        path: CHANGE_PASSWORD,
-        name: "change_password",
-        component: ChangePassword,
-        exact: true,
-    },
+    }
 ];
 
 export default routes;
