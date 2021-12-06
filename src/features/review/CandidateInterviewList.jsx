@@ -20,7 +20,6 @@ const CandidateInterviewList = () => {
 	const job = useSelector(getJobRequest);
 	const [isOpen, setIsOpen] = useState(false);
 	const { data } = useSelector((state) => state.interview);
-	console.log(data);
 	const { cadidate } = useSelector((state) => state.cadidate);
 	const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -52,7 +51,7 @@ const CandidateInterviewList = () => {
 		);
 	};
 	const candidateBodyTemplate = (rowData) => {
-		return rowData.name_candidate.name;
+		return rowData?.name_candidate?.name;
 	};
 
 	const handleCandidateInterView = (data) => {

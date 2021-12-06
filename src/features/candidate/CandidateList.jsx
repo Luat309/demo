@@ -17,6 +17,7 @@ import { Tag } from "primereact/tag";
 import { compareTimeFromTo } from "utils/compareTime";
 import "./style.scss";
 import CandidateColumnList from "./CandidateColumnList";
+import PermissionButton from "components/PermissionButton";
 
 const CandidateList = () => {
 	const items = [{ label: "Ứng viên" }, { label: " Danh sách ứng viên" }];
@@ -81,22 +82,22 @@ const CandidateList = () => {
 	const actionBodyTemplate = (rowData) => {
 		return (
 			<div>
-				<i
-					className="pi pi-eye"
-					style={{
-						color: "blue",
-						padding: "0 15px",
-						fontSize: "20px",
-					}}
+				<PermissionButton
+					name="detailCandidate"
+					tooltip="Xem chi tiết"
 					onClick={() => handleDetailCandidate(rowData)}
-				></i>
-				<i
-					className="pi pi-pencil"
-					style={{ color: "orange", fontSize: "20px" }}
+					className="p-button-rounded p-button-text p-button-info"
+					icon="pi pi-eye"
+				/>
+				<PermissionButton
+					name="editCandidate"
+					tooltip="Cập nhật"
 					onClick={() =>
 						history.push(`/admin/candidate/edit/${rowData.id}`)
 					}
-				></i>
+					className="p-button-rounded p-button-text p-button-help"
+					icon="pi pi-pencil"
+				/>
 			</div>
 		);
 	};
@@ -105,7 +106,6 @@ const CandidateList = () => {
 		setShowMessage(true);
 		setDetailCandidate(value);
 	};
-	console.log(detailCandidate, "");
 
 	const dialogFooter = (
 		<div className="p-d-flex p-jc-center">

@@ -78,7 +78,7 @@ const TopBar = (props) => {
 			label: "Đổi mật khẩu",
 			icon: "pi pi-external-link",
 			command: (e) => {
-				history.push("/admin/user/rest_password");
+				history.push("/admin/user/change_password");
 			},
 		},
 		{

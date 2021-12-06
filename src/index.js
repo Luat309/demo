@@ -16,8 +16,9 @@ import { Provider } from "react-redux";
 import PrivateRoute from "components/PrivateRoute";
 import CustomMessageBox from "components/CustomMessageBox";
 import CustomConfirmBox from "components/CustomConfirmBox";
-import { CHANGE_PASSWORD } from "constants/appPath";
-import ForgotPasswordEmail from "features/user/ForgotPasswordEmail";
+import { FORGOT_PASSWORD, RESET_PASSWORD } from "constants/appPath";
+import ForgotPasswordEmail from "features/user/ForgotPassword";
+import RestPassword from "features/user/RestPassword";
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -26,12 +27,21 @@ ReactDOM.render(
 			<CustomConfirmBox />
 			<Router>
 				<Switch>
-					<Route path="/login" component={Login} exact={true} />
-					<Route path={CHANGE_PASSWORD} component={ForgotPasswordEmail} exact={true} />
-					<PrivateRoute path="/" component={App} exact={false} />
-				</Switch>
-			</Router>
-		</Provider>
+					<Route path="/login" component={Login} exact={true} />{" "}
+					<Route
+						path={FORGOT_PASSWORD}
+						component={ForgotPasswordEmail}
+						exact={true}
+					/>
+					<Route
+						path={RESET_PASSWORD}
+						component={RestPassword}
+						exact={true}
+					/>
+					<PrivateRoute path="/" component={App} exact={false} />{" "}
+				</Switch>{" "}
+			</Router>{" "}
+		</Provider>{" "}
 	</React.StrictMode>,
 	document.getElementById("root")
 );

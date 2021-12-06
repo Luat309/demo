@@ -72,7 +72,6 @@ export const getListUsers = () => (dispatch) => {
 export const AddUser = (data) => async (dispatch) => {
 	try {
 		const res = await service.register(data);
-		console.log(res, "fdfg");
 		dispatch({ type: REGISTER, payload: res.data.data });
 		dispatch(showMessage("Thêm user thành công!"));
 	} catch (error) {
