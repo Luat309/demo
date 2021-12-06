@@ -18,7 +18,7 @@ import {
     CANDIDATE_INTERVIEW_EDIT,
     FEATURE,
     INFO_USER,
-    RESET_PASSWORD,
+    CHANGE_PASSWORD,
 } from "constants/appPath";
 import { USER } from "../constants/appPath";
 
@@ -60,8 +60,9 @@ const UserManage = lazy(() =>
     import ("features/user/UserManage"));
 const UserInfo = lazy(() =>
     import ("features/user/UserDetail"));
-const RestPassword = lazy(() =>
-    import ("features/user/RestPassword"));
+const ChangePassword = lazy(() =>
+    import ("features/user/ChangePassword"));
+
 const FeatureManage = lazy(() =>
     import ("features/feature/FeatureManage"));
 
@@ -162,11 +163,11 @@ const routes = [{
         exact: true,
     },
     {
-        path: RESET_PASSWORD,
-        name: "rest_password",
-        component: RestPassword,
+        path: CHANGE_PASSWORD,
+        name: "change_password",
+        component: ChangePassword,
         exact: true,
-    }
+    },
 ];
 
 export default routes;

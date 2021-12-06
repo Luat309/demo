@@ -1,70 +1,81 @@
+import { FORGOT_PASSWORD } from "constants/appPath";
 import { Button } from "primereact/button";
-import { Fieldset } from "primereact/fieldset";
-import { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { showMessage } from "redux/messageBox/actionCreator";
+import { useHistory, useLocation } from "react-router";
 import UserService from "services/UserService";
 import genElementsForm from "utils/genElementsForm";
 
 const RestPassword = () => {
+	const { search } = useLocation();
 	const {
 		control,
 		formState: { errors },
 		handleSubmit,
 		reset,
 	} = useForm();
-	const [err, setErr] = useState();
-	const { accessToken } = JSON.parse(localStorage.getItem("currentUser"));
-	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const fields = [
 		{
-			name: "current_password",
-			label: "Nhập mật khẩu cũ",
+			name: "password",
+			label: "Nhập mật khẩu mới.",
 			type: "inputText",
+			placeholder: "Mật khẩu",
 		},
-		{ name: "new_password", label: "Nhập mật khẩu mới", type: "inputText" },
 		{
-			name: "new_password_confirmation",
-			label: "Nhập lại mật khẩu mới",
+			name: "password_confirmation",
+			label: "Nhập lại mật khẩu mới.",
 			type: "inputText",
+			placeholder: "Nhập mật khẩu",
 		},
 	];
 	const service = new UserService();
 	const formRender = genElementsForm(fields, control, errors);
 	const onHandleSubmit = async (data) => {
 		try {
-			if (data.new_password !== data.new_password_confirmation) {
-				setErr("Mật khẩu không giống nhau ");
-			} else {
-				await service.restPassword({ ...data, token: accessToken });
-				dispatch(showMessage("Đổi mật khẩu thành công"));
-				reset();
-				setErr("");
-			}
-		} catch ({ response }) {
-			setErr(response.data.message);
-		}
+			await service.restPassword({
+				...data,
+				token: search.replace("?token=", ""),
+			});
+		} catch (error) {}
 	};
 	return (
-		<Fieldset legend="Đổi mật khẩu" toggleable>
+		<>
+			<h1 style={{ textAlign: "center", marginTop: "10%" }}>
+				Vui lòng bạn nhập mật khẩu mới
+			</h1>
 			<form onSubmit={handleSubmit(onHandleSubmit)}>
-				<p style={{ color: "red", textAlign: "center" }}>{err}</p>
 				<div className="p-fluid p-formgrid p-grid flex-direction align-items">
 					{formRender}
 				</div>
-				<Button
-					style={{
-						display: "block",
-						margin: "0 auto",
-						marginTop: "30px",
-					}}
-					type="submit"
-					label="Lưu"
-				/>
+				<div
+					className="flex"
+					style={{ width: "150px", margin: "0 auto" }}
+				>
+					<>
+						<Button
+							style={{
+								display: "block",
+								margin: "0 auto",
+								marginTop: "30px",
+							}}
+							type="submit"
+							label="Lưu"
+						/>
+						<Button
+							style={{
+								display: "block",
+								margin: "0 auto",
+								marginTop: "30px",
+							}}
+							onClick={() => history.push(FORGOT_PASSWORD)}
+							label="Quay lại"
+						/>
+					</>
+				</div>
 			</form>
-		</Fieldset>
+		</>
 	);
 };
 

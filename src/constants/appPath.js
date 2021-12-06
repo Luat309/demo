@@ -19,8 +19,10 @@ export const REPORT = "/admin/report";
 export const USER = "/admin/user";
 export const FEATURE = "/admin/feature";
 export const INFO_USER = "/admin/user/infomation";
-export const RESET_PASSWORD = "/admin/user/rest_password";
-export const CHANGE_PASSWORD = "/user/change_password_email";
+
+export const CHANGE_PASSWORD = "/admin/user/change_password";
+export const FORGOT_PASSWORD = "/user/forgot_password";
+export const RESET_PASSWORD = "/user/rest_password/";
 
 export const INTERVIEW = "/admin/interview";
 export const INTERVIEW_CREATE = "/admin/interview/create";
