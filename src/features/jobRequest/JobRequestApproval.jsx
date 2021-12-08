@@ -31,7 +31,7 @@ const JobRequestApproval = () => {
 
 	const genStatusTag = (status) => {
 		switch (status) {
-			case null:
+			case APPROVAL_STATUS.CHO_DUYET:
 				return <Tag className="p-mr-2" value="Chờ duyệt" />;
 			case APPROVAL_STATUS.TU_CHOI:
 				return (

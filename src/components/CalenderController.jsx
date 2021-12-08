@@ -35,21 +35,22 @@ const CalenderController = ({
 							"p-invalid": fieldState.invalid,
 						})}
 						dateFormat="dd/mm/yy"
+						showButtonBar
 						showTime={showTime}
 						showSeconds={showTime}
 						minDate={minDate}
 						{...field}
-						onChange={(e) => {
-							if (showTime) {
-								return field.onChange(
-									formatTime.formatShortsDateTime(e.value)
-								);
-							}
+						// onChange={(e) => {
+						// 	if (showTime) {
+						// 		return field.onChange(
+						// 			formatTime.formatShortsDateTime(e.value)
+						// 		);
+						// 	}
 
-							return field.onChange(
-								formatTime.formatShortsDate(e.value)
-							);
-						}}
+						// 	return field.onChange(
+						// 		formatTime.formatShortsDate(e.value)
+						// 	);
+						// }}
 						{...rest}
 					/>
 				)}
