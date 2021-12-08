@@ -234,7 +234,6 @@ const JobRequestList = () => {
 						selectionMode="single"
 						dataTable={dataFilter}
 						showSearch={true}
-						showGridlines
 					>
 						{columns}
 					</CustomDataTable>

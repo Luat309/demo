@@ -13,6 +13,7 @@ import { getCandidates } from "redux/candidate/selector";
 import { ROUND_INTERVIEW } from "constants/app";
 import { createInterview } from "redux/interview/actionCreator";
 import { useState } from "react";
+import genElementsForm from "utils/genElementsForm";
 
 const items = [{ label: "Lịch phỏng vấn" }, { label: "Tạo lịch phỏng vấn" }];
 
@@ -23,7 +24,7 @@ const FormInsertInterview = () => {
 		control,
 		formState: { errors },
 		handleSubmit,
-		rest,
+		reset,
 	} = useForm();
 	const [loading, setLoading] = useState(false);
 
@@ -37,104 +38,17 @@ const FormInsertInterview = () => {
 	];
 
 	const fields = [
-		{
-			label: "Thời gian bắt đầu",
-			name: "time_start",
-			type: "calender",
-			showTime: true,
-			autoFocus: true,
-		},
+		{ label: "Thời gian bắt đầu", name: "time_start", type: "calender", showTime: true, autoFocus: true },
 		{ label: "Tiêu đề", name: "title", type: "inputText" },
-		{
-			label: "Thời gian kết thúc",
-			name: "time_end",
-			type: "calender",
-			showTime: true,
-		},
-		{
-			label: "Người phỏng vấn",
-			name: "receiver",
-			type: "multiSelect",
-			options: users,
-			optionLabel: "name",
-		},
+		{ label: "Thời gian kết thúc", name: "time_end", type: "calender", showTime: true },
+		{ label: "Người phỏng vấn", name: "receiver", type: "multiSelect", options: users, optionLabel: "name" },
 		{ label: "Địa điểm", name: "location", type: "inputText" },
-		{
-			label: "Ứng viên",
-			name: "name_candidate",
-			type: "multiSelect",
-			options: candidates,
-			optionLabel: "name",
-		},
-		{
-			label: "Yêu cầu tuyển dụng",
-			name: "job_id",
-			type: "dropdown",
-			options: approvedJobRequest,
-			optionLabel: "title",
-		},
-		{
-			label: "Vòng phỏng vấn",
-			name: "round_no",
-			type: "dropdown",
-			options: ROUND_INTERVIEW,
-			optionLabel: "title",
-		},
+		{ label: "Ứng viên", name: "name_candidate", type: "multiSelect", options: candidates, optionLabel: "name" },
+		{ label: "Yêu cầu tuyển dụng", name: "job_id", type: "dropdown", options: approvedJobRequest, optionLabel: "title" },
+		{ label: "Vòng phỏng vấn", name: "round_no", type: "dropdown", options: ROUND_INTERVIEW, optionLabel: "title" },
 	];
 
-	const formRender = fields.map(({ type, ...rest }, index) => {
-		switch (type) {
-			case "calender":
-				return (
-					<CalenderController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			case "chips":
-				return (
-					<ChipsController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			case "multiSelect":
-				return (
-					<MultiSelectController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			case "dropdown":
-				return (
-					<DropdownController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			default:
-				return (
-					<InputTextController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-		}
-	});
+	const formRender = genElementsForm(fields, control, errors);
 
 	const onSubmit = (data) => {
 		try {

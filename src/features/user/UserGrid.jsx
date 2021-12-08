@@ -92,12 +92,6 @@ const UserGrid = (props) => {
 						icon="pi pi-unlock"
 					/>
 				)}
-				<Button
-					tooltip="Quyền truy cập"
-					onClick={() => setVisible(true)}
-					className="p-button-rounded p-button-text"
-					icon="pi pi-cog"
-				/>
 			</>
 		);
 	};
