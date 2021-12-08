@@ -23,6 +23,7 @@ const FormInsertInterview = () => {
 		control,
 		formState: { errors },
 		handleSubmit,
+		rest,
 	} = useForm();
 	const [loading, setLoading] = useState(false);
 
@@ -138,7 +139,6 @@ const FormInsertInterview = () => {
 	const onSubmit = (data) => {
 		try {
 			setLoading(true);
-
 			dispatch(
 				createInterview(
 					{

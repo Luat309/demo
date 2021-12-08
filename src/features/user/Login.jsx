@@ -141,7 +141,7 @@ const Login = () => {
 							{getFormErrorMessage("password")}
 						</div>
 						<Link
-							to={"/user/change_password_email"}
+							to={"/user/forgot_password"}
 							style={{ textDecoration: "none" }}
 						>
 							{" "}

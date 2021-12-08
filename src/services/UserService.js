@@ -6,7 +6,9 @@ import {
     REGISTER,
     UPDATE_USER,
     DISABLE_MEMBER,
-    RESET_PASSWORD,
+    CHANGE_PASSWORD,
+    FORGOT_PASSWORD,
+    REST_PASSWORD,
 } from "constants/apiPath";
 import { Utils } from "./util";
 
@@ -43,7 +45,13 @@ export default class UserService {
     disableMember = (id, status) => {
         return Utils.post(DISABLE_MEMBER + id, { status });
     };
+    changePassword = (data) => {
+        return Utils.post(CHANGE_PASSWORD, data);
+    };
+    forgotPassword = (data) => {
+        return Utils.post(FORGOT_PASSWORD, data);
+    };
     restPassword = (data) => {
-        return Utils.post(RESET_PASSWORD, data);
+        return Utils.post(REST_PASSWORD, data);
     };
 }
