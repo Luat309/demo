@@ -14,9 +14,9 @@ import NotificationList from "./NotificationList";
 import {
 	getIdCurrentUser,
 	getNameCurrentUser,
-	getRoleCurrentUser,
+	// getRoleCurrentUser,
 } from "utils/localStorage";
-import { NODEJS } from "constants/app";
+// import { NODEJS } from "constants/app";
 const sound = require("./sound.mp3");
 
 // const notifications = [];
@@ -57,7 +57,7 @@ const TopBar = (props) => {
 	useEffect(() => {
 		socket.on("res_notification", (data) => {
 			const idCurrentUser = getIdCurrentUser();
-			// console.log("@ gmail.com", data);
+
 			if (data.userCreated !== idCurrentUser) {
 				playSound();
 				setNotifications((prevState) => [data, ...prevState]);

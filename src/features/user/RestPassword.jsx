@@ -2,17 +2,19 @@ import { FORGOT_PASSWORD } from "constants/appPath";
 import { Button } from "primereact/button";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
+import { showMessage } from "redux/messageBox/actionCreator";
 import UserService from "services/UserService";
 import genElementsForm from "utils/genElementsForm";
 
 const RestPassword = () => {
 	const { search } = useLocation();
+	const dispatch = useDispatch();
 	const {
 		control,
 		formState: { errors },
 		handleSubmit,
-		reset,
 	} = useForm();
 	const history = useHistory();
 
@@ -38,6 +40,8 @@ const RestPassword = () => {
 				...data,
 				token: search.replace("?token=", ""),
 			});
+			dispatch(showMessage("Đổi mật khẩu thành công"));
+			history.push("/login");
 		} catch (error) {}
 	};
 	return (

@@ -18,9 +18,7 @@ const getCandidate = () => async(dispatch) => {
     try {
         const res = await service.searchCandidateList();
         dispatch({ type: GET_CANDIDATE, payload: res.data });
-    } catch (error) {
-        dispatch(showMessage(error.message, "ERROR"));
-    }
+    } catch (error) {}
 };
 const addCandidate = (item) => async(dispatch) => {
     try {

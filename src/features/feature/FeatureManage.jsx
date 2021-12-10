@@ -7,7 +7,6 @@ import FormInsertUpdateFeature from "./FormInsertUpdate";
 import Tree from "./Tree";
 
 const FeatureManage = () => {
-	const [detailFeature, setDetailFeature] = useState(null);
 	const [visible, setVisible] = useState(false);
 	const [titleDialog, setTitleDialog] = useState(null);
 	const [bodyDialog, setBodyDialog] = useState(null);

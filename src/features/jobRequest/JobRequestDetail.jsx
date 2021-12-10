@@ -25,8 +25,6 @@ const JobRequestDetail = (props) => {
 		{ waiting: jobDetail?.status === null }
 	);
 
-	// console.log(jobDetail, "ABC");
-
 	if (!jobDetail) {
 		return "Không tìm thấy yêu cầu tuyển dụng.";
 	}

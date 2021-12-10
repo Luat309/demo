@@ -21,8 +21,6 @@ import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
 import { genStyle, genColumns } from "utils/genColumns";
 
-
-
 const JobRequestList = () => {
 	const dispatch = useDispatch();
 	const data = useSelector(getJobRequest);
@@ -72,11 +70,19 @@ const JobRequestList = () => {
 	const genStatusCol = (data) => {
 		switch (Number(data.status)) {
 			case APPROVAL_STATUS.TU_CHOI:
-				return <Tag className="p-mr-2" severity="danger" value="Từ chối" />;
+				return (
+					<Tag className="p-mr-2" severity="danger" value="Từ chối" />
+				);
 
 			case APPROVAL_STATUS.DA_DUYET:
-				return <Tag className="p-mr-2" severity="success" value=" Đã duyệt" />;
-				
+				return (
+					<Tag
+						className="p-mr-2"
+						severity="success"
+						value=" Đã duyệt"
+					/>
+				);
+
 			case APPROVAL_STATUS.CHO_DUYET:
 				return <Tag className="p-mr-2" value="Chờ duyệt" />;
 
@@ -109,7 +115,10 @@ const JobRequestList = () => {
 					onClick={() => handleClickDelete(data)}
 					className="p-button-rounded p-button-text p-button-danger"
 					icon="pi pi-trash"
-					disabled={data.status === APPROVAL_STATUS.DA_DUYET || data.status === APPROVAL_STATUS.TU_CHOI}
+					disabled={
+						data.status === APPROVAL_STATUS.DA_DUYET ||
+						data.status === APPROVAL_STATUS.TU_CHOI
+					}
 				/>
 				<PermissionButton
 					name="appovalJobRequest"
@@ -171,12 +180,35 @@ const JobRequestList = () => {
 
 	const cols = [
 		{ field: "title", header: "Tên dự án", style: genStyle("250px") },
-		{ field: "deadline", body: genFormatTimeCol, header: "Hạn tuyển", style: genStyle("120px") },
-		{ field: "position", header: "Vị trí tuyển dụng", style: genStyle("250px") },
+		{
+			field: "deadline",
+			body: genFormatTimeCol,
+			header: "Hạn tuyển",
+			style: genStyle("120px"),
+		},
+		{
+			field: "position",
+			header: "Vị trí tuyển dụng",
+			style: genStyle("250px"),
+		},
 		{ field: "amount", header: "Số lượng tuyển", style: genStyle("120px") },
-		{ field: "petitioner", header: "Người yêu cầu", style: genStyle("150px") },
-		{ field: "status", body: genStatusCol, header: "Trạng thái", style: genStyle("100px") },
-		{ field: "action", body: genActionCol, header: <i className="pi pi-cog" />, style: genStyle("200px") },
+		{
+			field: "petitioner",
+			header: "Người yêu cầu",
+			style: genStyle("150px"),
+		},
+		{
+			field: "status",
+			body: genStatusCol,
+			header: "Trạng thái",
+			style: genStyle("100px"),
+		},
+		{
+			field: "action",
+			body: genActionCol,
+			header: <i className="pi pi-cog" />,
+			style: genStyle("200px"),
+		},
 	];
 
 	const columns = genColumns(cols);

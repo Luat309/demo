@@ -53,28 +53,24 @@ const CandidateInterViewShow = () => {
 	const actionBodyTemplate = (rowData) => {
 		return (
 			<div>
-				<i
-					className="pi pi-eye mr-1"
-					style={{
-						color: "blue",
-						padding: "0 10px",
-						background: "white",
-						border: "none",
-					}}
+				<PermissionButton
+					name="viewDetailEvaluate"
+					tooltip="Xem chi tiết"
 					onClick={() => handleDetail(rowData)}
+					className="p-button-rounded p-button-text p-button-info"
+					icon="pi pi-eye"
 				/>
-				<i
-					className="pi pi-pencil"
-					style={{
-						color: "orange",
-						background: "white",
-						border: "none",
-					}}
+
+				<PermissionButton
+					name="editCandidate"
+					tooltip="Cập nhật"
 					onClick={() =>
 						history.push(
 							`/admin/candidate/interview/edit/${rowData.id}`
 						)
 					}
+					className="p-button-rounded p-button-text p-button-help"
+					icon="pi pi-pencil"
 				/>
 			</div>
 		);

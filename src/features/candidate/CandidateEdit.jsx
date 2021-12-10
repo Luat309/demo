@@ -1,6 +1,5 @@
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +29,7 @@ const CandidateEdit = () => {
 		const data = cadidate.find((item) => item.id === Number(id));
 		setdetailId(data);
 		reset({ ...data, image: null, cv: null });
-	}, []);
+	}, [cadidate, id, reset]);
 
 	let formData = new FormData();
 

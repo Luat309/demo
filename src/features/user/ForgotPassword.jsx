@@ -1,17 +1,19 @@
 import { FORGOT_PASSWORD } from "constants/appPath";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { showMessage } from "redux/messageBox/actionCreator";
 import UserService from "services/UserService";
 import genElementsForm from "utils/genElementsForm";
 
 const ForgotPassword = () => {
 	const history = useHistory();
+	const dispatch = useDispatch();
 	const {
 		control,
 		formState: { errors },
 		handleSubmit,
-		reset,
 	} = useForm();
 
 	const fields = [
@@ -31,6 +33,7 @@ const ForgotPassword = () => {
 				site_url: `http://localhost:8080/user/rest_password`,
 				original_url: `http://localhost:8080${FORGOT_PASSWORD}`,
 			});
+			dispatch(showMessage("Bạn vui lòng check mail ?"));
 		} catch (error) {
 			return error;
 		}

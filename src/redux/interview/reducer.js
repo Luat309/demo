@@ -30,6 +30,11 @@ const reducer = (state = initialState, action) => {
 			};
 
 		case INTERVIEW_UPDATE:
+			// {
+			// 	const filter= state.data.map((item)=>{
+			// 		if(item.id === action.payload.i)
+			// 	})
+			// }
 			break;
 
 		case INTERVIEW_DELETE: {

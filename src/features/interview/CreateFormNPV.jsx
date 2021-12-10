@@ -24,7 +24,6 @@ const FormInsertInterview = () => {
 		control,
 		formState: { errors },
 		handleSubmit,
-		reset,
 	} = useForm();
 	const [loading, setLoading] = useState(false);
 
@@ -38,14 +37,49 @@ const FormInsertInterview = () => {
 	];
 
 	const fields = [
-		{ label: "Thời gian bắt đầu", name: "time_start", type: "calender", showTime: true, autoFocus: true },
+		{
+			label: "Thời gian bắt đầu",
+			name: "time_start",
+			type: "calender",
+			showTime: true,
+			autoFocus: true,
+		},
 		{ label: "Tiêu đề", name: "title", type: "inputText" },
-		{ label: "Thời gian kết thúc", name: "time_end", type: "calender", showTime: true },
-		{ label: "Người phỏng vấn", name: "receiver", type: "multiSelect", options: users, optionLabel: "name" },
+		{
+			label: "Thời gian kết thúc",
+			name: "time_end",
+			type: "calender",
+			showTime: true,
+		},
+		{
+			label: "Người phỏng vấn",
+			name: "receiver",
+			type: "multiSelect",
+			options: users,
+			optionLabel: "name",
+		},
 		{ label: "Địa điểm", name: "location", type: "inputText" },
-		{ label: "Ứng viên", name: "name_candidate", type: "multiSelect", options: candidates, optionLabel: "name" },
-		{ label: "Yêu cầu tuyển dụng", name: "job_id", type: "dropdown", options: approvedJobRequest, optionLabel: "title" },
-		{ label: "Vòng phỏng vấn", name: "round_no", type: "dropdown", options: ROUND_INTERVIEW, optionLabel: "title" },
+		{
+			label: "Ứng viên",
+			name: "name_candidate",
+			type: "multiSelect",
+			options: candidates,
+			optionLabel: "name",
+		},
+		{
+			label: "Yêu cầu tuyển dụng",
+			name: "job_id",
+			type: "dropdown",
+			options: approvedJobRequest,
+			optionLabel: "title",
+		},
+		{
+			label: "Vòng phỏng vấn",
+			name: "round_no",
+			type: "dropdown",
+			options: ROUND_INTERVIEW,
+			optionLabel: "title",
+		},
 	];
 
 	const formRender = genElementsForm(fields, control, errors);

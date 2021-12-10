@@ -4,10 +4,8 @@ import {
 	LOGIN,
 	REGISTER,
 	GET_LIST_USER,
-	GET_DETAIL_USER,
 	UPDATE_USER,
 	DELETE_USER,
-	DISIABLE_USER,
 } from "./constant";
 import { showMessage } from "redux/messageBox/actionCreator";
 
