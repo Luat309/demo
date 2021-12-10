@@ -7,6 +7,7 @@ import { getNameCurrentUser } from "utils/localStorage";
 import CustomBreadCrumb from "components/CustomBreadCrumb";
 import PermissionButton from "components/PermissionButton";
 import { insertJobRequest } from "redux/jobRequest/actionCreator";
+import formatTime from "utils/formatTime";
 
 const items = [
 	{ label: "Yêu cầu tuyển dụng", url: "/admin/jobrequest" },
@@ -74,7 +75,7 @@ const FormInsertJobRequest = () => {
 		setLoading(true);
 
 		dispatch(
-			insertJobRequest(data, () => {
+			insertJobRequest({...data, deadline: formatTime.formatShortsDate(data.deadline)}, () => {
 				history.push("/admin/jobrequest");
 			})
 		);

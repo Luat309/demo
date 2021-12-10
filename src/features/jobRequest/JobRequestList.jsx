@@ -8,36 +8,18 @@ import CustomDataTable from "components/CustomDataTable";
 import PermissionButton from "components/PermissionButton";
 
 import { Button } from "primereact/button";
-import { Column } from "primereact/column";
+// import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
 import { MultiSelect } from "primereact/multiselect";
 import { Calendar } from "primereact/calendar";
 
-import {
-	// approvalJobRequest,
-	deleteJobRequest,
-	// rejectJobRequest,
-} from "redux/jobRequest/actionCreator";
+import { deleteJobRequest } from "redux/jobRequest/actionCreator";
 import { getJobRequest } from "redux/jobRequest/selector";
 import { showConfirm } from "redux/confirmBox/actionCreator";
 import { APPROVAL_STATUS } from "constants/app";
 import formatTime from "utils/formatTime";
 import { compareTimeFromTo } from "utils/compareTime";
-
-const items = [
-	{ label: "Yêu cầu tuyển dụng", url: "/admin/jobrequest" },
-	{ label: "Danh sách yêu cầu" },
-];
-
-const cols = [
-	{ field: "title", header: "Tên dự án", width: "250px" },
-	{ field: "deadline", header: "Hạn tuyển", width: "120px" },
-	{ field: "position", header: "Vị trí tuyển dụng", width: "250px" },
-	{ field: "amount", header: "Số lượng tuyển", width: "150px" },
-	{ field: "petitioner", header: "Người yêu cầu", width: "150px" },
-	{ field: "status", header: "Trạng thái", width: "100px" },
-	{ field: "action", header: <i className="pi pi-cog" />, width: "200px" },
-];
+import { genStyle, genColumns } from "utils/genColumns";
 
 const JobRequestList = () => {
 	const dispatch = useDispatch();
@@ -46,6 +28,11 @@ const JobRequestList = () => {
 	const [filter, setFilter] = useState(false);
 	const [statusFilter, setStatusFilter] = useState([]);
 	const [deadLine, setDeadLine] = useState([]);
+
+	const items = [
+		{ label: "Yêu cầu tuyển dụng", url: "/admin/jobrequest" },
+		{ label: "Danh sách yêu cầu" },
+	];
 
 	const statuses = [
 		{ id: 0, name: "Từ chối", code: "TU_CHOI", severity: "danger" },
@@ -67,8 +54,7 @@ const JobRequestList = () => {
 				"Bạn có chắc muốn xóa yêu cầu tuyển dụng này không?",
 				() => {
 					dispatch(deleteJobRequest(data.id));
-				},
-				() => {}
+				}
 			)
 		);
 	};
@@ -87,6 +73,7 @@ const JobRequestList = () => {
 				return (
 					<Tag className="p-mr-2" severity="danger" value="Từ chối" />
 				);
+
 			case APPROVAL_STATUS.DA_DUYET:
 				return (
 					<Tag
@@ -95,8 +82,10 @@ const JobRequestList = () => {
 						value=" Đã duyệt"
 					/>
 				);
+
 			case APPROVAL_STATUS.CHO_DUYET:
 				return <Tag className="p-mr-2" value="Chờ duyệt" />;
+
 			default:
 				break;
 		}
@@ -126,7 +115,10 @@ const JobRequestList = () => {
 					onClick={() => handleClickDelete(data)}
 					className="p-button-rounded p-button-text p-button-danger"
 					icon="pi pi-trash"
-					disabled={data.status === APPROVAL_STATUS.DA_DUYET}
+					disabled={
+						data.status === APPROVAL_STATUS.DA_DUYET ||
+						data.status === APPROVAL_STATUS.TU_CHOI
+					}
 				/>
 				<PermissionButton
 					name="appovalJobRequest"
@@ -140,15 +132,13 @@ const JobRequestList = () => {
 		);
 	};
 
-	const statusTemplate = (option) => {
-		return (
-			<Tag
-				className="p-mr-2"
-				severity={option.severity}
-				value={option.name}
-			/>
-		);
-	};
+	const statusTemplate = (option) => (
+		<Tag
+			className="p-mr-2"
+			severity={option.severity}
+			value={option.name}
+		/>
+	);
 
 	const selectedStatusTemplate = (option) => {
 		if (option) {
@@ -163,59 +153,6 @@ const JobRequestList = () => {
 
 		return "Trạng thái";
 	};
-
-	const columns = cols.map(({ field, header, width }) => {
-		switch (field) {
-			case "action":
-				return (
-					<Column
-						key={field}
-						header={header}
-						body={genActionCol}
-						style={{
-							textAlign: "center",
-							width: width,
-						}}
-					/>
-				);
-
-			case "deadline":
-				return (
-					<Column
-						key={field}
-						header={header}
-						body={genFormatTimeCol}
-						style={{
-							width: width,
-						}}
-					/>
-				);
-
-			case "status":
-				return (
-					<Column
-						key={field}
-						header={header}
-						body={genStatusCol}
-						style={{
-							width: width,
-						}}
-					/>
-				);
-
-			default:
-				return (
-					<Column
-						key={field}
-						header={header}
-						field={field}
-						style={{
-							width: width,
-						}}
-					/>
-				);
-		}
-	});
 
 	const dataFilter = useMemo(() => {
 		const statusSelected = statusFilter.map((item) => item.id);
@@ -240,6 +177,41 @@ const JobRequestList = () => {
 			})
 		);
 	}, [deadLine, statusFilter, data]);
+
+	const cols = [
+		{ field: "title", header: "Tên dự án", style: genStyle("250px") },
+		{
+			field: "deadline",
+			body: genFormatTimeCol,
+			header: "Hạn tuyển",
+			style: genStyle("120px"),
+		},
+		{
+			field: "position",
+			header: "Vị trí tuyển dụng",
+			style: genStyle("250px"),
+		},
+		{ field: "amount", header: "Số lượng tuyển", style: genStyle("120px") },
+		{
+			field: "petitioner",
+			header: "Người yêu cầu",
+			style: genStyle("150px"),
+		},
+		{
+			field: "status",
+			body: genStatusCol,
+			header: "Trạng thái",
+			style: genStyle("100px"),
+		},
+		{
+			field: "action",
+			body: genActionCol,
+			header: <i className="pi pi-cog" />,
+			style: genStyle("200px"),
+		},
+	];
+
+	const columns = genColumns(cols);
 
 	return (
 		<>

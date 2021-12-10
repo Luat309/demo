@@ -42,6 +42,7 @@ const CustomDataTable = React.forwardRef(
 				rows={10}
 				rowsPerPageOptions={[5, 10, 25, 50, 100]}
 				emptyMessage="Không tìm thấy bản ghi"
+				showGridlines
 				{...rest}
 			>
 				<Column

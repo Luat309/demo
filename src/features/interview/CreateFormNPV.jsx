@@ -13,6 +13,7 @@ import { getCandidates } from "redux/candidate/selector";
 import { ROUND_INTERVIEW } from "constants/app";
 import { createInterview } from "redux/interview/actionCreator";
 import { useState } from "react";
+import genElementsForm from "utils/genElementsForm";
 
 const items = [{ label: "Lịch phỏng vấn" }, { label: "Tạo lịch phỏng vấn" }];
 
@@ -81,59 +82,7 @@ const FormInsertInterview = () => {
 		},
 	];
 
-	const formRender = fields.map(({ type, ...rest }, index) => {
-		switch (type) {
-			case "calender":
-				return (
-					<CalenderController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			case "chips":
-				return (
-					<ChipsController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			case "multiSelect":
-				return (
-					<MultiSelectController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			case "dropdown":
-				return (
-					<DropdownController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-
-			default:
-				return (
-					<InputTextController
-						key={index}
-						{...rest}
-						control={control}
-						errors={errors}
-					/>
-				);
-		}
-	});
+	const formRender = genElementsForm(fields, control, errors);
 
 	const onSubmit = (data) => {
 		try {

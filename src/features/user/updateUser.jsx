@@ -80,7 +80,8 @@ const UpdateUser = ({ user }) => {
 								name="email"
 								id=""
 								{...register("email")}
-								disabled
+								// disabled
+								readOnly
 							></input>
 							{errors.email && (
 								<span
