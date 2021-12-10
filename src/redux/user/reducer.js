@@ -3,7 +3,6 @@ import {
     LOGIN,
     REGISTER,
     GET_LIST_USER,
-    GET_DETAIL_USER,
     UPDATE_USER,
     DELETE_USER,
 } from "./constant";

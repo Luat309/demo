@@ -3,7 +3,11 @@ import { showMessage } from "redux/messageBox/actionCreator";
 import InterviewService from "services/InterviewService";
 import { emitEvent } from "utils/emitEvent";
 import { getNameCurrentUser } from "utils/localStorage";
-import { INTERVIEW_FETCH, INTERVIEW_INSERT } from "./constant";
+import {
+    INTERVIEW_FETCH,
+    INTERVIEW_INSERT,
+    INTERVIEW_UPDATE,
+} from "./constant";
 
 const service = new InterviewService();
 const nameCurrentUser = getNameCurrentUser();
@@ -18,12 +22,15 @@ export const fetchInterview = () => async(dispatch) => {
     service
         .fetchInterview()
         .then((res) => {
-            console.log(res, "interview");
-            dispatch({
-                type: INTERVIEW_FETCH,
-                status: STATUS_REQUEST.SUCCEEDED,
-                payload: res.data,
-            });
+            if (res.data === null) {
+                return "";
+            } else {
+                dispatch({
+                    type: INTERVIEW_FETCH,
+                    status: STATUS_REQUEST.SUCCEEDED,
+                    payload: res.data,
+                });
+            }
         })
         .catch((error) => {
             dispatch({
@@ -68,4 +75,11 @@ export const createInterview = (data, callback) => async(dispatch) => {
 
             dispatch(showMessage(error.message));
         });
+};
+
+export const editInterview = (data) => async(dispatch) => {
+    try {
+        const res = await service.editInterview(data);
+        dispatch({ type: INTERVIEW_UPDATE, payload: res.data });
+    } catch (error) {}
 };

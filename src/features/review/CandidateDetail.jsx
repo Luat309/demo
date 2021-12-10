@@ -7,7 +7,7 @@ const CandidateDetail = ({ data }) => {
 	const array = candidateInterview.filter(
 		(item) => item.candidate_id === data.candidate_id
 	);
-	console.log(array);
+
 	return (
 		<div className="container">
 			<h2 style={{ textAlign: "center" }}>Đánh giá ứng viên</h2>

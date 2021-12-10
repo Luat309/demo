@@ -14,6 +14,8 @@
             border: 1px solid rgb(109, 108, 108);
             outline: slategrey;
             margin: 10px 0;
+            border-radius: 4px;
+            outline: none;
         }
     }
 }
@@ -27,6 +29,8 @@
             border: 1px solid rgb(109, 108, 108);
             outline: slategrey;
             margin: 10px 0;
+            border-radius: 4px;
+            outline: none;
         }
         select {
             width: 100%;
@@ -34,6 +38,8 @@
             padding: 10px;
             border: none;
             border: 1px solid rgb(109, 108, 108);
+            border-radius: 4px;
+            outline: none;
         }
     }
 }

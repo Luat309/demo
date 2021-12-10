@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { createCandidateInterview } from "redux/candidateInterview/action";
+import { editInterview } from "redux/interview/actionCreator";
 import genElementsForm from "utils/genElementsForm";
 import "./style.scss";
 
@@ -110,6 +111,14 @@ const CandidateInterview = ({ data: item }) => {
 				time_end: item.time_end,
 				user_id: currentUser?.user?.id,
 				email: currentUser?.user?.name,
+			})
+		);
+		dispatch(
+			editInterview({
+				...item,
+				receiver: item.receiver.join(),
+				name_candidate: item.name_candidate.id,
+				totalReceiver: item.totalReceiver - 1,
 			})
 		);
 		history.push(CANDIDATE_INTERVIEW_SHOW);

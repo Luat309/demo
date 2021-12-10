@@ -7,8 +7,6 @@ import CustomBreadCrumb from "components/CustomBreadCrumb";
 import CustomDataTable from "components/CustomDataTable";
 import PermissionButton from "components/PermissionButton";
 
-import JobRequestDetail from "./JobRequestDetail";
-
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
@@ -16,9 +14,9 @@ import { MultiSelect } from "primereact/multiselect";
 import { Calendar } from "primereact/calendar";
 
 import {
-	approvalJobRequest,
+	// approvalJobRequest,
 	deleteJobRequest,
-	rejectJobRequest,
+	// rejectJobRequest,
 } from "redux/jobRequest/actionCreator";
 import { getJobRequest } from "redux/jobRequest/selector";
 import { showConfirm } from "redux/confirmBox/actionCreator";

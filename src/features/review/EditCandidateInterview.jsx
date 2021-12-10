@@ -1,18 +1,14 @@
-import CustomBreadCrumb from "components/CustomBreadCrumb";
-import { CANDIDATE_INTERVIEW_SHOW } from "constants/appPath";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router";
-import { editCandidateInterview } from "redux/candidateInterview/action";
+import { useParams } from "react-router";
 import { getCandidateInterviews } from "redux/candidateInterview/selector";
 import genElementsForm from "utils/genElementsForm";
 import "./style.scss";
 
-const items = [{ label: "Đánh Giá Ứng viên" }, { label: "Sửa Đánh giá" }];
+// const items = [{ label: "Đánh Giá Ứng viên" }, { label: "Sửa Đánh giá" }];
 const EditCandidateInterview = () => {
 	const { id } = useParams();
 	const {
@@ -22,7 +18,6 @@ const EditCandidateInterview = () => {
 		reset,
 	} = useForm();
 	const candidateInterview = useSelector(getCandidateInterviews);
-	console.log(candidateInterview, "candidate");
 	const option = [
 		{ id: 1, name: "1" },
 		{ id: 2, name: "2" },
@@ -43,6 +38,7 @@ const EditCandidateInterview = () => {
 			type: "dropdown",
 			options: option,
 			autoFocus: true,
+			default: {},
 		},
 		{
 			label: "Kiên trì bền bỉ",
@@ -97,9 +93,8 @@ const EditCandidateInterview = () => {
 	];
 	useEffect(() => {
 		const find = candidateInterview.find((item) => item.id === Number(id));
-		console.log(find, "hghgdeuydwgy");
 		reset({ ...find });
-	}, []);
+	}, [candidateInterview, id, reset]);
 
 	const formRender = genElementsForm(fields, control, errors);
 	const onSubmit = (data) => {};

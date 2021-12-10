@@ -3,8 +3,7 @@ import { Button } from "primereact/button";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { AddUser, getListUsers } from "redux/user/actionCreator";
+import { AddUser } from "redux/user/actionCreator";
 import genElementsForm from "utils/genElementsForm";
 
 const FormInsertUpdateUser = (props) => {

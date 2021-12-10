@@ -23,7 +23,6 @@ const FormInsertInterview = () => {
 		control,
 		formState: { errors },
 		handleSubmit,
-		rest,
 	} = useForm();
 	const [loading, setLoading] = useState(false);
 

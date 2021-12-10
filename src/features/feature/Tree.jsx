@@ -66,36 +66,28 @@ const TreeFeature = (props) => {
 		{
 			label: "Thêm mới",
 			icon: "pi pi-plus",
-			command: () => {
-				console.log(selectedNodeKey);
-			},
+			command: () => {},
 		},
 		{
 			label: "Sao chép",
 			icon: "pi pi-copy",
-			command: () => {
-				console.log("OMG");
-			},
+			command: () => {},
 		},
 		{
 			label: "Cập nhật",
 			icon: "pi pi-pencil",
-			command: () => {
-				console.log("OMG");
-			},
+			command: () => {},
 		},
 		{
 			label: "Xóa",
 			icon: "pi pi-trash",
-			command: () => {
-				console.log("OMG");
-			},
+			command: () => {},
 		},
 	];
 
 	const handleSelectionChange = (e) => {
 		setSelectedKey(e.value);
-		console.log(e.value);
+
 		// props.callback(Number(e.value));
 	};
 

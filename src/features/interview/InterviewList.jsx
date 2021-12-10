@@ -32,7 +32,7 @@ const InterviewList = () => {
 
 	useEffect(() => {
 		dispatch(fetchInterview());
-	}, []);
+	}, [dispatch]);
 	const genActionCol = (data) => {
 		return (
 			<>

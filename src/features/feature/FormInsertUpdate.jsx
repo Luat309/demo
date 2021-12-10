@@ -20,9 +20,7 @@ const FormInsertUpdateFeature = (props) => {
 		{ name: "includeMenu", label: "Tạo menu", type: "inputText" },
 	];
 
-	const onSubmit = (data) => {
-		console.log(data);
-	};
+	const onSubmit = (data) => {};
 
 	const formRender = genElementsForm(fields, control, errors);
 

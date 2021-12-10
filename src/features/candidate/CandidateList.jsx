@@ -90,7 +90,7 @@ const CandidateList = () => {
 					icon="pi pi-eye"
 				/>
 				<PermissionButton
-					name="editCandidate"
+					name="editEvaluate"
 					tooltip="Cập nhật"
 					onClick={() =>
 						history.push(`/admin/candidate/edit/${rowData.id}`)
