@@ -104,20 +104,8 @@ const TopBar = (props) => {
 				<Link to="/">
 					<img src={logo} alt="SSKPI" />
 				</Link>
-				<span
-					className="p-input-icon-left"
-					style={{
-						marginLeft: "60px",
-					}}
-				>
-					<i className="pi pi-search" />
-					<InputText placeholder="Search" />
-				</span>
 
 				<ul className="topbar-menu">
-					<li>
-						<i className="pi pi-globe" style={iconStyle}></i>
-					</li>
 					<li style={{ position: "relative", cursor: "pointer" }}>
 						<i
 							onClick={handleClick}
@@ -132,12 +120,7 @@ const TopBar = (props) => {
 							<NotificationList notifications={notifications} />
 						)}
 					</li>
-					<li>
-						<i
-							className="pi pi-question-circle"
-							style={iconStyle}
-						></i>
-					</li>
+
 					<li style={{ width: "auto" }}>
 						<Menu
 							model={itemsAccount}

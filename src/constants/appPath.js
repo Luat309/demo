@@ -132,13 +132,6 @@ export const PERMISSION_MENU = [
 		path: USER,
 		role: [HR_MANAGER],
 	},
-	{
-		id: 15,
-		parentMenu: 13,
-		name: "Quản lý chức năng",
-		path: FEATURE,
-		role: [HR_MANAGER],
-	},
 ];
 
 export const genAppMenu = (arr) => {

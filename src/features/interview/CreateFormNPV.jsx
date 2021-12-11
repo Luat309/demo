@@ -54,7 +54,7 @@ const FormInsertInterview = () => {
 		{
 			label: "Người phỏng vấn",
 			name: "receiver",
-			type: "multiSelect",
+			type: "select",
 			options: users,
 			optionLabel: "name",
 		},
@@ -62,7 +62,7 @@ const FormInsertInterview = () => {
 		{
 			label: "Ứng viên",
 			name: "name_candidate",
-			type: "multiSelect",
+			type: "select",
 			options: candidates,
 			optionLabel: "name",
 		},

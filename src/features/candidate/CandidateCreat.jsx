@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCandidate } from "redux/candidate/action";
 import { getJobRequest, getStatusJobRequest } from "redux/jobRequest/selector";
 import { fetchJobRequest } from "redux/jobRequest/actionCreator";
-import { STATUS_REQUEST } from "constants/app";
+import { ERROR_FORM_MESSAGE, STATUS_REQUEST } from "constants/app";
 import { CANDIDATE } from "constants/appPath";
 
 const CandidateCreat = () => {
@@ -67,7 +67,13 @@ const CandidateCreat = () => {
 									type="text"
 									{...register("name", {
 										required: true,
-										minLength: 5,
+										minLength: {
+											value: 5,
+											message:
+												ERROR_FORM_MESSAGE.MIN_LENGTH +
+												5 +
+												" kí tự",
+										},
 									})}
 								/>
 								{errors.name && (
@@ -77,7 +83,7 @@ const CandidateCreat = () => {
 											marginBottom: "7px",
 										}}
 									>
-										Bắt buộc phải nhập.
+										Không được để trống và lớn hơn 5 ký tự.
 									</span>
 								)}
 							</div>
@@ -132,13 +138,17 @@ const CandidateCreat = () => {
 								<br />
 								<input
 									type="number"
-									min={0}
 									{...register("experience", {
 										required: true,
-										min: 1,
+										min: {
+											value: 0,
+											message:
+												"Số năm kinh nghiêm không được nhỏ hơn 0",
+										},
 										max: 99,
 									})}
 								/>
+
 								{errors.experience && (
 									<span
 										style={{
@@ -146,7 +156,8 @@ const CandidateCreat = () => {
 											marginBottom: "7px",
 										}}
 									>
-										Bắt buộc phải nhập.
+										Số năm kinh nghiêm không được để trống
+										và lớn hơn 0.
 									</span>
 								)}
 							</div>
@@ -174,7 +185,7 @@ const CandidateCreat = () => {
 						</div>
 						<div className="candidate_right">
 							<div>
-								<label htmlFor="lastname6">Thêm ảnh*</label>
+								<label htmlFor="lastname6">Thêm ảnh</label>
 								<br />
 								<input
 									type="file"
@@ -272,7 +283,8 @@ const CandidateCreat = () => {
 												if (item.status === 1) {
 													return (
 														<option value={item.id}>
-															{item.title}
+															{item.title} - [
+															{item.position}]
 														</option>
 													);
 												}
