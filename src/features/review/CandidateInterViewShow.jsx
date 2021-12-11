@@ -44,7 +44,15 @@ const CandidateInterViewShow = () => {
 			</p>
 		);
 	};
-
+	const reviewBodyTemplate = (rowData) => {
+		return (
+			<span
+				dangerouslySetInnerHTML={{
+					__html: rowData?.reviews,
+				}}
+			></span>
+		);
+	};
 	const handleDetail = (value) => {
 		setValueDetail(value);
 		setIsOpen(true);
@@ -104,7 +112,11 @@ const CandidateInterViewShow = () => {
 						field="viTriUngTuyen"
 						header="Vị trí ứng tuyển"
 					></Column>
-					<Column field="reviews" header="Nhận xét"></Column>
+					<Column
+						field=""
+						header="Nhận xét"
+						body={reviewBodyTemplate}
+					></Column>
 					<Column field="result" header="Kết quả"></Column>
 					<Column
 						header="Hành động"

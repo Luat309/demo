@@ -33,9 +33,9 @@ const CandidateDetail = ({ data }) => {
 										className="mr-5 card"
 										style={{ marginBottom: "60px" }}
 									>
-										<h5>i,Tư duy</h5>
-										<p>Hệ thống,login : {item?.thinking}</p>
-										<h5>ii,Phẩm chất</h5>
+										<h5>I, Tư duy</h5>
+										<p>Hệ thống,logic : {item?.thinking}</p>
+										<h5>II, Phẩm chất</h5>
 										<p>
 											Kiên trì bền bỉ :{" "}
 											{item?.persistent_perseverance}
@@ -48,12 +48,12 @@ const CandidateDetail = ({ data }) => {
 										<p>Kết quả : {item?.result}</p>
 									</div>
 									<div className="card">
-										<h5>iii,Chuyên môn</h5>
+										<h5>III, Chuyên môn</h5>
 										<p>
 											Chuyên môn :{" "}
 											{item?.specialize_skill}
 										</p>
-										<h5>iiii,Khác</h5>
+										<h5>IV, Khác</h5>
 										<p>Tiếng anh : {item?.english}</p>
 										<p>
 											Khả năng thích ứng :
