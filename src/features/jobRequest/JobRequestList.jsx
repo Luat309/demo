@@ -65,6 +65,10 @@ const JobRequestList = () => {
 		history.push("/admin/jobrequest/approval/" + data.id);
 	};
 
+	const handleExport = async (data) => {
+		window.location.href = "http://34.124.182.156/api/pdf/" + data.id;
+	}
+
 	const genFormatTimeCol = (data) => {
 		return formatTime.formatShortDate(data.deadline);
 	};
@@ -140,7 +144,7 @@ const JobRequestList = () => {
 				<PermissionButton
 					name="viewDetailJobRequest"
 					tooltip="Xuất file PDF"
-					onClick={() => service.exportPDF(data.id)}
+					onClick={() => handleExport(data)}
 					className="p-button-rounded p-button-text p-button-danger"
 					icon="pi pi-file-pdf"
 					disabled={data.status !== APPROVAL_STATUS.DA_DUYET}
