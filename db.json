@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "email": "buixuanthao@gmail.com",
+      "password": "$2a$10$Q3miFgZFId.MUXs4gEIvheUQJEWDNiJNz1VhYdzG1uWgga1XU4wYq",
+      "id": 1
+    },
+    {
+      "email": "vuquocluat@gmail.com",
+      "password": "$2a$10$2IDQtRbGZ97VvNKjaSeAPOGLTcinOsBj8ZkeRkcD6/5SANj3O6hFu",
+      "id": 2
+    }
+  ],
+  "products": [
+    {
+      "title": "demo 1",
+      "img": "kldnlkasd.png",
+      "price": "5000",
+      "desc": "mo ta",
+      "id": 1
+    },
+    {
+      "title": "nlkdsa",
+      "img": "klsad",
+      "price": "dlksa",
+      "desc": "mskad",
+      "id": 2
+    }
+  ]
+}
